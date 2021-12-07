@@ -30,9 +30,18 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Trailer",
+   "link_to": "Trailer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2021-08-19 13:18:54.128064",
+ "modified": "2021-12-02 09:58:44.606952",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport",
