@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "creation": "2017-04-12 20:21:36.041750",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "expense",
+  "currency",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "expense",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Expense",
+   "options": "Fixed Expense",
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Currency",
+   "options": "Currency",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "options": "currency",
+   "read_only": 1,
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2021-12-13 17:07:45.949272",
+ "modified_by": "Administrator",
+ "module": "Transport Management",
+ "name": "Fixed Expense Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

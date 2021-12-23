@@ -1,0 +1,161 @@
+{
+ "actions": [],
+ "creation": "2017-09-22 17:52:10.466143",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "item_name",
+  "section_description",
+  "description",
+  "column_break_5",
+  "quantity",
+  "disburcement_type",
+  "supplier",
+  "cost_per_litre",
+  "total_cost",
+  "status",
+  "uom",
+  "approved_by",
+  "approved_date",
+  "receipt_date",
+  "receipt_time",
+  "received_by",
+  "transaction_date"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Fuel Type",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Read Only",
+   "label": "Fuel Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_description",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fetch_from": "item_code.description",
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity (Litres)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "disburcement_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Disburcement Type",
+   "options": "From Supplier\nCash",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "cost_per_litre",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost Per Litre",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item_code.stock_uom",
+   "fieldname": "uom",
+   "fieldtype": "Read Only",
+   "ignore_user_permissions": 1,
+   "label": "Stock UOM",
+   "reqd": 1
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Data",
+   "label": "Approved/Rejected By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_date",
+   "fieldtype": "Date",
+   "label": "Approval/Rejection Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_date",
+   "fieldtype": "Date",
+   "label": "Receipt Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_time",
+   "fieldtype": "Time",
+   "label": "Receipt Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Link",
+   "label": "Received By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "transaction_date",
+   "fieldtype": "Date",
+   "label": "Transaction Date"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2021-12-14 09:24:29.475606",
+ "modified_by": "Administrator",
+ "module": "Transport Management",
+ "name": "Fuel Request Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
