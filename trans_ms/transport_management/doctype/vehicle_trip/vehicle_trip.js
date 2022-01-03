@@ -18,7 +18,7 @@ frappe.ui.form.on('Vehicle Trip', {
     onload: function (frm) {
         //frm.events.open_close_buttons(frm);
 
-       
+
         if (first_reload == false) {
             return;
         }
@@ -67,19 +67,19 @@ frappe.ui.form.on('Vehicle Trip', {
             if (!frm.doc.driving_licence_no) {
                 frm.set_value('driving_licence_no', reference_doc.driver_licence);
             }
-			
-			
-			//Temp solution for import reference files
-			var is_import = false;
-			var import_reference = null;
-            frappe.model.with_doc('Files', reference_doc.file_number, function(){
-				var reference_file = frappe.get_doc('Files', reference_doc.file_number);
-				if (reference_file.requested_service == 'Importation-Transit' || reference_file.requested_service == 'Importation-Local'){
-					is_import = true;
-					import_reference = reference_file.import_reference;
-				}
-			})
-			
+
+
+            //Temp solution for import reference files
+            var is_import = false;
+            var import_reference = null;
+            // frappe.model.with_doc('Files', reference_doc.file_number, function(){
+            // 	var reference_file = frappe.get_doc('Files', reference_doc.file_number);
+            // 	if (reference_file.requested_service == 'Importation-Transit' || reference_file.requested_service == 'Importation-Local'){
+            // 		is_import = true;
+            // 		import_reference = reference_file.import_reference;
+            // 	}
+            // })
+
             //Customer & cargo details from import module
             if (is_import) {
                 frm.set_value('main_cargo_type', 'Container');
@@ -119,25 +119,24 @@ frappe.ui.form.on('Vehicle Trip', {
                     frm.set_value('main_cargo_category', reference_parent.cargo);
                     frm.set_value('main_goods_description', reference_parent.cargo_description);
                     reference_parent.cargo_information.forEach(function (row) {
-                        if(row.name == reference_doc.cargo)
-                        {
-							var new_row = null
-							//If there is already cargo data, update it, else insert new row
-							if (frm.doc.main_cargo.length > 0) {
-								new_row = frm.doc.main_cargo[0];
-							} else {
-								new_row = frm.add_child('main_cargo');
-							}
-							new_row.container_number = row.container_number;
-							new_row.container_size = row.container_size;
-							new_row.seal_number = row.seal_number;
-							new_row.cargo_status = row.cargo_status;
-							new_row.no_of_packages = row.no_of_packages;
-							new_row.goods_description = row.goods_description;
-							new_row.gross_weight = row.gross_weight;
-							new_row.net_weight = row.net_weight;
-							new_row.tare_weight = row.tare_weight;
-							frm.refresh_field('main_cargo');
+                        if (row.name == reference_doc.cargo) {
+                            var new_row = null;
+                            //If there is already cargo data, update it, else insert new row
+                            if (frm.doc.main_cargo.length > 0) {
+                                new_row = frm.doc.main_cargo[0];
+                            } else {
+                                new_row = frm.add_child('main_cargo');
+                            }
+                            new_row.container_number = row.container_number;
+                            new_row.container_size = row.container_size;
+                            new_row.seal_number = row.seal_number;
+                            new_row.cargo_status = row.cargo_status;
+                            new_row.no_of_packages = row.no_of_packages;
+                            new_row.goods_description = row.goods_description;
+                            new_row.gross_weight = row.gross_weight;
+                            new_row.net_weight = row.net_weight;
+                            new_row.tare_weight = row.tare_weight;
+                            frm.refresh_field('main_cargo');
                         }
                     });
                 });
@@ -190,7 +189,7 @@ frappe.ui.form.on('Vehicle Trip', {
                     if (reference_parent.cargo_type == "Container") {
                         reference_parent.cargo.forEach(function (row) {
                             if (row.container_number == reference_doc.container_number) {
-                                var new_row = null
+                                var new_row = null;
                                 //If there is already cargo data, update it, else insert new row
                                 if (frm.doc.main_cargo.length > 0) {
                                     new_row = frm.doc.main_cargo[0];
@@ -277,7 +276,7 @@ frappe.ui.form.on('Vehicle Trip', {
                         //Load cargo Information
                         reference_parent.cargo_information.forEach(function (row) {
                             if (row.name == reference_doc.cargo) {
-                                var new_row = null
+                                var new_row = null;
                                 //If there is already cargo data, update it, else insert new row
                                 if (frm.doc.return_cargo.length > 0) {
                                     new_row = frm.doc.return_cargo[0];
@@ -345,7 +344,7 @@ frappe.ui.form.on('Vehicle Trip', {
                         if (reference_parent.cargo_type == "Container") {
                             reference_parent.cargo.forEach(function (row) {
                                 if (row.container_number == reference_doc.container_number) {
-                                    var new_row = null
+                                    var new_row = null;
                                     //If there is already cargo data, update it, else insert new row
                                     if (frm.doc.main_cargo.length > 0) {
                                         new_row = frm.doc.main_cargo[0];
@@ -384,7 +383,7 @@ frappe.ui.form.on('Vehicle Trip', {
                 if (row.location_type.toUpperCase() == 'LOADING POINT') {
                     main_loading_date = locals['Route Steps Table'][row.name].loading_date;
                 }
-            })
+            });
         }
 
         //Return loading date for GPS update
@@ -393,19 +392,19 @@ frappe.ui.form.on('Vehicle Trip', {
                 if (row.location_type.toUpperCase() == 'LOADING POINT') {
                     return_loading_date = locals['Route Steps Table'][row.name].loading_date;
                 }
-            })
+            });
         }
 
 
         first_reload = false;
 
         frappe.after_ajax(function () {
-			frm.events.render_address_and_contact(frm);
+            frm.events.render_address_and_contact(frm);
             frm.save_or_update();
         });
     },
 
-   
+
 
 
 
@@ -419,41 +418,41 @@ frappe.ui.form.on('Vehicle Trip', {
             }, "fa fa-check", "btn-success");
         }
         /*if (!frm.doc.__islocal) {
-        	//if(frm.doc.status=="Open") {
-        		frm.add_custom_button(__("Close"), function() {
-        			if(frm.events.validate_close(frm))
-        			{
-        				frm.set_value("status", "Closed");
-        				frm.save();
-        			}
-        		}, "fa fa-check", "btn-success");
+            //if(frm.doc.status=="Open") {
+                frm.add_custom_button(__("Close"), function() {
+                    if(frm.events.validate_close(frm))
+                    {
+                        frm.set_value("status", "Closed");
+                        frm.save();
+                    }
+                }, "fa fa-check", "btn-success");
 
-        	*/
+            */
         /*	//Cancel Button
-        				frm.add_custom_button(__("Cancel Export"), function() {
-        					frm.set_value("status", "Cancelled");
-        					frm.save();
+                        frm.add_custom_button(__("Cancel Export"), function() {
+                            frm.set_value("status", "Cancelled");
+                            frm.save();
                             frm.events.booking_cancellation(frm);
                             //frm.refresh_fields();
                             console.log("its cancelled");
-        				}, "fa fa-check", "btn-success");*/
+                        }, "fa fa-check", "btn-success");*/
         /*
-        		//}
-        			*/
+                //}
+                    */
         /* else {
-        				frm.add_custom_button(__("Re-open"), function() {
-        					frm.set_value("status", "Open");
+                        frm.add_custom_button(__("Re-open"), function() {
+                            frm.set_value("status", "Open");
 
                            // clear table  for container
                            // frm.clear_table("cargo_information");
                            // frm.refresh_fields('cargo_information');
 
-        					frm.save();
+                            frm.save();
 
-        				}, null, "btn-default");
-        			}*/
+                        }, null, "btn-default");
+                    }*/
         /*
-        		}*/
+                }*/
     },
 
 
@@ -469,7 +468,7 @@ frappe.ui.form.on('Vehicle Trip', {
         //call function for return or main trip offloaded
         if (cur_frm.doc.status == "Main Trip Offloaded" || cur_frm.doc.status == "Return Trip Offloaded") {
             cur_frm.add_custom_button(__('Vehicle Inspection'), function () {
-                frm.events.make_vehicle_inspection(frm)
+                frm.events.make_vehicle_inspection(frm);
             }, __("Make"));
         }
 
@@ -477,7 +476,7 @@ frappe.ui.form.on('Vehicle Trip', {
         if (frm.doc.return_reference_doctype && frm.doc.return_reference_docname) {
             frm.add_custom_button(__("Cancel Return Trip"), function () {
                 frm.events.cancel_return_trip(frm);
-            })
+            });
         }
 
         frm.events.location_buttons(frm);
@@ -486,14 +485,14 @@ frappe.ui.form.on('Vehicle Trip', {
         frm.events.new_fund_request(frm);
         frappe.after_ajax(function () {
             console.log(cur_frm);
-        })
+        });
     },
 
     show_hide_sections: function (frm) {
         frm.toggle_display(['section_return_trip', 'section_return_details', 'section_return_cargo', 'section_return_details', 'section_return_route'], (frm.doc.return_reference_doctype && frm.doc.return_reference_docname));
         frm.toggle_display(['section_return_delivery_note_information', 'section_return_requested_funds', 'section_return_expenses', 'section_return_fuel_request'], (frm.doc.return_reference_doctype && frm.doc.return_reference_docname));
         frm.toggle_display('section_main_expenses', (frm.doc.main_requested_funds && frm.doc.main_requested_funds.length > 0));
-        frm.toggle_display('section_return_expenses', (frm.doc.return_requested_funds && frm.doc.return_requested_funds.length > 0))
+        frm.toggle_display('section_return_expenses', (frm.doc.return_requested_funds && frm.doc.return_requested_funds.length > 0));
         frm.toggle_display(['main_amount', 'main_unit', 'main_loose_no_of_packages', 'main_loose_gross_weight', 'main_loose_net_weight'], ('Loose Cargo' == frm.doc.main_cargo_type));
         frm.toggle_display('section_main_container_cargo', ('Container' == frm.doc.main_cargo_type));
         frm.toggle_display(['return_amount', 'return_unit', 'return_loose_no_of_packages', 'return_loose_gross_weight', 'return_loose_net_weight'], ('Loose Cargo' == frm.doc.return_cargo_type));
@@ -523,11 +522,9 @@ frappe.ui.form.on('Vehicle Trip', {
                 'return_fuel_request',
                 'return_route_steps');
         } else if (frm.doc.status == 'Return Trip Offloaded') {
-            excluded_fields.push()
+            excluded_fields.push();
         }
-        if (frm.doc.main_cargo_type && frm.doc.main_cargo_type == 'Container')
-
-        {
+        if (frm.doc.main_cargo_type && frm.doc.main_cargo_type == 'Container') {
             excluded_fields.push('main_amount', 'main_unit', 'main_loose_no_of_packages', 'main_loose_gross_weight', 'main_loose_net_weight');
         } else if (frm.doc.main_cargo_type && frm.doc.main_cargo_type == 'Loose Cargo') {
             //excluded_fields.push("");
@@ -538,7 +535,7 @@ frappe.ui.form.on('Vehicle Trip', {
             excluded_fields.push('passport_number');
         }
 
-        var excluded_field_type = ["Table", "Section Break", "Column Break"]
+        var excluded_field_type = ["Table", "Section Break", "Column Break"];
         var error_fields = [];
         frm.meta.fields.forEach(function (field) {
             if (!(excluded_field_type.indexOf(field.fieldtype) > -1) && !(excluded_fields.indexOf(field.fieldname) > -1) && !(field.fieldname in frm.doc)) {
@@ -550,13 +547,13 @@ frappe.ui.form.on('Vehicle Trip', {
                 error_fields.push(field.label);
                 return false;
             }
-        })
+        });
 
         if (error_fields.length > 0) {
             var error_msg = "Mandatory fields required before closing <br><ul>";
             error_fields.forEach(function (error_field) {
                 error_msg = error_msg + "<li>" + error_field + "</li>";
-            })
+            });
             error_msg = error_msg + "</ul>";
             frappe.msgprint(error_msg, "Missing Fields");
             return false;
@@ -576,7 +573,7 @@ frappe.ui.form.on('Vehicle Trip', {
                     var html = '<a target="_blank" href="https://www.google.com/maps.google.com/?ll=' + row.latitude + ',' + row.longitude + '">View on Map</a>';
                     row.view_on_map = html;
                 }
-            })
+            });
         }
         frm.refresh_field('main_location_update');
     },
@@ -663,7 +660,7 @@ frappe.ui.form.on('Vehicle Trip', {
             callback: function (data) {
                 console.log(data);
             }
-        })
+        });
     },
 
     cancel_return_trip: function (frm) {
@@ -675,23 +672,23 @@ frappe.ui.form.on('Vehicle Trip', {
                     if (row.request_status == 'Approved') {
                         frappe.throw("Cannot cancel return trip with Approved funds.");
                     }
-                })
+                });
                 return_cancelled = frm.doc.return_reference_docname;
                 frm.meta.fields.forEach(function (field) {
                     if (!(['Section', 'Column Break', 'Table'].indexOf(field.fieldtype) > -1) && field.fieldname.startsWith('return')) {
                         frm.set_value(field.fieldname, '');
                         if (frm.doc[field.fieldname]) {
-                            delete frm.doc[field.fieldname]
+                            delete frm.doc[field.fieldname];
                         }
                     } else if (field.fieldtype == 'Table') {
                         frm.clear_table(field.fieldtype && field.fieldname.startsWith('return'));
                     }
-                })
+                });
                 frm.set_value('status', 'Main Trip Offloaded');
                 frm.set_value('hidden_status', 3);
                 frappe.after_ajax(function () {
                     frm.save_or_update();
-                })
+                });
             },
             function () {
                 //If no
@@ -809,13 +806,13 @@ frappe.ui.form.on('Vehicle Trip', {
     //For requesting funds	
     new_fund_request: function (frm) {
         //For main trip
-        var new_main_request = false
+        var new_main_request = false;
         if (frm.doc.main_requested_funds && frm.doc.main_requested_funds.length > 0) {
             frm.doc.main_requested_funds.forEach(function (row) {
                 if (row.request_status == "open" || (row.request_status == "Pre-Approved" && row.request_hidden_status != 'Sent')) {
-                    new_main_request = true
+                    new_main_request = true;
                 }
-            })
+            });
             if (new_main_request == true) {
                 frappe.call({
                     method: "csf_tz.after_sales_services.doctype.requested_payments.requested_payments.request_funds",
@@ -829,18 +826,18 @@ frappe.ui.form.on('Vehicle Trip', {
                         first_reload = false;
                         //frm.reload_doc();
                     }
-                })
+                });
             }
         }
 
         //For return trip
-        var new_return_request = false
+        var new_return_request = false;
         if (frm.doc.return_requested_funds && frm.doc.return_requested_funds.length > 0) {
             frm.doc.return_requested_funds.forEach(function (row) {
                 if (row.request_status == "open" || (row.request_status == "Pre-Approved" && row.request_hidden_status != 'Sent')) {
-                    new_return_request = true
+                    new_return_request = true;
                 }
-            })
+            });
             if (new_return_request == true) {
                 frappe.call({
                     method: "csf_tz.after_sales_services.doctype.requested_payments.requested_payments.request_funds",
@@ -854,7 +851,7 @@ frappe.ui.form.on('Vehicle Trip', {
                         first_reload = false;
                         //frm.reload_doc();
                     }
-                })
+                });
             }
         }
     },
@@ -922,7 +919,7 @@ frappe.ui.form.on('Vehicle Trip', {
                         'hiden_status': vehicle_hidden_status
                     },
                     callback: function (data) {
-                        console.log(data.message)
+                        console.log(data.message);
                     }
                 });
             }
@@ -950,9 +947,9 @@ frappe.ui.form.on('Vehicle Trip', {
                         "callback": function (data) {
                             console.log(data);
                         }
-                    })
+                    });
                 }
-            })
+            });
         }
 
         //Check if return loading date changed
@@ -972,9 +969,9 @@ frappe.ui.form.on('Vehicle Trip', {
                         "callback": function (data) {
                             console.log(data);
                         }
-                    })
+                    });
                 }
-            })
+            });
         }
 
         //Offload in GTT
@@ -989,7 +986,7 @@ frappe.ui.form.on('Vehicle Trip', {
                 "callback": function (data) {
                     console.log(data);
                 }
-            })
+            });
         }
     },
 
@@ -1033,7 +1030,7 @@ frappe.ui.form.on('Vehicle Trip', {
         frappe.model.open_mapped_doc({
             method: "fleet_management.fleet_management.doctype.vehicle_trip.vehicle_trip.make_vehicle_inspection",
             frm: cur_frm
-        })
+        });
 
     },
 });
@@ -1057,7 +1054,7 @@ frappe.ui.form.on('Vehicle Trip Location Update', {
 frappe.ui.form.on('Fuel Request Table', {
     cost_per_litre: function (frm, cdt, cdn) {
         if (locals[cdt][cdn].cost_per_litre && locals[cdt][cdn].quantity) {
-            var total = locals[cdt][cdn].cost_per_litre * locals[cdt][cdn].quantity
+            var total = locals[cdt][cdn].cost_per_litre * locals[cdt][cdn].quantity;
             frappe.model.set_value(cdt, cdn, 'total_cost', total);
         }
     }

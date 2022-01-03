@@ -7,6 +7,9 @@
  "field_order": [
   "item_code",
   "item_name",
+  "column_break_3",
+  "create_purchase_order",
+  "purchase_order",
   "section_description",
   "description",
   "column_break_5",
@@ -144,11 +147,28 @@
    "fieldname": "transaction_date",
    "fieldtype": "Date",
    "label": "Transaction Date"
+  },
+  {
+   "depends_on": "eval: !doc.purchase_order",
+   "fieldname": "create_purchase_order",
+   "fieldtype": "Button",
+   "label": "Create Purchase Order"
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2021-12-14 09:24:29.475606",
+ "modified": "2021-12-31 16:17:34.669594",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Fuel Request Table",

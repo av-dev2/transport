@@ -200,7 +200,7 @@ def create_transport_order(**args):
     timestamp = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
 
     if not existing_transport_order:
-        request = frappe.new_doc("Transport Request")
+        request = frappe.new_doc("Transportion Order")
         request.update(
             {
                 "reference_doctype": args.reference_doctype,

@@ -79,8 +79,7 @@
    "fieldname": "requested_fuel",
    "fieldtype": "Table",
    "label": "Requested Fuel",
-   "options": "Fuel Request Table",
-   "read_only": 1
+   "options": "Fuel Request Table"
   },
   {
    "fieldname": "approve_buttons",
@@ -139,7 +138,7 @@
   }
  ],
  "links": [],
- "modified": "2021-12-14 09:23:08.715762",
+ "modified": "2021-12-31 14:49:00.974345",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Fuel Request",

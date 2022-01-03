@@ -24,6 +24,24 @@ frappe.ui.form.on('Transportation Order', {
 		frm.events.hide_show_cargo(frm);
 	},
 
+	setup: function (frm) {
+		frm.set_query("cargo_location_city", function () {
+			return {
+				filters: {
+					country: frm.doc.cargo_location_country
+				}
+			};
+		});
+		frm.set_query("cargo_destination_city", function () {
+			return {
+				filters: {
+					country: frm.doc.cargo_destination_country
+				}
+			};
+		});
+
+	},
+
 
 	//Fix for bug which did copy cargo details in cargo.
 	check_assignment_table: function (frm) {
@@ -236,7 +254,7 @@ frappe.ui.form.on('Transportation Order', {
 		}
 	},
 
-	validate: function (frm) {
+	/* validate: function (frm) {
 		if (!frm.events.validate_assignment(frm)) {
 			frappe.msgprint("Please enter all required fields in vehicle assignement table.");
 			frappe.validated = false;
@@ -253,15 +271,6 @@ frappe.ui.form.on('Transportation Order', {
 				{
 					if (row.transporter_type == "Sub-Contractor") {
 						if (row.vehicle_plate_number && row.trailer_plate_number && row.driver_name && row.passport_number) {
-							//Its all good, go to the next row
-						}
-						else {
-							valid = false;
-							return false;
-						}
-					}
-					else if (row.transporter_type == "Self Drive") {
-						if (row.vehicle_plate_number && row.driver_name && row.passport_number) {
 							//Its all good, go to the next row
 						}
 						else {
@@ -321,7 +330,7 @@ frappe.ui.form.on('Transportation Order', {
 				}
 			}
 		});
-
+ 
 		//If the process is not interrupted, then all is well and return true
 		if (valid == true) {
 			return true;
@@ -330,7 +339,7 @@ frappe.ui.form.on('Transportation Order', {
 			return false;
 		}
 	},
-
+*/
 	calculate_total_assigned: function (frm) {
 		if (frm.doc.cargo_type == 'Loose Cargo' && frm.doc.assign_transport.length > 0) {
 			frm.toggle_display('total_assigned', true);
@@ -460,27 +469,6 @@ frappe.ui.form.on("Transport Assignment", {
 		frm.events.show_submit_button(frm);
 	},
 
-	assigned_driver: function (frm, cdt, cdn) {
-		frappe.call({
-			method: "frappe.client.get_value",
-			args: {
-				doctype: "Employee",
-				filters: {
-					name: locals[cdt][cdn].assigned_driver
-				},
-				fieldname: ["employee_name", "passport_number", "cell_number", "driving_licence_number"]
-			},
-			callback: function (data) {
-				// set the returned values in cooresponding fields
-				frappe.model.set_value(cdt, cdn, 'driver_name', data.message.employee_name);
-				frappe.model.set_value(cdt, cdn, 'passport_number', data.message.passport_number);
-				frappe.model.set_value(cdt, cdn, 'driver_licence', data.message.driving_licence_number);
-				frappe.model.set_value(cdt, cdn, 'driver_contact', data.message.cell_number);
-			}
-		})
-		frm.events.show_submit_button(frm);
-	},
-
 	driver_name: function (frm, cdt, cdn) {
 		frm.events.show_submit_button(frm);
 	},
@@ -492,16 +480,76 @@ frappe.ui.form.on("Transport Assignment", {
 	route: function (frm, cdt, cdn) {
 		frm.events.show_submit_button(frm);
 	},
+
+	create_vehicle_trip_record: function (frm, cdt, cdn) {
+		const doc = locals[cdt][cdn]
+
+		if (doc.vehicle_status == 2 || doc.vehicle_status == 4) //If en route on trip and not offloaded
+		{
+			frappe.msgprint('The assigned vehicle is En Route on another trip and has not offloaded. Please offload the current cargo before starting new trip.', 'Not Allowed');
+		}
+		else if (doc.vehicle_status == 3) {
+			frappe.confirm(
+				'The vehicle is En Route on another trip. Set as return cargo? If you select no, a new trip will be created',
+				function () {
+					frappe.call({
+						method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_return_trip",
+						args: {
+							reference_doctype: "Transport Assignment",
+							reference_docname: doc.name,
+							vehicle: doc.assigned_vehicle,
+							transporter: doc.transporter_type,
+							vehicle_trip: doc.vehicle_trip
+						},
+						callback: function (data) {
+							console.log(data);
+							//cur_frm.set_value('status', 'Processed');
+							//cur_frm.save_or_update();
+							frappe.set_route('Form', data.message.doctype, data.message.name);
+						}
+					})
+				},
+				function () {
+					frappe.call({
+						method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_vehicle_trip",
+						args: {
+							reference_doctype: "Transport Assignment",
+							reference_docname: doc.name,
+							vehicle: doc.assigned_vehicle,
+							transporter: doc.transporter_type
+						},
+						callback: function (data) {
+							console.log(data);
+							//frm.set_value('status', 'Processed');
+							//frm.save_or_update();
+							frappe.set_route('Form', data.message.doctype, data.message.name);
+						}
+					})
+				}
+			);
+		}
+		else {
+			frappe.call({
+				method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_vehicle_trip",
+				args: {
+					reference_doctype: "Transport Assignment",
+					reference_docname: doc.name,
+					vehicle: doc.assigned_vehicle,
+					transporter: doc.transporter_type
+				},
+				callback: function (data) {
+					console.log(data);
+					//frm.set_value('status', 'Processed');
+					//frm.save_or_update();
+					frappe.set_route('Form', data.message.doctype, data.message.name);
+				}
+			})
+		}
+	}
+
 });
 
-//For filtering the driver options in the assign_transport table to only show drivers
-cur_frm.set_query("assigned_driver", "assign_transport", function (doc, cdt, cdn) {
-	return {
-		filters: [
-			['Employee', 'designation', '=', 'Driver']
-		]
-	}
-});
+
 
 cur_frm.cscript.assign_transport = function (frm) {
 	//For setting indicator message

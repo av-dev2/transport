@@ -68,11 +68,11 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "TORD-.YYYY.-.",
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "in_list_view": 1,
    "label": "Series",
-   "options": "TORD-YYYY-",
+   "options": "TORD-.YYYY.-.",
    "reqd": 1
   },
   {
@@ -109,8 +109,9 @@
   },
   {
    "fieldname": "cargo_location_city",
-   "fieldtype": "Data",
-   "label": "Cargo Location City"
+   "fieldtype": "Link",
+   "label": "Cargo Location City",
+   "options": "Transport Location"
   },
   {
    "fieldname": "cargo_destination_country",
@@ -120,8 +121,9 @@
   },
   {
    "fieldname": "cargo_destination_city",
-   "fieldtype": "Data",
-   "label": "Cargo Destination City"
+   "fieldtype": "Link",
+   "label": "Cargo Destination City",
+   "options": "Transport Location"
   },
   {
    "fieldname": "section_consignee_shipper",
@@ -230,12 +232,6 @@
    "label": "Vehicle Assignment"
   },
   {
-   "fieldname": "assign_transport",
-   "fieldtype": "Table",
-   "label": "Assign Vehicle",
-   "options": "Transport Assignment"
-  },
-  {
    "fieldname": "total_assigned",
    "fieldtype": "Data",
    "hidden": 1,
@@ -299,12 +295,17 @@
   {
    "fieldname": "column_break_2",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "assign_transport",
+   "fieldtype": "Table",
+   "label": "Assign Vehicle",
+   "options": "Transport Assignment"
   }
  ],
  "index_web_pages_for_search": 1,
- "is_submittable": 1,
  "links": [],
- "modified": "2021-12-13 16:00:45.010569",
+ "modified": "2021-12-30 01:30:59.749025",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transportation Order",

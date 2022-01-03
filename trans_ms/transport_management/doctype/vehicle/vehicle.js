@@ -2,13 +2,13 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Vehicle', {
-	refresh: function(frm) {
-		frm.set_query("driver", function() {
-			return {
-				"filters": {
-					"designation": "Driver"
-				}
-			};
-		});
+	refresh: function (frm) {
+		// frm.set_query("driver", function() {
+		// 	return {
+		// 		"filters": {
+		// 			"designation": "Driver"
+		// 		}
+		// 	};
+		// });
 	}
 });
