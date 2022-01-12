@@ -54,14 +54,14 @@ frappe.ui.form.on('Transportation Order', {
 						if (cargo_row.container_number == row.container_number) {
 							frappe.model.set_value('Transport Assignment', row.name, 'cargo', cargo_row.name);
 						}
-					})
+					});
 					to_save = true;
 				}
 			});
 			if (to_save) {
 				frappe.after_ajax(function () {
 					frm.save_or_update();
-				})
+				});
 			}
 		}
 	},
@@ -123,19 +123,19 @@ frappe.ui.form.on('Transportation Order', {
 		//Processed row
 		var row = frm.fields_dict['assign_transport'].grid.grid_rows_by_docname[cdn];
 
-		//Show/hide container specific information
-		if (frm.doc.cargo_type == 'Container') {
-			row.toggle_display('cargo', false);
-			row.toggle_display('container_number', true);
-			row.toggle_display('amount', false);
-			row.toggle_display('units', false);
-		}
-		else {
-			row.toggle_display('cargo', false);
-			row.toggle_display('container_number', false);
-			row.toggle_display('amount', true);
-			row.toggle_display('units', true);
-		}
+		// //Show/hide container specific information
+		// if (frm.doc.cargo_type == 'Container') {
+		// 	row.toggle_display('cargo', false);
+		// 	row.toggle_display('container_number', true);
+		// 	row.toggle_display('amount', false);
+		// 	row.toggle_display('units', false);
+		// }
+		// else {
+		// 	row.toggle_display('cargo', false);
+		// 	row.toggle_display('container_number', false);
+		// 	row.toggle_display('amount', true);
+		// 	row.toggle_display('units', true);
+		// }
 
 		//Make editable according to request origin
 		if (frm.doc.reference_docname) {
@@ -217,42 +217,42 @@ frappe.ui.form.on('Transportation Order', {
 		}
 	},
 
-	cargo_type: function (frm) {
-		frm.events.hide_show_cargo(frm);
-	},
+	// cargo_type: function (frm) {
+	// 	frm.events.hide_show_cargo(frm);
+	// },
 
-	hide_show_cargo: function (frm) {
-		if (frm.doc.cargo_type == "") {
-			frm.toggle_display('cargo', false);
-			frm.toggle_display('amount', false);
-			frm.toggle_display('unit', false);
-			frm.toggle_display('number_of_vehicles', false);
-			frm.toggle_display('html1', false);
-			frm.toggle_display('goods_description', false);
-			frm.toggle_display('cargo_description', false);
-			frm.toggle_display('section_vehicle_assignment', false);
-		}
-		else if (frm.doc.cargo_type == "Container") {
-			frm.toggle_display('cargo', true);
-			frm.toggle_display('amount', false);
-			frm.toggle_display('unit', false);
-			frm.toggle_display('number_of_vehicles', false);
-			frm.toggle_display('html1', true);
-			frm.toggle_display('goods_description', true);
-			frm.toggle_display('cargo_description', true);
-			frm.toggle_display('section_vehicle_assignment', true);
-		}
-		else {
-			frm.toggle_display('cargo', false);
-			frm.toggle_display('amount', true);
-			frm.toggle_display('unit', true);
-			frm.toggle_display('number_of_vehicles', true);
-			frm.toggle_display('html1', false);
-			frm.toggle_display('goods_description', true);
-			frm.toggle_display('cargo_description', true);
-			frm.toggle_display('section_vehicle_assignment', true);
-		}
-	},
+	// hide_show_cargo: function (frm) {
+	// 	if (frm.doc.cargo_type == "") {
+	// 		frm.toggle_display('cargo', false);
+	// 		frm.toggle_display('amount', false);
+	// 		frm.toggle_display('unit', false);
+	// 		frm.toggle_display('number_of_vehicles', false);
+	// 		frm.toggle_display('html1', false);
+	// 		frm.toggle_display('goods_description', false);
+	// 		frm.toggle_display('cargo_description', false);
+	// 		frm.toggle_display('section_vehicle_assignment', false);
+	// 	}
+	// 	else if (frm.doc.cargo_type == "Container") {
+	// 		frm.toggle_display('cargo', true);
+	// 		frm.toggle_display('amount', false);
+	// 		frm.toggle_display('unit', false);
+	// 		frm.toggle_display('number_of_vehicles', false);
+	// 		frm.toggle_display('html1', true);
+	// 		frm.toggle_display('goods_description', true);
+	// 		frm.toggle_display('cargo_description', true);
+	// 		frm.toggle_display('section_vehicle_assignment', true);
+	// 	}
+	// 	else {
+	// 		frm.toggle_display('cargo', false);
+	// 		frm.toggle_display('amount', true);
+	// 		frm.toggle_display('unit', true);
+	// 		frm.toggle_display('number_of_vehicles', true);
+	// 		frm.toggle_display('html1', false);
+	// 		frm.toggle_display('goods_description', true);
+	// 		frm.toggle_display('cargo_description', true);
+	// 		frm.toggle_display('section_vehicle_assignment', true);
+	// 	}
+	// },
 
 	/* validate: function (frm) {
 		if (!frm.events.validate_assignment(frm)) {
@@ -352,7 +352,7 @@ frappe.ui.form.on('Transportation Order', {
 		else {
 			frm.toggle_display('total_assigned', false);
 		}
-	}
+	},
 });
 
 
@@ -377,7 +377,7 @@ frappe.ui.form.on("Transport Assignment", {
 	assign_transport_add: function (frm, cdt, cdn) {
 		if (cur_frm.doc.cargo_type != "Container") {
 			locals[cdt][cdn].container_number = 'NIL';
-			locals[cdt][cdn].cargo_type = frm.doc.cargo_type
+			locals[cdt][cdn].cargo_type = frm.doc.cargo_type;
 			locals[cdt][cdn].file_number = frm.doc.file_number;
 			//If units are set, copy units to the assignment
 			if (frm.doc.unit) {
@@ -422,7 +422,7 @@ frappe.ui.form.on("Transport Assignment", {
 				frappe.model.set_value(cdt, cdn, 'assigned_trailer', data.message.default_trailer);
 				frappe.model.set_value(cdt, cdn, 'assigned_driver', data.message.driver);
 			}
-		})
+		});
 
 		//For vehicle documents
 		frappe.model.with_doc('Vehicle', locals[cdt][cdn].assigned_vehicle, function () {
@@ -461,7 +461,7 @@ frappe.ui.form.on("Transport Assignment", {
 				// set the returned values in cooresponding fields
 				frappe.model.set_value(cdt, cdn, 'trailer_plate_number', data.message.number_plate);
 			}
-		})
+		});
 		frm.events.show_submit_button(frm);
 	},
 
@@ -482,7 +482,7 @@ frappe.ui.form.on("Transport Assignment", {
 	},
 
 	create_vehicle_trip_record: function (frm, cdt, cdn) {
-		const doc = locals[cdt][cdn]
+		const doc = locals[cdt][cdn];
 
 		if (doc.vehicle_status == 2 || doc.vehicle_status == 4) //If en route on trip and not offloaded
 		{
@@ -507,7 +507,7 @@ frappe.ui.form.on("Transport Assignment", {
 							//cur_frm.save_or_update();
 							frappe.set_route('Form', data.message.doctype, data.message.name);
 						}
-					})
+					});
 				},
 				function () {
 					frappe.call({
@@ -524,7 +524,7 @@ frappe.ui.form.on("Transport Assignment", {
 							//frm.save_or_update();
 							frappe.set_route('Form', data.message.doctype, data.message.name);
 						}
-					})
+					});
 				}
 			);
 		}
@@ -543,7 +543,7 @@ frappe.ui.form.on("Transport Assignment", {
 					//frm.save_or_update();
 					frappe.set_route('Form', data.message.doctype, data.message.name);
 				}
-			})
+			});
 		}
 	}
 
@@ -566,7 +566,7 @@ cur_frm.cscript.assign_transport = function (frm) {
 				var exists = $('[data-fieldname="assign_transport"]:contains("' + container_number + '")');
 				console.log(exists);
 				if (exists.length > 0) {
-					msgprint('Container No. ' + container_number + ' has already been processed.', 'Error')
+					msgprint('Container No. ' + container_number + ' has already been processed.', 'Error');
 				}
 				else {
 					var new_row = cur_frm.add_child("assign_transport");
@@ -589,7 +589,7 @@ cur_frm.cscript.assign_transport = function (frm) {
 			show_alert("Error: Please select cargo to process.");
 		}
 	}
-}
+};
 
 cur_frm.cscript.populate_child = function (reference_doctype, reference_docname) {
 	if (reference_doctype == "Import") {

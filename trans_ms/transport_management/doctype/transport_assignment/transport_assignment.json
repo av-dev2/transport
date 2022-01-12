@@ -35,6 +35,10 @@
   "status",
   "created_trip",
   "section_extra",
+  "section_break_30",
+  "item",
+  "column_break_32",
+  "rate",
   "loading_date",
   "lodge_permit",
   "dispatch_date",
@@ -54,7 +58,8 @@
   "import",
   "column_break_43",
   "export",
-  "amended_from"
+  "amended_from",
+  "invoice"
  ],
  "fields": [
   {
@@ -345,12 +350,39 @@
   {
    "fieldname": "section_break_2",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_30",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_32",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "invoice",
+   "fieldtype": "Link",
+   "label": "Invoice",
+   "options": "Sales Invoice"
   }
  ],
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-12-30 01:36:21.882874",
+ "modified": "2022-01-12 02:22:42.757729",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport Assignment",

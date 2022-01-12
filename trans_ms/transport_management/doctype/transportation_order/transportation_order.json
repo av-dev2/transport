@@ -41,6 +41,7 @@
   "section_vehicle_assignment",
   "assign_transport",
   "total_assigned",
+  "create_invoice",
   "section_reference",
   "reference_doctype",
   "reference_docname",
@@ -128,6 +129,7 @@
   {
    "fieldname": "section_consignee_shipper",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Consignee and Shipper"
   },
   {
@@ -149,6 +151,7 @@
   {
    "fieldname": "section_border_clearance",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Border and Transport Instructions"
   },
   {
@@ -186,6 +189,7 @@
   {
    "fieldname": "cargo_type",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Cargo Type",
    "options": "\nContainer\nLoose Cargo"
   },
@@ -199,6 +203,7 @@
   {
    "fieldname": "cargo_description",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Cargo Description"
   },
   {
@@ -217,7 +222,6 @@
   {
    "fieldname": "cargo",
    "fieldtype": "Table",
-   "hidden": 1,
    "label": "Cargo",
    "options": "Cargo Details"
   },
@@ -301,11 +305,16 @@
    "fieldtype": "Table",
    "label": "Assign Vehicle",
    "options": "Transport Assignment"
+  },
+  {
+   "fieldname": "create_invoice",
+   "fieldtype": "Button",
+   "label": "Create Invoice"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-12-30 01:30:59.749025",
+ "modified": "2022-01-11 23:11:04.195373",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transportation Order",

@@ -1,0 +1,158 @@
+{
+ "actions": [],
+ "autoname": "CARGO.###",
+ "creation": "2017-02-22 18:57:43.573632",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "container_number",
+  "container_size",
+  "seal_number",
+  "cargo_status",
+  "no_of_packages",
+  "gross_weight",
+  "net_weight",
+  "tare_weight",
+  "assigned_vehicle",
+  "assigned_driver",
+  "transport_status",
+  "column_break_12",
+  "bond_ref_no",
+  "bond_value",
+  "cargo_location_country",
+  "cargo_location_city",
+  "cargo_destination_country",
+  "cargo_destination_city",
+  "extra_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "container_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Container Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "container_size",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Size",
+   "options": "40 FT\n20 FT",
+   "reqd": 1
+  },
+  {
+   "fieldname": "seal_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Seal Number"
+  },
+  {
+   "fieldname": "cargo_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Cargo Type",
+   "options": "\nLoose Cargo\nRoro\nSOC\n40 FT Container\n20 FT Light\n20 FT\nBB OOG",
+   "reqd": 1
+  },
+  {
+   "fieldname": "no_of_packages",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Number of Packages"
+  },
+  {
+   "fieldname": "gross_weight",
+   "fieldtype": "Float",
+   "label": "Gross Weight (kgs)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "net_weight",
+   "fieldtype": "Float",
+   "label": "Net Weight (kgs)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tare_weight",
+   "fieldtype": "Float",
+   "label": "Tare Weight (kgs)"
+  },
+  {
+   "fieldname": "assigned_vehicle",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Assigned Vehicle"
+  },
+  {
+   "fieldname": "assigned_driver",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Assigned Driver"
+  },
+  {
+   "default": "0",
+   "fieldname": "transport_status",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Transport Status"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bond_ref_no",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Sub-T1 Ref. No"
+  },
+  {
+   "fieldname": "bond_value",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Bond Value"
+  },
+  {
+   "fieldname": "extra_details",
+   "fieldtype": "Small Text",
+   "label": "Extra Details"
+  },
+  {
+   "fieldname": "cargo_location_country",
+   "fieldtype": "Link",
+   "label": "Cargo Location Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "cargo_location_city",
+   "fieldtype": "Link",
+   "label": "Cargo Location City",
+   "options": "Transport Location"
+  },
+  {
+   "fieldname": "cargo_destination_country",
+   "fieldtype": "Link",
+   "label": "Cargo Destination Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "cargo_destination_city",
+   "fieldtype": "Link",
+   "label": "Cargo Destination City",
+   "options": "Transport Location"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2022-01-11 21:41:57.967714",
+ "modified_by": "Administrator",
+ "module": "Transport Management",
+ "name": "Cargo Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
