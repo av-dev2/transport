@@ -583,7 +583,7 @@ cur_frm.cscript.assign_transport = function (frm) {
 	//cur_frm.page.clear_indicator();
 
 	//If it is container based cargo
-	if (cur_frm.doc.cargo_type == "Container") {
+	//if (cur_frm.doc.cargo_type == "Container") {
 		//Add selected rows to assign table
 		var selected = cur_frm.get_selected();
 		if (selected['cargo']) {
@@ -614,7 +614,7 @@ cur_frm.cscript.assign_transport = function (frm) {
 		else {
 			show_alert("Error: Please select cargo to process.");
 		}
-	}
+	//}
 };
 
 cur_frm.cscript.populate_child = function (reference_doctype, reference_docname) {

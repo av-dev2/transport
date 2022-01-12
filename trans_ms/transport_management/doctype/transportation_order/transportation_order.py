@@ -310,6 +310,7 @@ def create_sales_invoice(doc, rows):
                 "qty": 1,
                 "uom": frappe.get_value("Item", row["item"], "stock_uom"),
                 "rate": row["rate"],
+                "description": "testing"
             }
         )
     invoice = frappe.get_doc(
