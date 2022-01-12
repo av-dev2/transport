@@ -295,3 +295,41 @@ def assign_vehicle(**args):
 		vehicle.save()"""
     return "success"
 
+
+@frappe.whitelist()
+def create_sales_invoice(doc, rows):
+    doc = frappe.get_doc(json.loads(doc))
+    rows = json.loads(rows)
+    if not rows:
+        return
+    items = []
+    for row in rows:
+        items.append(
+            {
+                "item_code": row["item"],
+                "qty": 1,
+                "uom": frappe.get_value("Item", row["item"], "stock_uom"),
+                "rate": row["rate"],
+            }
+        )
+    invoice = frappe.get_doc(
+        dict(
+            doctype="Sales Invoice",
+            customer=doc.customer,
+            posting_date=nowdate(),
+            company=doc.company,
+            items=items,
+        ),
+    )
+    frappe.flags.ignore_account_permission = True
+    invoice.set_taxes()
+    invoice.set_missing_values()
+    invoice.flags.ignore_mandatory = True
+    invoice.calculate_taxes_and_totals()
+    invoice.insert(ignore_permissions=True)
+    for item in doc.assign_transport:
+        if item.name in [i["name"] for i in rows]:
+            item.invoice = invoice.name
+    doc.save()
+    frappe.msgprint(_("Sales Inoice {0} Created").format(invoice.name),alert=True)
+    return invoice

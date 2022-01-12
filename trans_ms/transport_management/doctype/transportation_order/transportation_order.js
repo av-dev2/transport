@@ -353,6 +353,32 @@ frappe.ui.form.on('Transportation Order', {
 			frm.toggle_display('total_assigned', false);
 		}
 	},
+	create_invoice: (frm) => {
+		if (frm.is_dirty()) {
+			frappe.throw(__("Plase Save First"));
+			return;
+		}
+		let selected = frm.get_selected().assign_transport;
+		if (selected) {
+			let rows = frm.doc.assign_transport.filter(i => selected.includes(i.name) && !i.invoice);
+			if (rows.length) {
+				frappe.call({
+					method: "trans_ms.transport_management.doctype.transportation_order.transportation_order.create_sales_invoice",
+					args: {
+						doc: frm.doc,
+						rows: rows
+					},
+					callback: function (data) {
+						frappe.set_route('Form', data.message.doctype, data.message.name);
+					}
+				});
+			} else {
+				frappe.msgprint(__("All Rows Invoiced!"));
+			}
+		} else {
+			frappe.msgprint(__("No Rows Selected!"));
+		}
+	},
 });
 
 
