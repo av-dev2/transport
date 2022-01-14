@@ -9,7 +9,7 @@ import datetime
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 import json
-from frappe.utils import encode, cstr, cint, flt, comma_or
+from frappe.utils import nowdate, cstr, cint, flt, comma_or
 from frappe import _
 
 
@@ -449,3 +449,64 @@ def validate_route_inputs(**args):
 # 		if requested_fund.request_status == "open":
 # 			make_request = True
 # 			open_requests.append(requested_fund)
+
+
+@frappe.whitelist()
+def create_fund_jl(doc, row):
+    doc = frappe.get_doc(json.loads(doc))
+    row = frappe._dict(json.loads(row))
+    if row.journal_entry:
+        frappe.throw("Journal Entry Already Created")
+
+    accounts = []
+    debit_row = dict(
+        account=row.expense_account,
+        debit_in_account_currency=row.request_amount,
+        cost_center=row.cost_center,
+        department=row.get("department")
+        or doc.get("department")
+        or "Transportation - RKCL",
+    )
+    accounts.append(debit_row)
+    credit_row = dict(
+        account=row.payable_account,
+        credit_in_account_currency=row.request_amount,
+        cost_center=row.cost_center,
+        party_type=row.party_type,
+        party=row.party,
+        department=row.get("department")
+        or doc.get("department")
+        or "Transportation - RKCL",
+    )
+    accounts.append(credit_row)
+
+    company = doc.company
+    user_remark = "Vehicle Trip No: {0}".format(doc.name)
+    date = nowdate()
+    jv_doc = frappe.get_doc(
+        dict(
+            doctype="Journal Entry",
+            posting_date=date,
+            accounts=accounts,
+            cheque_date=date,
+            company=company,
+            user_remark=user_remark,
+            department=row.get("department")
+            or doc.get("department")
+            or "Transportation - RKCL",
+        )
+    )
+    jv_doc.flags.ignore_permissions = True
+    frappe.flags.ignore_account_permission = True
+    jv_doc.save()
+    # jv_doc.submit()
+    jv_url = frappe.utils.get_url_to_form(jv_doc.doctype, jv_doc.name)
+    si_msgprint = "Journal Entry Created <a href='{0}'>{1}</a>".format(
+        jv_url, jv_doc.name
+    )
+    frappe.msgprint(_(si_msgprint))
+    for item in doc.main_requested_funds:
+        if item.name == row.name:
+            item.journal_entry = jv_doc.name
+    doc.save()
+    return jv_doc

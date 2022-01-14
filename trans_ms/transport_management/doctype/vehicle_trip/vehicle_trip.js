@@ -1059,3 +1059,24 @@ frappe.ui.form.on('Fuel Request Table', {
         }
     }
 });
+
+frappe.ui.form.on('Requested Funds Details', {
+    disburse_funds: function (frm, cdt, cdn) {
+        if (frm.is_dirty()) {
+            frappe.throw(__("Plase Save First"));
+            return;
+        }
+        const row = locals[cdt][cdn];
+        if (row.journal_entry) return;
+        frappe.call({
+            method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_fund_jl",
+            args: {
+                doc: frm.doc,
+                row: row
+            },
+            callback: function (data) {
+                frappe.set_route('Form', data.message.doctype, data.message.name);
+            }
+        });
+    }
+});
