@@ -5,7 +5,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "vehicle_fuel_parent_warehouse"
+  "vehicle_fuel_parent_warehouse",
+  "sales_item_group",
+  "fuel_item_group"
  ],
  "fields": [
   {
@@ -13,12 +15,24 @@
    "fieldtype": "Link",
    "label": "Vehicle Fuel Parent Warehouse",
    "options": "Warehouse"
+  },
+  {
+   "fieldname": "sales_item_group",
+   "fieldtype": "Link",
+   "label": "Sales Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "fuel_item_group",
+   "fieldtype": "Link",
+   "label": "Fuel Item Group",
+   "options": "Item Group"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-08-19 12:18:33.896730",
+ "modified": "2022-01-12 12:47:39.237656",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport Settings",

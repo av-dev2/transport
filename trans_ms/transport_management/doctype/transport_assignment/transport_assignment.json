@@ -38,7 +38,9 @@
   "section_break_30",
   "item",
   "column_break_32",
+  "currency",
   "rate",
+  "section_break_34",
   "loading_date",
   "lodge_permit",
   "dispatch_date",
@@ -65,12 +67,14 @@
   {
    "fieldname": "cargo",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Container",
    "options": "Cargo Details"
   },
   {
    "fieldname": "amount",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Quantity"
   },
   {
@@ -94,6 +98,7 @@
   {
    "fieldname": "units",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Units",
    "options": "Unit of Measure"
   },
@@ -195,7 +200,8 @@
    "fieldname": "route",
    "fieldtype": "Link",
    "label": "Trip Route",
-   "options": "Trip Route"
+   "options": "Trip Route",
+   "reqd": 1
   },
   {
    "fieldname": "vehicle_status",
@@ -377,12 +383,23 @@
    "fieldtype": "Link",
    "label": "Invoice",
    "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "section_break_34",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-01-12 02:22:42.757729",
+ "modified": "2022-01-12 12:20:10.319051",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport Assignment",

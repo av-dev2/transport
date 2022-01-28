@@ -310,13 +310,14 @@ def create_sales_invoice(doc, rows):
                 "qty": 1,
                 "uom": frappe.get_value("Item", row["item"], "stock_uom"),
                 "rate": row["rate"],
-                "description": "testing"
+                "description": row["assigned_vehicle"] + " " + row["route"],
             }
         )
     invoice = frappe.get_doc(
         dict(
             doctype="Sales Invoice",
             customer=doc.customer,
+            currency=row["currency"],
             posting_date=nowdate(),
             company=doc.company,
             items=items,
@@ -331,6 +332,6 @@ def create_sales_invoice(doc, rows):
     for item in doc.assign_transport:
         if item.name in [i["name"] for i in rows]:
             item.invoice = invoice.name
-    doc.save()
-    frappe.msgprint(_("Sales Inoice {0} Created").format(invoice.name),alert=True)
+    # doc.save()
+    frappe.msgprint(_("Sales Inoice {0} Created").format(invoice.name), alert=True)
     return invoice

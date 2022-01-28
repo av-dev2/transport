@@ -6,10 +6,30 @@ frappe.ui.form.on('Transportation Order', {
 		//Load the buttons
 		var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.assign_transport(\'' + frm + '\');">Assign Vehicles</button> ';
 		$(frm.fields_dict.html1.wrapper).html(html);
+
+        frm.set_query("cargo_location_city", "cargo", function(doc, cdt, cdn) {
+		    const row = frappe.get_doc(cdt, cdn);
+		    console.log(row, cdt, cdn);
+		    return {
+		        filters: {
+		            country: row.cargo_location_country,
+		        }
+		    }
+		})
+
+		frm.set_query("cargo_destination_city", "cargo", function(doc, cdt, cdn) {
+		    const row = frappe.get_doc(cdt, cdn);
+		    console.log(row, cdt, cdn);
+		    return {
+		        filters: {
+		            country: row.cargo_location_country,
+		        }
+		    }
+		})
 	},
 
-	refresh: function (frm) {
-		console.log(frm);
+	refresh: function (frm,cdt,cdn) {
+	//	console.log(frm);
 
 		//Fix assignement details
 		frm.events.check_assignment_table(frm);
@@ -21,25 +41,7 @@ frappe.ui.form.on('Transportation Order', {
 			frm.page.clear_indicator();
 		}
 		frm.events.calculate_total_assigned(frm);
-		frm.events.hide_show_cargo(frm);
-	},
-
-	setup: function (frm) {
-		frm.set_query("cargo_location_city", function () {
-			return {
-				filters: {
-					country: frm.doc.cargo_location_country
-				}
-			};
-		});
-		frm.set_query("cargo_destination_city", function () {
-			return {
-				filters: {
-					country: frm.doc.cargo_destination_country
-				}
-			};
-		});
-
+		//frm.events.hide_show_cargo(frm);
 	},
 
 
@@ -661,4 +663,14 @@ cur_frm.cscript.populate_child = function (reference_doctype, reference_docname)
 		});
 		return "done";
 	}
+
 };
+
+frappe.ui.form.on('Cargo Details', {
+    onload(frm) {
+            
+    },
+	refersh(frm){
+		console.info("Table Refresh")
+	},
+})
