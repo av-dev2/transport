@@ -6,14 +6,12 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "company",
-  "column_break_2",
-  "naming_series",
-  "section_break_1",
   "date",
+  "customer",
   "loading_date",
   "column_break_3",
-  "customer",
+  "naming_series",
+  "company",
   "transport_type",
   "amended_from",
   "cargo_location_country",
@@ -60,6 +58,7 @@
    "options": "Customer"
   },
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
@@ -248,6 +247,7 @@
   {
    "fieldname": "section_reference",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "References"
   },
   {
@@ -297,14 +297,6 @@
    "label": "Version"
   },
   {
-   "fieldname": "section_break_1",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_2",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "assign_transport",
    "fieldtype": "Table",
    "label": "Assign Vehicle",
@@ -318,7 +310,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-01-12 11:34:52.820727",
+ "modified": "2022-01-30 16:24:09.881670",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transportation Order",

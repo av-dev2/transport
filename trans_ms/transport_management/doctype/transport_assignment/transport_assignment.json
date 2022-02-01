@@ -393,13 +393,14 @@
    "fieldtype": "Link",
    "label": "Currency",
    "options": "Currency",
+   "read_only": 1,
    "reqd": 1
   }
  ],
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-01-12 12:20:10.319051",
+ "modified": "2022-02-01 21:10:57.171179",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport Assignment",

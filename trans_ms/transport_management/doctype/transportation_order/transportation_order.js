@@ -22,7 +22,7 @@ frappe.ui.form.on('Transportation Order', {
 		    console.log(row, cdt, cdn);
 		    return {
 		        filters: {
-		            country: row.cargo_location_country,
+		            country: row.cargo_destination_country,
 		        }
 		    }
 		})

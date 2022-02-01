@@ -10,20 +10,23 @@
   "seal_number",
   "cargo_status",
   "no_of_packages",
-  "gross_weight",
-  "net_weight",
-  "tare_weight",
-  "assigned_vehicle",
-  "assigned_driver",
-  "transport_status",
   "column_break_12",
+  "net_weight",
+  "gross_weight",
+  "tare_weight",
   "bond_ref_no",
   "bond_value",
+  "section_break_16",
   "cargo_location_country",
   "cargo_location_city",
+  "column_break_19",
   "cargo_destination_country",
   "cargo_destination_city",
-  "extra_details"
+  "section_break_21",
+  "extra_details",
+  "assigned_driver",
+  "assigned_vehicle",
+  "transport_status"
  ],
  "fields": [
   {
@@ -66,8 +69,7 @@
   {
    "fieldname": "gross_weight",
    "fieldtype": "Float",
-   "label": "Gross Weight (kgs)",
-   "reqd": 1
+   "label": "Gross Weight (kgs)"
   },
   {
    "fieldname": "net_weight",
@@ -143,11 +145,23 @@
    "fieldtype": "Link",
    "label": "Cargo Destination City",
    "options": "Transport Location"
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_21",
+   "fieldtype": "Section Break"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2022-01-12 11:58:26.335556",
+ "modified": "2022-01-30 15:42:01.696974",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Cargo Details",

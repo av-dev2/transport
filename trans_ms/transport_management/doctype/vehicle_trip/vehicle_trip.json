@@ -267,6 +267,7 @@
   {
    "fieldname": "main_cargo_type",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Cargo Type",
    "options": "\nContainer\nLoose Cargo"
   },
@@ -279,6 +280,7 @@
   {
    "fieldname": "main_goods_description",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Cargo Description"
   },
   {
@@ -326,11 +328,13 @@
   {
    "fieldname": "section_main_consignee_shipper",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Shipper and Consignee"
   },
   {
    "fieldname": "main_shipper",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Shipper",
    "options": "Customer"
   },
@@ -346,6 +350,7 @@
   {
    "fieldname": "main_consignee",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Consignee",
    "options": "Customer"
   },
@@ -504,6 +509,7 @@
   {
    "fieldname": "section_main_reporting",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Reporting"
   },
   {
@@ -526,11 +532,13 @@
   {
    "fieldname": "section_main_expenses",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Main Trip Expenses"
   },
   {
    "fieldname": "main_expenses",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Main Trip Expenses",
    "options": "Expenses"
   },
@@ -561,12 +569,14 @@
   {
    "fieldname": "return_cargo_category",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Cargo Category",
    "options": "Cargo Type"
   },
   {
    "fieldname": "return_goods_description",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Cargo Description"
   },
   {
@@ -618,6 +628,7 @@
   {
    "fieldname": "section_return_consignee_shipper",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Return Shipper and Consignee"
   },
   {
@@ -796,6 +807,7 @@
   {
    "fieldname": "section_return_reporting",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Reporting"
   },
   {
@@ -829,6 +841,7 @@
   {
    "fieldname": "section_subtrips",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Subtrips"
   },
   {
@@ -839,6 +852,7 @@
   {
    "fieldname": "section_attachments",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Trip Attachments"
   },
   {
@@ -1010,7 +1024,7 @@
   }
  ],
  "links": [],
- "modified": "2021-12-30 00:18:44.593171",
+ "modified": "2022-01-30 17:05:53.201025",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",
