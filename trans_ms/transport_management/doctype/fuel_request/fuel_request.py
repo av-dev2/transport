@@ -276,6 +276,9 @@ def reject_request(**args):
 def create_purchase_order(request_doc, item):
     item = frappe._dict(json.loads(item))
     request_doc = frappe._dict(json.loads(request_doc))
+    set_warehouse = frappe.get_value("Vehicle",request_doc.vehicle_plate_number,"fuel_stock_warehouse")
+    if not set_warehouse:
+        frappe.throw(_("Fuel Stock Warehouse not set in Vehicle"))
     if item.purchase_order:
         frappe.throw(_("Purchase Order is alrady exist"))
     doc = frappe.new_doc("Purchase Order")
@@ -284,6 +287,7 @@ def create_purchase_order(request_doc, item):
     doc.supplier = item.supplier
     doc.schedule_date = nowdate()
     doc.docstatus = 1
+    doc.set_warehouse = set_warehouse
     new_item = doc.append("items", {})
     new_item.item_code = item.item_code
     new_item.qty = item.quantity

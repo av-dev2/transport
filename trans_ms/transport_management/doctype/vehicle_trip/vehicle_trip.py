@@ -50,7 +50,14 @@ class VehicleTrip(Document):
 
     def validate(self):
         self.validate_fuel_requests()
+        self.set_driver()
 
+    def set_driver(self):
+        if self.driver:
+            for row in self.main_requested_funds:
+               row.party_type = "Driver" 
+               row.party = self.driver
+    
     def before_save(self):
         # validate_requested_funds(self)
         self.validate_main_route_inputs()

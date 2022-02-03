@@ -42,6 +42,17 @@ frappe.ui.form.on('Transportation Order', {
 		}
 		frm.events.calculate_total_assigned(frm);
 		//frm.events.hide_show_cargo(frm);
+		frappe.db.get_single_value('Transport Settings', 'sales_item_group')
+			.then(sales_item_group => {
+				frm.set_query('item', 'assign_transport', () => {
+					return {
+						filters: {
+							item_group: sales_item_group
+						}
+					};
+				});
+			})
+		
 	},
 
 

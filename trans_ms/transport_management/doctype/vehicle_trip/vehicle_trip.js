@@ -457,6 +457,16 @@ frappe.ui.form.on('Vehicle Trip', {
 
 
     refresh: function (frm) {
+        frappe.db.get_single_value('Transport Settings', 'fuel_item_group')
+            .then(fuel_item_group => {
+                frm.set_query('item_code', 'main_fuel_request', () => {
+                    return {
+                        filters: {
+                            item_group: fuel_item_group
+                        }
+                    };
+                });
+            })
         //Show or hide return trip section
         frm.events.show_hide_sections(frm);
 

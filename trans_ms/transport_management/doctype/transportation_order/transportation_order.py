@@ -13,6 +13,14 @@ from frappe.utils import nowdate
 
 
 class TransportationOrder(Document):
+    def validate(self):
+        if self.customer:
+            currency = frappe.get_value("Customer", self.customer, "default_currency")
+            if currency:
+                for row in self.assign_transport:
+                    row.currency = currency
+
+
     def before_save(self):
         # For assignment status
         if not self.assign_transport:
