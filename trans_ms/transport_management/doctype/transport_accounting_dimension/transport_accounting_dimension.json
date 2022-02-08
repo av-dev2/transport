@@ -1,0 +1,86 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-02-03 09:44:09.888378",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "dimension_name",
+  "source_doctype",
+  "type",
+  "field_name",
+  "value",
+  "column_break_5",
+  "main_doctype",
+  "child_doctype"
+ ],
+ "fields": [
+  {
+   "fieldname": "dimension_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Dimension Name",
+   "options": "Accounting Dimension"
+  },
+  {
+   "depends_on": "eval:doc.type == \"Field\"",
+   "description": "Field Name from Transportation Assignment Field Type",
+   "fieldname": "field_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Field Name",
+   "mandatory_depends_on": "eval:doc.type == \"Field\""
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Field\nValue"
+  },
+  {
+   "depends_on": "eval:doc.type == \"Value\"",
+   "fieldname": "value",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Value",
+   "mandatory_depends_on": "eval:doc.type == \"Value\""
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "main_doctype",
+   "fieldtype": "Check",
+   "label": "Main DocType",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "child_doctype",
+   "fieldtype": "Check",
+   "label": "Child Doctype",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_doctype",
+   "fieldtype": "Link",
+   "label": "Source DocType",
+   "options": "DocType"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-02-07 11:58:05.470475",
+ "modified_by": "Administrator",
+ "module": "Transport Management",
+ "name": "Transport Accounting Dimension",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

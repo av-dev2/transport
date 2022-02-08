@@ -14,6 +14,7 @@
   "chassis_number",
   "make",
   "model",
+  "axle_type",
   "column_break_9",
   "year",
   "fuel_type",
@@ -277,10 +278,16 @@
    "fieldtype": "Data",
    "label": "Current Trip",
    "read_only": 1
+  },
+  {
+   "fieldname": "axle_type",
+   "fieldtype": "Link",
+   "label": "Axle Type",
+   "options": "Vehicle Axle Type"
   }
  ],
  "links": [],
- "modified": "2021-12-30 00:34:47.800443",
+ "modified": "2022-02-07 09:19:19.584622",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle",

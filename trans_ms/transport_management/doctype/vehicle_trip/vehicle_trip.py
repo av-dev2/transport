@@ -284,13 +284,13 @@ def create_vehicle_trip(**args):
         },
     )
 
-    existing_return_trip = frappe.db.get_value(
-        "Vehicle Trip",
-        {
-            "return_reference_doctype": args.reference_doctype,
-            "return_reference_docname": args.reference_docname,
-        },
-    )
+    # existing_return_trip = frappe.db.get_value(
+    #     "Vehicle Trip",
+    #     {
+    #         "return_reference_doctype": args.reference_doctype,
+    #         "return_reference_docname": args.reference_docname,
+    #     },
+    # )
 
     if existing_vehicle_trip:
         # Mark the request as open and update modified time
@@ -298,9 +298,9 @@ def create_vehicle_trip(**args):
         # doc.db_set("request_status", "open")
         # doc.db_set("modified", timestamp)
         return trip
-    elif existing_return_trip:
-        trip = frappe.get_doc("Vehicle Trip", existing_vehicle_trip)
-        return trip
+    # elif existing_return_trip:
+    #     trip = frappe.get_doc("Vehicle Trip", existing_vehicle_trip)
+    #     return trip
     else:
         trip = frappe.new_doc("Vehicle Trip")
         trip.update(
@@ -329,52 +329,52 @@ def create_vehicle_trip(**args):
         return trip
 
 
-@frappe.whitelist(allow_guest=True)
-def create_return_trip(**args):
-    args = frappe._dict(args)
+# @frappe.whitelist(allow_guest=True)
+# def create_return_trip(**args):
+#     args = frappe._dict(args)
 
-    existing_vehicle_trip = frappe.db.get_value(
-        "Vehicle Trip",
-        {
-            "reference_doctype": args.reference_doctype,
-            "reference_docname": args.reference_docname,
-        },
-    )
+#     existing_vehicle_trip = frappe.db.get_value(
+#         "Vehicle Trip",
+#         {
+#             "reference_doctype": args.reference_doctype,
+#             "reference_docname": args.reference_docname,
+#         },
+#     )
 
-    existing_return_trip = frappe.db.get_value(
-        "Vehicle Trip",
-        {
-            "return_reference_doctype": args.reference_doctype,
-            "return_reference_docname": args.reference_docname,
-        },
-    )
+#     existing_return_trip = frappe.db.get_value(
+#         "Vehicle Trip",
+#         {
+#             "return_reference_doctype": args.reference_doctype,
+#             "return_reference_docname": args.reference_docname,
+#         },
+#     )
 
-    if existing_vehicle_trip:
-        # Mark the request as open and update modified time
-        trip = frappe.get_doc("Vehicle Trip", existing_vehicle_trip)
-        # doc.db_set("request_status", "open")
-        # doc.db_set("modified", timestamp)
-        return trip
-    elif existing_return_trip:
-        trip = frappe.get_doc("Vehicle Trip", existing_return_trip)
-        return trip
-    else:
-        # If internal tranport
-        if args.transporter == "In House":
-            vehicle = frappe.get_doc("Vehicle", args.vehicle)
-            vehicle.status = "En Route - Returning"
-            vehicle.hidden_status = 4
+#     if existing_vehicle_trip:
+#         # Mark the request as open and update modified time
+#         trip = frappe.get_doc("Vehicle Trip", existing_vehicle_trip)
+#         # doc.db_set("request_status", "open")
+#         # doc.db_set("modified", timestamp)
+#         return trip
+#     elif existing_return_trip:
+#         trip = frappe.get_doc("Vehicle Trip", existing_return_trip)
+#         return trip
+#     else:
+#         # If internal tranport
+#         if args.transporter == "In House":
+#             vehicle = frappe.get_doc("Vehicle", args.vehicle)
+#             vehicle.status = "En Route - Returning"
+#             vehicle.hidden_status = 4
 
-        doc = frappe.get_doc("Vehicle Trip", args.vehicle_trip)
-        doc.return_reference_doctype = args.reference_doctype
-        doc.return_reference_docname = args.reference_docname
-        doc.status = "En Route - Returning"
-        doc.hidden_status = 4
-        doc.save()
-        # for vehicle
-        vehicle.current_trip = doc.name
-        vehicle.save()
-        return doc
+#         doc = frappe.get_doc("Vehicle Trip", args.vehicle_trip)
+#         doc.return_reference_doctype = args.reference_doctype
+#         doc.return_reference_docname = args.reference_docname
+#         doc.status = "En Route - Returning"
+#         doc.hidden_status = 4
+#         doc.save()
+#         # for vehicle
+#         vehicle.current_trip = doc.name
+#         vehicle.save()
+#         return doc
 
 
 @frappe.whitelist()

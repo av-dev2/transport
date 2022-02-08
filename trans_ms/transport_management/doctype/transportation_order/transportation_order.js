@@ -4,7 +4,7 @@
 frappe.ui.form.on('Transportation Order', {
 	onload: function (frm) {
 		//Load the buttons
-		var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.assign_transport(\'' + frm + '\');">Assign Vehicles</button> ';
+			var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.assign_transport(\'' + frm + '\');">Assign Vehicles</button> ';
 		$(frm.fields_dict.html1.wrapper).html(html);
 
         frm.set_query("cargo_location_city", "cargo", function(doc, cdt, cdn) {

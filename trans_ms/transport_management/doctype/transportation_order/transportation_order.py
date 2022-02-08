@@ -318,7 +318,7 @@ def create_sales_invoice(doc, rows):
                 "qty": 1,
                 "uom": frappe.get_value("Item", row["item"], "stock_uom"),
                 "rate": row["rate"],
-                "description": row["assigned_vehicle"] + " " + row["route"],
+                "description": "<b>VEHICLE NUMBER: " + row["assigned_vehicle"] + "<BR>ROUTE: " + row["route"] + "<br>",
             }
         )
     invoice = frappe.get_doc(

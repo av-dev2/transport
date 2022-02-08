@@ -34,6 +34,15 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Vehicle Trip",
+   "link_to": "Vehicle Trip",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Fuel Request",
    "link_to": "Fuel Request",
    "link_type": "DocType",
@@ -109,9 +118,18 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Cargo Type",
+   "link_to": "Transport Cargo Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2021-12-14 09:25:28.372196",
+ "modified": "2022-02-09 00:02:22.574039",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport",
