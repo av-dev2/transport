@@ -10,6 +10,7 @@ from frappe.model.document import Document
 from frappe import _
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import nowdate
+from trans_ms.utlis import set_dimension
 
 
 class FuelRequest(Document):
@@ -276,7 +277,9 @@ def reject_request(**args):
 def create_purchase_order(request_doc, item):
     item = frappe._dict(json.loads(item))
     request_doc = frappe._dict(json.loads(request_doc))
-    set_warehouse = frappe.get_value("Vehicle",request_doc.vehicle_plate_number,"fuel_stock_warehouse")
+    set_warehouse = frappe.get_value(
+        "Vehicle", request_doc.vehicle_plate_number, "fuel_stock_warehouse"
+    )
     if not set_warehouse:
         frappe.throw(_("Fuel Stock Warehouse not set in Vehicle"))
     if item.purchase_order:
@@ -293,6 +296,8 @@ def create_purchase_order(request_doc, item):
     new_item.qty = item.quantity
     new_item.rate = item.cost_per_litre
     new_item.source_name = "fuel_request"
+    set_dimension(request_doc, doc)
+    set_dimension(request_doc, doc, tr_child=new_item)
     doc.insert(ignore_permissions=True)
     frappe.msgprint(_("Purchase Order {0} is created").format(doc.name))
     frappe.set_value(item.doctype, item.name, "purchase_order", doc.name)

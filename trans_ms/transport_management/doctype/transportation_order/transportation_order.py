@@ -335,9 +335,9 @@ def create_sales_invoice(doc, rows):
             items=items,
         ),
     )
-    set_dimension(doc,invoice)
+    set_dimension(doc, invoice)
     for row in invoice.items:
-        set_dimension(doc,invoice,tr_child=row)
+        set_dimension(doc, invoice, tr_child=row)
     frappe.flags.ignore_account_permission = True
     invoice.set_taxes()
     invoice.set_missing_values()
