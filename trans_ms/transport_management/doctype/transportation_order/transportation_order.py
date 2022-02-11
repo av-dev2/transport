@@ -10,6 +10,7 @@ from frappe.model.document import Document
 from frappe import _
 import json
 from frappe.utils import nowdate
+from trans_ms.utlis import set_dimension
 
 
 class TransportationOrder(Document):
@@ -19,7 +20,6 @@ class TransportationOrder(Document):
             if currency:
                 for row in self.assign_transport:
                     row.currency = currency
-
 
     def before_save(self):
         # For assignment status
@@ -318,7 +318,11 @@ def create_sales_invoice(doc, rows):
                 "qty": 1,
                 "uom": frappe.get_value("Item", row["item"], "stock_uom"),
                 "rate": row["rate"],
-                "description": "<b>VEHICLE NUMBER: " + row["assigned_vehicle"] + "<BR>ROUTE: " + row["route"] + "<br>",
+                "description": "<b>VEHICLE NUMBER: "
+                + row["assigned_vehicle"]
+                + "<BR>ROUTE: "
+                + row["route"]
+                + "<br>",
             }
         )
     invoice = frappe.get_doc(
@@ -331,6 +335,9 @@ def create_sales_invoice(doc, rows):
             items=items,
         ),
     )
+    set_dimension(doc,invoice)
+    for row in invoice.items:
+        set_dimension(doc,invoice,tr_child=row)
     frappe.flags.ignore_account_permission = True
     invoice.set_taxes()
     invoice.set_missing_values()
