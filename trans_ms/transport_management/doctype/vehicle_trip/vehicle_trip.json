@@ -52,39 +52,11 @@
   "main_route",
   "main_route_steps",
   "main_location_update",
-  "section_main_delivery_note",
-  "main_shipment_ref_no",
-  "main_client_ref_no",
-  "main_border1_clearing",
-  "main_border2_clearing",
-  "main_border3_clearing",
-  "column_break_86",
-  "main_special_instructions_transporter",
-  "main_special_instructions_to_driver",
-  "main_delivery_note",
-  "main_offloading_report",
-  "main_offloading_weight",
   "section_main_fuel_request",
   "main_approved_fuel",
   "main_fuel_request",
-  "section_main_reporting",
-  "main_reporting_status",
   "section_main_requested_funds",
   "main_requested_funds",
-  "section_main_expenses",
-  "main_expenses",
-  "section_return_trip",
-  "return_start_date",
-  "return_customer",
-  "return_cargo_type",
-  "return_cargo_category",
-  "return_goods_description",
-  "column_break_38",
-  "return_amount",
-  "return_unit",
-  "return_loose_no_of_packages",
-  "return_loose_gross_weight",
-  "return_loose_net_weight",
   "section_return_cargo",
   "return_customer_address_html",
   "return_cargo",
@@ -415,81 +387,16 @@
    "options": "Trip Route"
   },
   {
-   "description": "Main Route Steps",
    "fieldname": "main_route_steps",
    "fieldtype": "Table",
    "label": "Main Route Steps",
    "options": "Route Steps Table"
   },
   {
-   "description": "Location Update",
    "fieldname": "main_location_update",
    "fieldtype": "Table",
    "label": "Location Update",
    "options": "Vehicle Trip Location Update"
-  },
-  {
-   "fieldname": "section_main_delivery_note",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Delivery Note Information (Main Trip)"
-  },
-  {
-   "fieldname": "main_shipment_ref_no",
-   "fieldtype": "Data",
-   "label": "Shipment Ref No"
-  },
-  {
-   "fieldname": "main_client_ref_no",
-   "fieldtype": "Data",
-   "label": "Client Ref No."
-  },
-  {
-   "fieldname": "main_border1_clearing",
-   "fieldtype": "Link",
-   "label": "Border 1 Clearing Agent",
-   "options": "Supplier"
-  },
-  {
-   "fieldname": "main_border2_clearing",
-   "fieldtype": "Link",
-   "label": "Border 2 Clearing Agent",
-   "options": "Supplier"
-  },
-  {
-   "fieldname": "main_border3_clearing",
-   "fieldtype": "Link",
-   "label": "Border 3 Clearing Agent",
-   "options": "Supplier"
-  },
-  {
-   "fieldname": "column_break_86",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "main_special_instructions_transporter",
-   "fieldtype": "Data",
-   "label": "Special Instructions to Transporter"
-  },
-  {
-   "fieldname": "main_special_instructions_to_driver",
-   "fieldtype": "Data",
-   "label": "Special Instructions to Driver"
-  },
-  {
-   "fieldname": "main_delivery_note",
-   "fieldtype": "Attach",
-   "label": "Signed Delivery Note"
-  },
-  {
-   "fieldname": "main_offloading_report",
-   "fieldtype": "Attach",
-   "label": "Offloading Report"
-  },
-  {
-   "fieldname": "main_offloading_weight",
-   "fieldtype": "Date",
-   "label": "Offloading Weight"
   },
   {
    "fieldname": "section_main_fuel_request",
@@ -508,18 +415,6 @@
    "options": "Fuel Request Table"
   },
   {
-   "fieldname": "section_main_reporting",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Reporting"
-  },
-  {
-   "fieldname": "main_reporting_status",
-   "fieldtype": "Table",
-   "label": "Main Reporting Status",
-   "options": "Reporting Status Table"
-  },
-  {
    "fieldname": "section_main_requested_funds",
    "fieldtype": "Section Break",
    "label": "Main Trip Requested Funds"
@@ -529,86 +424,6 @@
    "fieldtype": "Table",
    "label": "Requested Funds for Main Trip",
    "options": "Requested Funds Details"
-  },
-  {
-   "fieldname": "section_main_expenses",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Main Trip Expenses"
-  },
-  {
-   "fieldname": "main_expenses",
-   "fieldtype": "Table",
-   "hidden": 1,
-   "label": "Main Trip Expenses",
-   "options": "Expenses"
-  },
-  {
-   "fieldname": "section_return_trip",
-   "fieldtype": "Section Break",
-   "label": "Return Trip Details"
-  },
-  {
-   "fieldname": "return_start_date",
-   "fieldtype": "Date",
-   "label": "Return Trip Start Date"
-  },
-  {
-   "fieldname": "return_customer",
-   "fieldtype": "Link",
-   "in_global_search": 1,
-   "in_standard_filter": 1,
-   "label": "Return Customer",
-   "options": "Customer"
-  },
-  {
-   "fieldname": "return_cargo_type",
-   "fieldtype": "Select",
-   "label": "Cargo Type",
-   "options": "\nContainer\nLoose Cargo"
-  },
-  {
-   "fieldname": "return_cargo_category",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Cargo Category",
-   "options": "Cargo Type"
-  },
-  {
-   "fieldname": "return_goods_description",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Cargo Description"
-  },
-  {
-   "fieldname": "column_break_38",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "return_amount",
-   "fieldtype": "Float",
-   "label": "Quantity"
-  },
-  {
-   "fieldname": "return_unit",
-   "fieldtype": "Link",
-   "label": "Unit",
-   "options": "Unit of Measure"
-  },
-  {
-   "fieldname": "return_loose_no_of_packages",
-   "fieldtype": "Int",
-   "label": "No of Packages"
-  },
-  {
-   "fieldname": "return_loose_gross_weight",
-   "fieldtype": "Int",
-   "label": "Gross Weight"
-  },
-  {
-   "fieldname": "return_loose_net_weight",
-   "fieldtype": "Int",
-   "label": "Net Weight"
   },
   {
    "fieldname": "section_return_cargo",
@@ -1025,7 +840,7 @@
   }
  ],
  "links": [],
- "modified": "2022-02-09 00:21:10.871850",
+ "modified": "2022-02-09 13:02:40.969023",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",
