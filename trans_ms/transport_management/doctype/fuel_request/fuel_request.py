@@ -10,7 +10,7 @@ from frappe.model.document import Document
 from frappe import _
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import nowdate
-from trans_ms.utlis import set_dimension
+from trans_ms.utlis.dimension import set_dimension
 
 
 class FuelRequest(Document):
