@@ -3,7 +3,15 @@
 
 frappe.ui.form.on('Trip Route', {
     refresh: function (frm) {
-        //console.log(frm);
+        frm.add_custom_button(__("Vehicle Inspection"), function () {
+            console.log("Vehicle Inspection");
+        });
+        frm.add_custom_button(__("Complet The Trip"), function () {
+            console.log("Complet The Trip");
+        });
+        frm.add_custom_button(__("Close The Trip"), function () {
+            console.log("Close The Trip");
+        });
     },
 
     validate: function (frm) {
@@ -58,7 +66,7 @@ frappe.ui.form.on('Trip Steps Table', {
 });
 
 
-a
+a;
 
 frappe.ui.form.on('Fixed Expense Table', {
     expense: function (frm, cdt, cdn) {
