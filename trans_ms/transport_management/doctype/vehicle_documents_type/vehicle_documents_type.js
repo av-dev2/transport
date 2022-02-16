@@ -1,8 +1,8 @@
-// Copyright (c) 2017, Bravo Logistics and contributors
+// Copyright (c) 2017, Aakvatech Limited and contributors
 // For license information, please see license.txt
 
 frappe.ui.form.on('Vehicle Documents Type', {
-	refresh: function(frm) {
+	refresh: function (frm) {
 
 	}
 });
