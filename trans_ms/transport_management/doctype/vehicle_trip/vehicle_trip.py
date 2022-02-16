@@ -55,9 +55,9 @@ class VehicleTrip(Document):
     def set_driver(self):
         if self.driver:
             for row in self.main_requested_funds:
-               row.party_type = "Driver" 
-               row.party = self.driver
-    
+                row.party_type = "Driver"
+                row.party = self.driver
+
     def before_save(self):
         # validate_requested_funds(self)
         self.validate_main_route_inputs()
@@ -320,12 +320,12 @@ def create_vehicle_trip(**args):
         doc.save()
 
         # If company vehicle, update vehicle status
-        if args.transporter == "In House":
-            vehicle = frappe.get_doc("Vehicle", args.vehicle)
-            vehicle.status = "En Route"
-            vehicle.hidden_status = 2
-            vehicle.current_trip = trip.name
-            vehicle.save()
+
+        vehicle = frappe.get_doc("Vehicle", args.vehicle)
+        vehicle.status = "In Trip"
+        # vehicle.hidden_status = 2
+        vehicle.current_trip = trip.name
+        vehicle.save()
         return trip
 
 
