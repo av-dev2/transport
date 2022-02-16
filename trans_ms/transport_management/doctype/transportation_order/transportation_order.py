@@ -20,6 +20,20 @@ class TransportationOrder(Document):
             if currency:
                 for row in self.assign_transport:
                     row.currency = currency
+        for row in self.assign_transport:
+            if not row.assigned_vehicle:
+                continue
+            vehicle_status = frappe.get_value("Vehicle",row.assigned_vehicle,"status")
+            if vehicle_status == "In Trip":
+                existing_vehicle_trip = frappe.db.get_value(
+                    "Vehicle Trip",
+                    {
+                        "reference_doctype": row.doctype,
+                        "reference_docname": row.name,
+                    },
+                )
+                if not existing_vehicle_trip:
+                    frappe.throw(_("Vehicle {0} is in trip").format(row.assigned_vehicle))
 
     def before_save(self):
         # For assignment status

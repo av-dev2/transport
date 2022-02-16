@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
-# Copyright (c) 2015, Bravo Logistics and Contributors
+# Copyright (c) 2022, Aakvatech Limited and Contributors
 # See license.txt
-from __future__ import unicode_literals
 
-import frappe
+# import frappe
 import unittest
-
-# test_records = frappe.get_test_records('Vehicle')
 
 class TestVehicle(unittest.TestCase):
 	pass
