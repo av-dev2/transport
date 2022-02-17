@@ -8,6 +8,9 @@
   "vehicle_fuel_parent_warehouse",
   "sales_item_group",
   "fuel_item_group",
+  "column_break_4",
+  "expense_account_group",
+  "cash_bank_account_group",
   "section_break_4",
   "accounting_dimension"
  ],
@@ -39,12 +42,28 @@
    "fieldtype": "Table",
    "label": "Accounting Dimension",
    "options": "Transport Accounting Dimension"
+  },
+  {
+   "fieldname": "expense_account_group",
+   "fieldtype": "Table MultiSelect",
+   "label": "Expense Account Group",
+   "options": "Transport Expense Account Group"
+  },
+  {
+   "fieldname": "cash_bank_account_group",
+   "fieldtype": "Table MultiSelect",
+   "label": "Cash or Bank Account Group",
+   "options": "Transport Cash Account Group"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-02-03 09:55:23.476300",
+ "modified": "2022-02-17 03:00:48.159240",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport Settings",

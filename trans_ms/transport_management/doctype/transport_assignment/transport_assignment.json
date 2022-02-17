@@ -132,6 +132,7 @@
   {
    "fieldname": "vehicle_plate_number",
    "fieldtype": "Data",
+   "hidden": 1,
    "in_global_search": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
@@ -148,6 +149,7 @@
   {
    "fieldname": "trailer_plate_number",
    "fieldtype": "Data",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Trailer Plate Number",
    "read_only": 1
@@ -386,7 +388,8 @@
   },
   {
    "fieldname": "section_break_34",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1
   },
   {
    "fieldname": "currency",
@@ -400,7 +403,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-02-01 21:10:57.171179",
+ "modified": "2022-02-17 00:08:52.434540",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport Assignment",

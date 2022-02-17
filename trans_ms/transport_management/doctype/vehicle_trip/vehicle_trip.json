@@ -57,51 +57,6 @@
   "main_fuel_request",
   "section_main_requested_funds",
   "main_requested_funds",
-  "section_return_cargo",
-  "return_customer_address_html",
-  "return_cargo",
-  "section_return_consignee_shipper",
-  "return_shipper",
-  "return_shipper_address_html",
-  "column_break_81",
-  "return_consignee",
-  "return_consignee_address_html",
-  "section_return_details",
-  "return_cargo_location_country",
-  "return_cargo_location_city",
-  "return_loading_point",
-  "column_break_46",
-  "return_cargo_destination_country",
-  "return_cargo_destination_city",
-  "return_offloading_point",
-  "section_return_route",
-  "return_eta",
-  "return_route",
-  "return_route_steps",
-  "return_location_update",
-  "section_return_delivery_note_information",
-  "return_shipment_ref_no",
-  "return_client_ref_no",
-  "return_border1_clearing",
-  "return_border2_clearing",
-  "return_border3_clearing",
-  "column_break_94",
-  "return_special_instructions_transporter",
-  "return_special_instructions_driver",
-  "return_delivery_note",
-  "return_offloading_report",
-  "return_offloading_weight",
-  "section_return_fuel_request",
-  "return_approved_fuel",
-  "return_fuel_request",
-  "section_return_reporting",
-  "return_reporting_status",
-  "section_return_requested_funds",
-  "return_requested_funds",
-  "section_return_expenses",
-  "return_expenses",
-  "section_subtrips",
-  "subtrips",
   "section_attachments",
   "attachments",
   "section_references",
@@ -111,24 +66,15 @@
   "main_import",
   "main_export",
   "column_break_35",
-  "return_reference_doctype",
-  "return_reference_docname",
-  "return_file_number",
-  "return_import",
-  "return_export",
   "section_trip_status",
   "main_status",
-  "return_status",
   "company",
   "column_break_74",
   "status",
   "hidden_status",
   "main_address_display",
   "main_consignee_display",
-  "main_shipper_display",
-  "return_consignee_display",
-  "return_shipper_display",
-  "return_address_display"
+  "main_shipper_display"
  ],
  "fields": [
   {
@@ -426,246 +372,6 @@
    "options": "Requested Funds Details"
   },
   {
-   "fieldname": "section_return_cargo",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "return_customer_address_html",
-   "fieldtype": "HTML",
-   "label": "Return Customer Address HTML"
-  },
-  {
-   "description": "Return Cargo",
-   "fieldname": "return_cargo",
-   "fieldtype": "Table",
-   "label": "Return Cargo",
-   "options": "Cargo Details"
-  },
-  {
-   "fieldname": "section_return_consignee_shipper",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Return Shipper and Consignee"
-  },
-  {
-   "fieldname": "return_shipper",
-   "fieldtype": "Link",
-   "label": "Shipper",
-   "options": "Customer"
-  },
-  {
-   "fieldname": "return_shipper_address_html",
-   "fieldtype": "HTML",
-   "label": "Return Shipper Address"
-  },
-  {
-   "fieldname": "column_break_81",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "return_consignee",
-   "fieldtype": "Link",
-   "label": "Consignee",
-   "options": "Customer"
-  },
-  {
-   "fieldname": "return_consignee_address_html",
-   "fieldtype": "HTML",
-   "label": "Return Consignee Address"
-  },
-  {
-   "fieldname": "section_return_details",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "return_cargo_location_country",
-   "fieldtype": "Link",
-   "label": "Return Cargo Location (Country)",
-   "options": "Country"
-  },
-  {
-   "fieldname": "return_cargo_location_city",
-   "fieldtype": "Data",
-   "label": "Return Cargo Location (City)"
-  },
-  {
-   "fieldname": "return_loading_point",
-   "fieldtype": "Data",
-   "label": "Return Cargo Loading Point"
-  },
-  {
-   "fieldname": "column_break_46",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "return_cargo_destination_country",
-   "fieldtype": "Link",
-   "label": "Return Cargo Destination (Country)",
-   "options": "Country"
-  },
-  {
-   "fieldname": "return_cargo_destination_city",
-   "fieldtype": "Data",
-   "label": "Return Cargo Destination (City)"
-  },
-  {
-   "fieldname": "return_offloading_point",
-   "fieldtype": "Data",
-   "label": "Return Cargo Offloading Point"
-  },
-  {
-   "fieldname": "section_return_route",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "return_eta",
-   "fieldtype": "Date",
-   "label": "ETA at Destination"
-  },
-  {
-   "fieldname": "return_route",
-   "fieldtype": "Link",
-   "label": "Returning Route",
-   "options": "Trip Route"
-  },
-  {
-   "description": "Return Route Steps",
-   "fieldname": "return_route_steps",
-   "fieldtype": "Table",
-   "label": "Return Route Steps",
-   "options": "Route Steps Table"
-  },
-  {
-   "description": "Location Update",
-   "fieldname": "return_location_update",
-   "fieldtype": "Table",
-   "label": "Location Update",
-   "options": "Vehicle Trip Location Update"
-  },
-  {
-   "fieldname": "section_return_delivery_note_information",
-   "fieldtype": "Section Break",
-   "label": "Delivery Note Information (Return Trip)"
-  },
-  {
-   "fieldname": "return_shipment_ref_no",
-   "fieldtype": "Data",
-   "label": "Shipment Ref No"
-  },
-  {
-   "fieldname": "return_client_ref_no",
-   "fieldtype": "Data",
-   "label": "Client Ref No."
-  },
-  {
-   "fieldname": "return_border1_clearing",
-   "fieldtype": "Link",
-   "label": "Border 1 Clearing Agent",
-   "options": "Supplier"
-  },
-  {
-   "fieldname": "return_border2_clearing",
-   "fieldtype": "Link",
-   "label": "Border 2 Clearing Agent",
-   "options": "Supplier"
-  },
-  {
-   "fieldname": "return_border3_clearing",
-   "fieldtype": "Link",
-   "label": "Border 3 Clearing Agent",
-   "options": "Supplier"
-  },
-  {
-   "fieldname": "column_break_94",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "return_special_instructions_transporter",
-   "fieldtype": "Data",
-   "label": "Special Instructions to Transporter"
-  },
-  {
-   "fieldname": "return_special_instructions_driver",
-   "fieldtype": "Data",
-   "label": "Special Instructions to Driver"
-  },
-  {
-   "fieldname": "return_delivery_note",
-   "fieldtype": "Attach",
-   "label": "Signed Delivery Note"
-  },
-  {
-   "fieldname": "return_offloading_report",
-   "fieldtype": "Attach",
-   "label": "Offloading Report"
-  },
-  {
-   "fieldname": "return_offloading_weight",
-   "fieldtype": "Date",
-   "label": "Offloading Weight"
-  },
-  {
-   "fieldname": "section_return_fuel_request",
-   "fieldtype": "Section Break",
-   "label": "Return Trip Fuel Request"
-  },
-  {
-   "fieldname": "return_approved_fuel",
-   "fieldtype": "Read Only",
-   "label": "Return Trip Pre-Approved Amount"
-  },
-  {
-   "fieldname": "return_fuel_request",
-   "fieldtype": "Table",
-   "label": "Return Trip Fuel Request",
-   "options": "Fuel Request Table"
-  },
-  {
-   "fieldname": "section_return_reporting",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Reporting"
-  },
-  {
-   "fieldname": "return_reporting_status",
-   "fieldtype": "Table",
-   "label": "Return Reporting Status",
-   "options": "Reporting Status Table"
-  },
-  {
-   "fieldname": "section_return_requested_funds",
-   "fieldtype": "Section Break",
-   "label": "Return Trip Requested Funds"
-  },
-  {
-   "fieldname": "return_requested_funds",
-   "fieldtype": "Table",
-   "label": "Return Trip Requested Funds",
-   "options": "Requested Funds Details"
-  },
-  {
-   "fieldname": "section_return_expenses",
-   "fieldtype": "Section Break",
-   "label": "Return Trip Expenses"
-  },
-  {
-   "fieldname": "return_expenses",
-   "fieldtype": "Table",
-   "label": "Return Trip Expenses",
-   "options": "Expenses"
-  },
-  {
-   "fieldname": "section_subtrips",
-   "fieldtype": "Section Break",
-   "hidden": 1,
-   "label": "Subtrips"
-  },
-  {
-   "fieldname": "subtrips",
-   "fieldtype": "Table",
-   "options": "Subtrips Table"
-  },
-  {
    "fieldname": "section_attachments",
    "fieldtype": "Section Break",
    "hidden": 1,
@@ -720,41 +426,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "return_reference_doctype",
-   "fieldtype": "Link",
-   "label": "Return Reference Doctype",
-   "options": "DocType",
-   "read_only": 1
-  },
-  {
-   "fieldname": "return_reference_docname",
-   "fieldtype": "Dynamic Link",
-   "label": "Retrun Reference Document",
-   "options": "return_reference_doctype",
-   "read_only": 1
-  },
-  {
-   "fieldname": "return_file_number",
-   "fieldtype": "Link",
-   "label": "Return Trip File Number",
-   "options": "Files",
-   "read_only": 1
-  },
-  {
-   "fieldname": "return_import",
-   "fieldtype": "Link",
-   "label": "Return Import Reference",
-   "options": "Import",
-   "read_only": 1
-  },
-  {
-   "fieldname": "return_export",
-   "fieldtype": "Link",
-   "label": "Return Export Reference",
-   "options": "Export",
-   "read_only": 1
-  },
-  {
    "fieldname": "section_trip_status",
    "fieldtype": "Section Break",
    "label": "Trip Status"
@@ -763,12 +434,6 @@
    "fieldname": "main_status",
    "fieldtype": "Data",
    "label": "Main Trip Status",
-   "read_only": 1
-  },
-  {
-   "fieldname": "return_status",
-   "fieldtype": "Data",
-   "label": "Return Trip Status",
    "read_only": 1
   },
   {
@@ -816,31 +481,10 @@
    "hidden": 1,
    "label": "Main Shipper Display",
    "print_hide": 1
-  },
-  {
-   "fieldname": "return_consignee_display",
-   "fieldtype": "Code",
-   "hidden": 1,
-   "label": "Return Consignee Display",
-   "print_hide": 1
-  },
-  {
-   "fieldname": "return_shipper_display",
-   "fieldtype": "Code",
-   "hidden": 1,
-   "label": "Return Shipper Display",
-   "print_hide": 1
-  },
-  {
-   "fieldname": "return_address_display",
-   "fieldtype": "Code",
-   "hidden": 1,
-   "label": "Return Address Display",
-   "print_hide": 1
   }
  ],
  "links": [],
- "modified": "2022-02-09 13:02:40.969023",
+ "modified": "2022-02-16 22:52:27.880772",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",

@@ -466,7 +466,7 @@ frappe.ui.form.on('Vehicle Trip', {
                         }
                     };
                 });
-            })
+            });
         //Show or hide return trip section
         frm.events.show_hide_sections(frm);
 
@@ -736,20 +736,20 @@ frappe.ui.form.on('Vehicle Trip', {
                 new_row.location_type = row.location_type;
             });
 
-            //For expenses
-            if (cur_frm.doc.main_requested_funds && cur_frm.doc.main_requested_funds.length == 0) {
-                if (reference_route.fixed_expenses.length > 0) {
-                    reference_route.fixed_expenses.forEach(function (row) {
-                        var aday = new Date();
-                        var new_row = cur_frm.add_child('main_requested_funds');
-                        new_row.request_date = aday.toISOString().split('T')[0];
-                        new_row.request_amount = row.amount;
-                        new_row.request_currency = row.currency;
-                        new_row.request_description = row.expense;
-                        new_row.request_status = 'Pre-Approved';
-                    });
-                }
-            }
+            // For expenses;
+            // if (cur_frm.doc.main_requested_funds && cur_frm.doc.main_requested_funds.length == 0) {
+            //     if (reference_route.fixed_expenses.length > 0) {
+            //         reference_route.fixed_expenses.forEach(function (row) {
+            //             var aday = new Date();
+            //             var new_row = cur_frm.add_child('main_requested_funds');
+            //             new_row.request_date = aday.toISOString().split('T')[0];
+            //             new_row.request_amount = row.amount;
+            //             new_row.request_currency = row.currency;
+            //             new_row.request_description = row.expense;
+            //             new_row.request_status = 'Pre-Approved';
+            //         });
+            //     }
+            // }
 
             cur_frm.refresh_field('main_requested_funds');
             cur_frm.refresh_field('main_route_steps');

@@ -4,32 +4,32 @@
 frappe.ui.form.on('Transportation Order', {
 	onload: function (frm) {
 		//Load the buttons
-			var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.assign_transport(\'' + frm + '\');">Assign Vehicles</button> ';
+		var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.assign_transport(\'' + frm + '\');">Assign Vehicles</button> ';
 		$(frm.fields_dict.html1.wrapper).html(html);
 
-        frm.set_query("cargo_location_city", "cargo", function(doc, cdt, cdn) {
-		    const row = frappe.get_doc(cdt, cdn);
-		    console.log(row, cdt, cdn);
-		    return {
-		        filters: {
-		            country: row.cargo_location_country,
-		        }
-		    }
-		})
+		frm.set_query("cargo_location_city", "cargo", function (doc, cdt, cdn) {
+			const row = frappe.get_doc(cdt, cdn);
+			console.log(row, cdt, cdn);
+			return {
+				filters: {
+					country: row.cargo_location_country,
+				}
+			};
+		});
 
-		frm.set_query("cargo_destination_city", "cargo", function(doc, cdt, cdn) {
-		    const row = frappe.get_doc(cdt, cdn);
-		    console.log(row, cdt, cdn);
-		    return {
-		        filters: {
-		            country: row.cargo_destination_country,
-		        }
-		    }
-		})
+		frm.set_query("cargo_destination_city", "cargo", function (doc, cdt, cdn) {
+			const row = frappe.get_doc(cdt, cdn);
+			console.log(row, cdt, cdn);
+			return {
+				filters: {
+					country: row.cargo_destination_country,
+				}
+			};
+		});
 	},
 
-	refresh: function (frm,cdt,cdn) {
-	//	console.log(frm);
+	refresh: function (frm, cdt, cdn) {
+		//	console.log(frm);
 
 		//Fix assignement details
 		frm.events.check_assignment_table(frm);
@@ -51,8 +51,8 @@ frappe.ui.form.on('Transportation Order', {
 						}
 					};
 				});
-			})
-		
+			});
+
 	},
 
 
@@ -530,24 +530,24 @@ frappe.ui.form.on("Transport Assignment", {
 		else if (doc.vehicle_status == 3) {
 			frappe.confirm(
 				'The vehicle is En Route on another trip. Set as return cargo? If you select no, a new trip will be created',
-				function () {
-					frappe.call({
-						method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_return_trip",
-						args: {
-							reference_doctype: "Transport Assignment",
-							reference_docname: doc.name,
-							vehicle: doc.assigned_vehicle,
-							transporter: doc.transporter_type,
-							vehicle_trip: doc.vehicle_trip
-						},
-						callback: function (data) {
-							console.log(data);
-							//cur_frm.set_value('status', 'Processed');
-							//cur_frm.save_or_update();
-							frappe.set_route('Form', data.message.doctype, data.message.name);
-						}
-					});
-				},
+				// function () {
+				// 	frappe.call({
+				// 		method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_return_trip",
+				// 		args: {
+				// 			reference_doctype: "Transport Assignment",
+				// 			reference_docname: doc.name,
+				// 			vehicle: doc.assigned_vehicle,
+				// 			transporter: doc.transporter_type,
+				// 			vehicle_trip: doc.vehicle_trip
+				// 		},
+				// 		callback: function (data) {
+				// 			console.log(data);
+				// 			//cur_frm.set_value('status', 'Processed');
+				// 			//cur_frm.save_or_update();
+				// 			frappe.set_route('Form', data.message.doctype, data.message.name);
+				// 		}
+				// 	});
+				// },
 				function () {
 					frappe.call({
 						method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_vehicle_trip",
@@ -555,7 +555,9 @@ frappe.ui.form.on("Transport Assignment", {
 							reference_doctype: "Transport Assignment",
 							reference_docname: doc.name,
 							vehicle: doc.assigned_vehicle,
-							transporter: doc.transporter_type
+							transporter: doc.transporter_type,
+							cargo: doc.cargo,
+							driver: doc.assigned_driver,
 						},
 						callback: function (data) {
 							console.log(data);
@@ -574,7 +576,9 @@ frappe.ui.form.on("Transport Assignment", {
 					reference_doctype: "Transport Assignment",
 					reference_docname: doc.name,
 					vehicle: doc.assigned_vehicle,
-					transporter: doc.transporter_type
+					transporter: doc.transporter_type,
+					cargo: doc.cargo,
+					driver: doc.assigned_driver,
 				},
 				callback: function (data) {
 					console.log(data);
@@ -597,36 +601,36 @@ cur_frm.cscript.assign_transport = function (frm) {
 
 	//If it is container based cargo
 	//if (cur_frm.doc.cargo_type == "Container") {
-		//Add selected rows to assign table
-		var selected = cur_frm.get_selected();
-		if (selected['cargo']) {
-			$.each(selected['cargo'], function (index, cargo_nm) {
-				var container_number = locals["Cargo Details"][cargo_nm].container_number;
-				var exists = $('[data-fieldname="assign_transport"]:contains("' + container_number + '")');
-				console.log(exists);
-				if (exists.length > 0) {
-					msgprint('Container No. ' + container_number + ' has already been processed.', 'Error');
+	//Add selected rows to assign table
+	var selected = cur_frm.get_selected();
+	if (selected['cargo']) {
+		$.each(selected['cargo'], function (index, cargo_nm) {
+			var container_number = locals["Cargo Details"][cargo_nm].container_number;
+			var exists = $('[data-fieldname="assign_transport"]:contains("' + container_number + '")');
+			console.log(exists);
+			if (exists.length > 0) {
+				msgprint('Container No. ' + container_number + ' has already been processed.', 'Error');
+			}
+			else {
+				var new_row = cur_frm.add_child("assign_transport");
+				new_row.cargo_type = cur_frm.doc.cargo_type;
+				new_row.cargo = locals["Cargo Details"][cargo_nm].name;
+				new_row.container_number = container_number;
+				new_row.expected_loading_date = cur_frm.doc.loading_date;
+				new_row.file_number = cur_frm.doc.file_number;
+				if (cur_frm.doc.reference_doctype == 'Import') {
+					new_row['import'] = cur_frm.doc.reference_docname;
 				}
-				else {
-					var new_row = cur_frm.add_child("assign_transport");
-					new_row.cargo_type = cur_frm.doc.cargo_type;
-					new_row.cargo = locals["Cargo Details"][cargo_nm].name;
-					new_row.container_number = container_number;
-					new_row.expected_loading_date = cur_frm.doc.loading_date;
-					new_row.file_number = cur_frm.doc.file_number;
-					if (cur_frm.doc.reference_doctype == 'Import') {
-						new_row['import'] = cur_frm.doc.reference_docname;
-					}
-					else if (cur_frm.reference_doctype == 'Export') {
-						new_row['export'] = cur_frm.doc.reference_docname;
-					}
-					cur_frm.refresh_field("assign_transport");
+				else if (cur_frm.reference_doctype == 'Export') {
+					new_row['export'] = cur_frm.doc.reference_docname;
 				}
-			});
-		}
-		else {
-			show_alert("Error: Please select cargo to process.");
-		}
+				cur_frm.refresh_field("assign_transport");
+			}
+		});
+	}
+	else {
+		show_alert("Error: Please select cargo to process.");
+	}
 	//}
 };
 
@@ -678,10 +682,10 @@ cur_frm.cscript.populate_child = function (reference_doctype, reference_docname)
 };
 
 frappe.ui.form.on('Cargo Details', {
-    onload(frm) {
-            
-    },
-	refersh(frm){
-		console.info("Table Refresh")
+	onload (frm) {
+
 	},
-})
+	refersh (frm) {
+		console.info("Table Refresh");
+	},
+});

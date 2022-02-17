@@ -23,7 +23,7 @@ class TransportationOrder(Document):
         for row in self.assign_transport:
             if not row.assigned_vehicle:
                 continue
-            vehicle_status = frappe.get_value("Vehicle",row.assigned_vehicle,"status")
+            vehicle_status = frappe.get_value("Vehicle", row.assigned_vehicle, "status")
             if vehicle_status == "In Trip":
                 existing_vehicle_trip = frappe.db.get_value(
                     "Vehicle Trip",
@@ -33,7 +33,9 @@ class TransportationOrder(Document):
                     },
                 )
                 if not existing_vehicle_trip:
-                    frappe.throw(_("Vehicle {0} is in trip").format(row.assigned_vehicle))
+                    frappe.throw(
+                        _("Vehicle {0} is in trip").format(row.assigned_vehicle)
+                    )
 
     def before_save(self):
         # For assignment status
@@ -336,7 +338,8 @@ def create_sales_invoice(doc, rows):
                 + row["assigned_vehicle"]
                 + "<BR>ROUTE: "
                 + row["route"]
-                + "<br>",
+                + "<BR>BL NUMBER: "
+                + frappe.db.get_value("Cargo Details", row["cargo"], "bl_number"),
             }
         )
     invoice = frappe.get_doc(
