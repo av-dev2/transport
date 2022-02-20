@@ -8,7 +8,6 @@
  "engine": "InnoDB",
  "field_order": [
   "description",
-  "expense_type",
   "currency",
   "fixed_value",
   "expense_account",
@@ -38,12 +37,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "expense_type",
-   "fieldtype": "Link",
-   "label": "Expense Type",
-   "options": "Expense Type"
-  },
-  {
    "fieldname": "expense_account",
    "fieldtype": "Link",
    "label": "Expense Account",
@@ -59,7 +52,7 @@
   }
  ],
  "links": [],
- "modified": "2022-02-16 18:40:18.307039",
+ "modified": "2022-02-17 17:57:32.022746",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Fixed Expense",

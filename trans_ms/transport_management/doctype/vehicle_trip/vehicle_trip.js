@@ -496,6 +496,17 @@ frappe.ui.form.on('Vehicle Trip', {
         frappe.after_ajax(function () {
             console.log(cur_frm);
         });
+
+
+        frm.add_custom_button(__("Vehicle Inspection"), function () {
+            frappe.new_doc('Vehicle Inspection', { vehicle: frm.doc.vehicle });
+        });
+        frm.add_custom_button(__("Complete Trip"), function () {
+            console.log("Complete Trip");
+        });
+        frm.add_custom_button(__("Close Trip"), function () {
+            console.log("Close Trip");
+        });
     },
 
     show_hide_sections: function (frm) {
@@ -825,7 +836,7 @@ frappe.ui.form.on('Vehicle Trip', {
             });
             if (new_main_request == true) {
                 frappe.call({
-                    method: "csf_tz.after_sales_services.doctype.requested_payments.requested_payments.request_funds",
+                    method: "trans_ms.transport_management.doctype.requested_payments.requested_payments.request_funds",
                     args: {
                         reference_doctype: "Vehicle Trip",
                         reference_docname: cur_frm.doc.name,
@@ -841,29 +852,29 @@ frappe.ui.form.on('Vehicle Trip', {
         }
 
         //For return trip
-        var new_return_request = false;
-        if (frm.doc.return_requested_funds && frm.doc.return_requested_funds.length > 0) {
-            frm.doc.return_requested_funds.forEach(function (row) {
-                if (row.request_status == "open" || (row.request_status == "Pre-Approved" && row.request_hidden_status != 'Sent')) {
-                    new_return_request = true;
-                }
-            });
-            if (new_return_request == true) {
-                frappe.call({
-                    method: "csf_tz.after_sales_services.doctype.requested_payments.requested_payments.request_funds",
-                    args: {
-                        reference_doctype: "Vehicle Trip",
-                        reference_docname: cur_frm.doc.name,
-                        company: cur_frm.doc.company
-                    },
-                    callback: function (data) {
-                        console.log(data);
-                        first_reload = false;
-                        //frm.reload_doc();
-                    }
-                });
-            }
-        }
+        // var new_return_request = false;
+        // if (frm.doc.return_requested_funds && frm.doc.return_requested_funds.length > 0) {
+        //     frm.doc.return_requested_funds.forEach(function (row) {
+        //         if (row.request_status == "open" || (row.request_status == "Pre-Approved" && row.request_hidden_status != 'Sent')) {
+        //             new_return_request = true;
+        //         }
+        //     });
+        //     if (new_return_request == true) {
+        //         frappe.call({
+        //             method: "csf_tz.after_sales_services.doctype.requested_payments.requested_payments.request_funds",
+        //             args: {
+        //                 reference_doctype: "Vehicle Trip",
+        //                 reference_docname: cur_frm.doc.name,
+        //                 company: cur_frm.doc.company
+        //             },
+        //             callback: function (data) {
+        //                 console.log(data);
+        //                 first_reload = false;
+        //                 //frm.reload_doc();
+        //             }
+        //         });
+        //     }
+        // }
     },
 
     after_save: function (frm) {
@@ -903,20 +914,20 @@ frappe.ui.form.on('Vehicle Trip', {
             });
         }
 
-        //Check if return trip offloaded
-        if (frm.doc.return_route_steps && frm.doc.return_route_steps.length > 0) {
-            frm.doc.return_route_steps.forEach(function (row) {
-                if (row.offloading_date != null && cur_frm.doc.hidden_status != null && cur_frm.doc.hidden_status < 5) //Status above 4 means either offloaded or trip closed
-                {
-                    offloaded = true;
-                    cur_frm.set_value('hidden_status', 5);
-                    cur_frm.set_value('status', 'Return Trip Offloaded');
-                    vehicle_status = 'En Route';
-                    vehicle_hidden_status = 5;
-                    to_save = true;
-                }
-            });
-        }
+        // //Check if return trip offloaded
+        // if (frm.doc.return_route_steps && frm.doc.return_route_steps.length > 0) {
+        //     frm.doc.return_route_steps.forEach(function (row) {
+        //         if (row.offloading_date != null && cur_frm.doc.hidden_status != null && cur_frm.doc.hidden_status < 5) //Status above 4 means either offloaded or trip closed
+        //         {
+        //             offloaded = true;
+        //             cur_frm.set_value('hidden_status', 5);
+        //             cur_frm.set_value('status', 'Return Trip Offloaded');
+        //             vehicle_status = 'En Route';
+        //             vehicle_hidden_status = 5;
+        //             to_save = true;
+        //         }
+        //     });
+        // }
 
         if (to_save) {
             //Update vehicle status if is not subcontractor vehicle

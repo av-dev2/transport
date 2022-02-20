@@ -71,16 +71,16 @@ class VehicleTrip(Document):
                 new_row.request_amount = row.amount
                 new_row.request_currency = row.currency
                 new_row.request_status = "Pre-Approved"
-                new_row.expense = row.expense
+                new_row.expense_type = row.expense
                 new_row.expense_account = fixed_expense_doc.expense_account
-                new_row.cash_bank_account = fixed_expense_doc.cash_bank_account
+                new_row.payable_account = fixed_expense_doc.cash_bank_account
 
     def set_driver(self):
         if not self.driver:
             frappe.throw("Driver is not set")
         employee = frappe.db.get_value("Driver", self.driver, "employee")
 
-        frappe.msgprint(employee)
+        # ./frappe.msgprint(employee)
         for row in self.main_requested_funds:
             row.party_type = "Employee"
             row.party = employee

@@ -3,15 +3,15 @@
 
 frappe.ui.form.on('Trip Route', {
     refresh: function (frm) {
-        frm.add_custom_button(__("Vehicle Inspection"), function () {
-            frappe.new_doc('Vehicle Inspection', { vehicle: frm.doc.vehicle });
-        });
-        frm.add_custom_button(__("Complet The Trip"), function () {
-            console.log("Complet The Trip");
-        });
-        frm.add_custom_button(__("Close The Trip"), function () {
-            console.log("Close The Trip");
-        });
+        // frm.add_custom_button(__("Vehicle Inspection"), function () {
+        //     frappe.new_doc('Vehicle Inspection', { vehicle: frm.doc.vehicle });
+        // });
+        // frm.add_custom_button(__("Complet The Trip"), function () {
+        //     console.log("Complet The Trip");
+        // });
+        // frm.add_custom_button(__("Close The Trip"), function () {
+        //     console.log("Close The Trip");
+        // });
     },
 
     validate: function (frm) {
