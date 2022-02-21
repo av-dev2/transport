@@ -59,6 +59,10 @@
   "main_requested_funds",
   "section_attachments",
   "attachments",
+  "section_break_54",
+  "fuel_stock_out",
+  "reduce_stock",
+  "stock_out_entry",
   "section_references",
   "reference_doctype",
   "reference_docname",
@@ -481,10 +485,31 @@
    "hidden": 1,
    "label": "Main Shipper Display",
    "print_hide": 1
+  },
+  {
+   "fieldname": "section_break_54",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "fuel_stock_out",
+   "fieldtype": "Int",
+   "label": "Fuel Stock Out"
+  },
+  {
+   "fieldname": "reduce_stock",
+   "fieldtype": "Button",
+   "label": "Reduce Stock"
+  },
+  {
+   "fieldname": "stock_out_entry",
+   "fieldtype": "Link",
+   "label": "Stock Out Entry",
+   "options": "Stock Entry",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2022-02-16 22:52:27.880772",
+ "modified": "2022-02-20 22:55:08.702304",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",

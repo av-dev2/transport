@@ -499,7 +499,7 @@ frappe.ui.form.on('Vehicle Trip', {
 
 
         frm.add_custom_button(__("Vehicle Inspection"), function () {
-            frappe.new_doc('Vehicle Inspection', { vehicle: frm.doc.vehicle });
+            frappe.new_doc('Vehicle Inspection', { trip_reference: frm.doc.name });
         });
         frm.add_custom_button(__("Complete Trip"), function () {
             console.log("Complete Trip");
