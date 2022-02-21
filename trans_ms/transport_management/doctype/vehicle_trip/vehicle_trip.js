@@ -404,7 +404,19 @@ frappe.ui.form.on('Vehicle Trip', {
         });
     },
 
-
+    reduce_stock: function (frm) {
+        if (frm.doc.stock_out_entry) return;
+        frappe.call({
+            method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_stock_out_entry",
+            args: {
+                doc: frm.doc,
+                fuel_stock_out: frm.doc.fuel_stock_out
+            },
+            callback: function (data) {
+                frappe.set_route('Form', data.message.doctype, data.message.name);
+            }
+        });
+    },
 
 
 

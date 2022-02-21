@@ -9,7 +9,7 @@ import datetime
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 import json
-from frappe.utils import nowdate, cstr, cint, flt, comma_or
+from frappe.utils import nowdate, cstr, cint, flt, comma_or, now
 from frappe import _, msgprint
 
 
@@ -550,3 +550,38 @@ def create_fund_jl(doc, row):
             item.journal_entry = jv_doc.name
     doc.save()
     return jv_doc
+
+
+@frappe.whitelist()
+def create_stock_out_entry(doc, fuel_stock_out):
+    doc = frappe.get_doc(json.loads(doc))
+    if doc.stock_out_entry:
+        return frappe.get_doc("Stock Entry", doc.stock_out_entry)
+    fuel_item = frappe.get_value("Transport Settings", None, "fuel_item")
+    if not fuel_item:
+        frappe.throw(_("Please Set Fuel Item in Transport Settings"))
+    warehouse = frappe.get_value("Driver", doc.driver, "fuel_warehouse")
+    if not warehouse:
+        frappe.throw(_("Please Set Fuel Warehouse in Driver"))
+    item = {"item_code": fuel_item, "qty": float(fuel_stock_out)}
+    stock_entry_doc = frappe.get_doc(
+        dict(
+            doctype="Stock Entry",
+            from_bom=0,
+            posting_date=nowdate(),
+            posting_time=now(),
+            items=[item],
+            stock_entry_type="Material Issue",
+            purpose="Material Issue",
+            from_warehouse=warehouse,
+            # to_warehouse=dispatch_bay_wh,
+            company=doc.company,
+            remarks="Transfer for {0} in vehicle {1}".format(
+                doc.driver_name,
+                doc.vehicle,
+            ),
+        )
+    ).insert(ignore_permissions=True)
+    doc.stock_out_entry = stock_entry_doc.name
+    doc.save()
+    return stock_entry_doc

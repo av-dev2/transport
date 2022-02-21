@@ -182,6 +182,7 @@ fixtures = [
                     "Vehicle-column_break_5",
                     "Vehicle-status",
                     "Vehicle-current_trip",
+                    "Driver-fuel_warehouse",
                 ),
             ]
         ],
