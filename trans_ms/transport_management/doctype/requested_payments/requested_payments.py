@@ -96,7 +96,10 @@ class RequestedPayments(Document):
                                 "return_requested_funds",
                             ),
                         ],
-                        "request_status": ["in", ("open", "Requested", "Recommended")],
+                        "request_status": [
+                            "in",
+                            ("open", "Requested", "Recommended", "Pre-Approved"),
+                        ],
                     },
                     "*",
                     as_dict=True,
