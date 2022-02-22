@@ -8,7 +8,7 @@
  "doctype": "Workspace",
  "extends_another_page": 0,
  "hide_custom": 0,
- "icon": "vehicle",
+ "icon": "map",
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
@@ -45,6 +45,15 @@
    "is_query_report": 0,
    "label": "Fuel Request",
    "link_to": "Fuel Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Requested Payment",
+   "link_to": "Requested Payments",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -138,7 +147,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-02-16 06:46:40.177930",
+ "modified": "2022-02-22 08:39:46.027595",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport",

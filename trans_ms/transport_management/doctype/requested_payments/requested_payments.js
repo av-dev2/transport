@@ -5,17 +5,17 @@ frappe.ui.form.on('Requested Payments', {
 	onload: function (frm) {
 		//Load the approve and reject buttons
 		var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.approve_request(\'' + frm + '\');">Approve</button> ';
-		html += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.reject_request(\'' + frm + '\');">Reject</button>'
+		html += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.reject_request(\'' + frm + '\');">Reject</button>';
 		$(frm.fields_dict.html1.wrapper).html(html);
 
 		//Load the recommend and recommend against buttons
 		var html2 = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.recommend_request(\'' + frm + '\');">Recommend</button> ';
-		html2 += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.recommend_against_request(\'' + frm + '\');">Recommend Against</button>'
+		html2 += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.recommend_against_request(\'' + frm + '\');">Recommend Against</button>';
 		$(frm.fields_dict.html2.wrapper).html(html2);
 
 		//Load the accounts approval buttons
 		var html3 = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.accounts_approval(\'' + frm + '\');">Approve</button> ';
-		html3 += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.accounts_cancel(\'' + frm + '\');">Cancel</button>'
+		html3 += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.accounts_cancel(\'' + frm + '\');">Cancel</button>';
 		$(frm.fields_dict.account_approval_buttons.wrapper).html(html3);
 
 		//cur_frm.disable_save();
@@ -124,7 +124,7 @@ frappe.ui.form.on('Requested Payments', {
 		frappe.model.open_mapped_doc({
 			method: "trans_ms.transport_management.doctype.requested_payments.requested_payments.make_payment",
 			frm: cur_frm
-		})
+		});
 	},
 
 	validate_payment: function (frm) {
@@ -145,7 +145,7 @@ frappe.ui.form.on('Requested Payments', {
 		//frm.toggle_display(['requested_funds', 'request_total_amount', 'section_previous_requested_funds', 'total_approved_amount', 'payments_reference', 'total_paid_amount'], true);
 	},
 
-	get_account_currency(frm, cdt, cdn, account) {
+	get_account_currency (frm, cdt, cdn, account) {
 		if (account) {
 			frappe.call({
 				'method': 'frappe.client.get_value',
@@ -267,7 +267,7 @@ cur_frm.cscript.recommend_request = function (frm) {
 	else {
 		show_alert("Error: Please select requests to process.");
 	}
-}
+};
 
 
 //For recommend against button
@@ -301,7 +301,7 @@ cur_frm.cscript.recommend_against_request = function (frm) {
 	else {
 		show_alert("Error: Please select requests to process.");
 	}
-}
+};
 
 
 //For approve button
@@ -335,7 +335,7 @@ cur_frm.cscript.approve_request = function (frm) {
 	else {
 		show_alert("Error: Please select requests to process.");
 	}
-}
+};
 
 //For reject button
 cur_frm.cscript.reject_request = function (frm) {
@@ -369,7 +369,7 @@ cur_frm.cscript.reject_request = function (frm) {
 	else {
 		show_alert("Error: Please select requests to process.");
 	}
-}
+};
 
 
 //For accounts approval
@@ -399,7 +399,7 @@ cur_frm.cscript.accounts_approval = function (frm) {
 				});
 				frappe.after_ajax(function () {
 					cur_frm.reload_doc();
-				})
+				});
 			},
 			function () {
 				//Do nothing
@@ -409,7 +409,7 @@ cur_frm.cscript.accounts_approval = function (frm) {
 	else {
 		show_alert("Error: Please select requests to process.");
 	}
-}
+};
 
 
 //For accounts cancel
@@ -449,7 +449,7 @@ cur_frm.cscript.accounts_cancel = function (frm) {
 	else {
 		show_alert("Error: Please select requests to process.");
 	}
-}
+};
 
 
 cur_frm.cscript.populate_child = function (reference_doctype, reference_docname) {
@@ -574,3 +574,25 @@ cur_frm.cscript.populate_child = function (reference_doctype, reference_docname)
 		}
 	});
 };
+
+
+frappe.ui.form.on('Requested Funds Details', {
+	disburse_funds: function (frm, cdt, cdn) {
+		if (frm.is_dirty()) {
+			frappe.throw(__("Plase Save First"));
+			return;
+		}
+		const row = locals[cdt][cdn];
+		if (row.journal_entry) return;
+		frappe.call({
+			method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_fund_jl",
+			args: {
+				doc: frm.doc,
+				row: row
+			},
+			callback: function (data) {
+				frappe.set_route('Form', data.message.doctype, data.message.name);
+			}
+		});
+	}
+});

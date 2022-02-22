@@ -11,6 +11,7 @@ from frappe.model.mapper import get_mapped_doc
 import json
 from frappe.utils import nowdate, cstr, cint, flt, comma_or, now
 from frappe import _, msgprint
+from trans_ms.utlis.dimension import set_dimension
 
 
 class VehicleTrip(Document):
@@ -539,13 +540,16 @@ def create_fund_jl(doc, row):
     jv_doc.flags.ignore_permissions = True
     frappe.flags.ignore_account_permission = True
     jv_doc.save()
+    set_dimension(doc, jv_doc)
+    for row in jv_doc.accounts:
+        set_dimension(doc, jv_doc, tr_child=row)
     # jv_doc.submit()
     jv_url = frappe.utils.get_url_to_form(jv_doc.doctype, jv_doc.name)
     si_msgprint = "Journal Entry Created <a href='{0}'>{1}</a>".format(
         jv_url, jv_doc.name
     )
     frappe.msgprint(_(si_msgprint))
-    for item in doc.main_requested_funds:
+    for item in doc.requested_funds:
         if item.name == row.name:
             item.journal_entry = jv_doc.name
     doc.save()
@@ -560,9 +564,9 @@ def create_stock_out_entry(doc, fuel_stock_out):
     fuel_item = frappe.get_value("Transport Settings", None, "fuel_item")
     if not fuel_item:
         frappe.throw(_("Please Set Fuel Item in Transport Settings"))
-    warehouse = frappe.get_value("Driver", doc.driver, "fuel_warehouse")
+    warehouse = frappe.get_value("Vehicle", doc.vehicle, "fuel_warehouse")
     if not warehouse:
-        frappe.throw(_("Please Set Fuel Warehouse in Driver"))
+        frappe.throw(_("Please Set Fuel Warehouse in Vehicle"))
     item = {"item_code": fuel_item, "qty": float(fuel_stock_out)}
     stock_entry_doc = frappe.get_doc(
         dict(
@@ -581,7 +585,10 @@ def create_stock_out_entry(doc, fuel_stock_out):
                 doc.vehicle,
             ),
         )
-    ).insert(ignore_permissions=True)
+    )
+    set_dimension(doc, stock_entry_doc)
+    set_dimension(doc, stock_entry_doc, tr_child=stock_entry_doc.items[0])
+    stock_entry_doc.insert(ignore_permissions=True)
     doc.stock_out_entry = stock_entry_doc.name
     doc.save()
     return stock_entry_doc

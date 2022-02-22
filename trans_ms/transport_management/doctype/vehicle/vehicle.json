@@ -1,316 +1,323 @@
 {
-  "actions": [],
-  "allow_import": 1,
-  "autoname": "field:number_plate",
-  "creation": "2017-02-27 15:05:04.382429",
-  "doctype": "DocType",
-  "document_type": "Document",
-  "editable_grid": 1,
-  "engine": "InnoDB",
-  "field_order": [
-    "number_plate",
-    "fleet_number",
-    "engine_number",
-    "chassis_number",
-    "make",
-    "model",
-    "axle_type",
-    "column_break_9",
-    "year",
-    "fuel_type",
-    "fuel_consumption",
-    "empty_container_fuel_consumption",
-    "flatbed_fuel_consumption",
-    "section_default_assignment",
-    "driver",
-    "column_break_10",
-    "default_trailer",
-    "section_acquisition_info",
-    "acquisition_date",
-    "acquisition_odometer",
-    "column_break_16",
-    "vehicle_value",
-    "insurance_details",
-    "insurance_company",
-    "policy_no",
-    "column_break_20",
-    "start_date",
-    "end_date",
-    "additional_details",
-    "color",
-    "wheels",
-    "doors",
-    "last_odometer",
-    "column_break_27",
-    "status",
-    "current_location",
-    "expected_location",
-    "eta",
-    "hidden_status",
-    "section_vehicle_documents",
-    "vehicle_documents",
-    "current_trip"
-  ],
-  "fields": [
-    {
-      "fieldname": "number_plate",
-      "fieldtype": "Data",
-      "label": "Number Plate",
-      "reqd": 1,
-      "unique": 1
-    },
-    {
-      "fieldname": "fleet_number",
-      "fieldtype": "Data",
-      "label": "Fleet Number"
-    },
-    {
-      "fieldname": "engine_number",
-      "fieldtype": "Data",
-      "label": "Engine Number",
-      "reqd": 1
-    },
-    {
-      "fieldname": "chassis_number",
-      "fieldtype": "Data",
-      "label": "Chassis Number"
-    },
-    {
-      "fieldname": "make",
-      "fieldtype": "Data",
-      "label": "Vehicle Make"
-    },
-    {
-      "fieldname": "model",
-      "fieldtype": "Data",
-      "label": "Model"
-    },
-    {
-      "default": "0",
-      "fieldname": "column_break_9",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "year",
-      "fieldtype": "Int",
-      "label": "Year"
-    },
-    {
-      "fieldname": "fuel_type",
-      "fieldtype": "Select",
-      "in_list_view": 1,
-      "in_standard_filter": 1,
-      "label": "Fuel Type",
-      "options": "Petrol\nDiesel\nNatural Gas\nElectric",
-      "reqd": 1
-    },
-    {
-      "fieldname": "fuel_consumption",
-      "fieldtype": "Float",
-      "label": "Fuel Consumption Per Km (Litres) While Carrying Cargo"
-    },
-    {
-      "fieldname": "empty_container_fuel_consumption",
-      "fieldtype": "Float",
-      "label": "Fuel Consumption With Empty Container"
-    },
-    {
-      "fieldname": "flatbed_fuel_consumption",
-      "fieldtype": "Float",
-      "label": "Fuel Consumption While Flatbed"
-    },
-    {
-      "fieldname": "section_default_assignment",
-      "fieldtype": "Section Break",
-      "label": "Default Assignment"
-    },
-    {
-      "fieldname": "driver",
-      "fieldtype": "Link",
-      "label": "Default Driver",
-      "options": "Driver"
-    },
-    {
-      "fieldname": "column_break_10",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "default_trailer",
-      "fieldtype": "Link",
-      "label": "Default Trailer",
-      "options": "Trailer"
-    },
-    {
-      "fieldname": "section_acquisition_info",
-      "fieldtype": "Section Break",
-      "label": "Acquisition Information"
-    },
-    {
-      "fieldname": "acquisition_date",
-      "fieldtype": "Date",
-      "in_filter": 1,
-      "label": "Acquisition Date"
-    },
-    {
-      "fieldname": "acquisition_odometer",
-      "fieldtype": "Int",
-      "label": "Ododmeter at Acquisition",
-      "reqd": 1,
-      "set_only_once": 1
-    },
-    {
-      "fieldname": "column_break_16",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "vehicle_value",
-      "fieldtype": "Currency",
-      "in_list_view": 1,
-      "label": "Vehicle Value",
-      "print_hide_if_no_value": 1
-    },
-    {
-      "fieldname": "insurance_details",
-      "fieldtype": "Section Break",
-      "label": "Insurance Details"
-    },
-    {
-      "fieldname": "insurance_company",
-      "fieldtype": "Data",
-      "in_filter": 1,
-      "label": "Insurance Company"
-    },
-    {
-      "fieldname": "policy_no",
-      "fieldtype": "Data",
-      "in_filter": 1,
-      "label": "Policy No"
-    },
-    {
-      "fieldname": "column_break_20",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "start_date",
-      "fieldtype": "Date",
-      "label": "Start Date"
-    },
-    {
-      "fieldname": "end_date",
-      "fieldtype": "Date",
-      "label": "End Date"
-    },
-    {
-      "fieldname": "additional_details",
-      "fieldtype": "Section Break",
-      "label": "Additional Details"
-    },
-    {
-      "fieldname": "color",
-      "fieldtype": "Data",
-      "label": "Color"
-    },
-    {
-      "fieldname": "wheels",
-      "fieldtype": "Int",
-      "label": "Wheels"
-    },
-    {
-      "fieldname": "doors",
-      "fieldtype": "Int",
-      "label": "Doors"
-    },
-    {
-      "fieldname": "last_odometer",
-      "fieldtype": "Int",
-      "in_filter": 1,
-      "in_list_view": 1,
-      "label": "Odometer Value (Last)",
-      "no_copy": 1,
-      "read_only": 1
-    },
-    {
-      "fieldname": "column_break_27",
-      "fieldtype": "Column Break"
-    },
-    {
-      "default": "Available",
-      "fieldname": "status",
-      "fieldtype": "Data",
-      "label": "Status",
-      "read_only": 1
-    },
-    {
-      "fieldname": "current_location",
-      "fieldtype": "Link",
-      "label": "Current Location",
-      "options": "Trip Location"
-    },
-    {
-      "fieldname": "expected_location",
-      "fieldtype": "Link",
-      "label": "Expected Location",
-      "options": "Trip Location"
-    },
-    {
-      "fieldname": "eta",
-      "fieldtype": "Date",
-      "label": "Expected Time at Location"
-    },
-    {
-      "fieldname": "hidden_status",
-      "fieldtype": "Int",
-      "hidden": 1,
-      "label": "Hidden Status"
-    },
-    {
-      "fieldname": "section_vehicle_documents",
-      "fieldtype": "Section Break",
-      "label": "Vehicle Documents"
-    },
-    {
-      "fieldname": "vehicle_documents",
-      "fieldtype": "Table",
-      "options": "Vehicle Documents"
-    },
-    {
-      "fieldname": "current_trip",
-      "fieldtype": "Data",
-      "label": "Current Trip",
-      "read_only": 1
-    },
-    {
-      "fieldname": "axle_type",
-      "fieldtype": "Link",
-      "label": "Axle Type",
-      "options": "Vehicle Axle Type"
-    }
-  ],
-  "links": [],
-  "modified": "2022-02-07 09:19:19.584622",
-  "modified_by": "Administrator",
-  "module": "Transport Management",
-  "name": "Vehicle",
-  "name_case": "Title Case",
-  "owner": "Administrator",
-  "permissions": [
-    {
-      "create": 1,
-      "delete": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "Clearing Agent",
-      "share": 1,
-      "write": 1
-    }
-  ],
-  "quick_entry": 1,
-  "search_fields": "engine_number",
-  "sort_field": "modified",
-  "sort_order": "DESC",
-  "title_field": "number_plate",
-  "track_changes": 1
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "field:number_plate",
+ "creation": "2017-02-27 15:05:04.382429",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "number_plate",
+  "fleet_number",
+  "engine_number",
+  "chassis_number",
+  "fuel_warehouse",
+  "make",
+  "model",
+  "axle_type",
+  "column_break_9",
+  "year",
+  "fuel_type",
+  "fuel_consumption",
+  "empty_container_fuel_consumption",
+  "flatbed_fuel_consumption",
+  "section_default_assignment",
+  "driver",
+  "column_break_10",
+  "default_trailer",
+  "section_acquisition_info",
+  "acquisition_date",
+  "acquisition_odometer",
+  "column_break_16",
+  "vehicle_value",
+  "insurance_details",
+  "insurance_company",
+  "policy_no",
+  "column_break_20",
+  "start_date",
+  "end_date",
+  "additional_details",
+  "color",
+  "wheels",
+  "doors",
+  "last_odometer",
+  "column_break_27",
+  "status",
+  "current_location",
+  "expected_location",
+  "eta",
+  "hidden_status",
+  "section_vehicle_documents",
+  "vehicle_documents",
+  "current_trip"
+ ],
+ "fields": [
+  {
+   "fieldname": "number_plate",
+   "fieldtype": "Data",
+   "label": "Number Plate",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "fleet_number",
+   "fieldtype": "Data",
+   "label": "Fleet Number"
+  },
+  {
+   "fieldname": "engine_number",
+   "fieldtype": "Data",
+   "label": "Engine Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "chassis_number",
+   "fieldtype": "Data",
+   "label": "Chassis Number"
+  },
+  {
+   "fieldname": "make",
+   "fieldtype": "Data",
+   "label": "Vehicle Make"
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "default": "0",
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Int",
+   "label": "Year"
+  },
+  {
+   "fieldname": "fuel_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Fuel Type",
+   "options": "Petrol\nDiesel\nNatural Gas\nElectric",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fuel_consumption",
+   "fieldtype": "Float",
+   "label": "Fuel Consumption Per Km (Litres) While Carrying Cargo"
+  },
+  {
+   "fieldname": "empty_container_fuel_consumption",
+   "fieldtype": "Float",
+   "label": "Fuel Consumption With Empty Container"
+  },
+  {
+   "fieldname": "flatbed_fuel_consumption",
+   "fieldtype": "Float",
+   "label": "Fuel Consumption While Flatbed"
+  },
+  {
+   "fieldname": "section_default_assignment",
+   "fieldtype": "Section Break",
+   "label": "Default Assignment"
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Default Driver",
+   "options": "Driver"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_trailer",
+   "fieldtype": "Link",
+   "label": "Default Trailer",
+   "options": "Trailer"
+  },
+  {
+   "fieldname": "section_acquisition_info",
+   "fieldtype": "Section Break",
+   "label": "Acquisition Information"
+  },
+  {
+   "fieldname": "acquisition_date",
+   "fieldtype": "Date",
+   "in_filter": 1,
+   "label": "Acquisition Date"
+  },
+  {
+   "fieldname": "acquisition_odometer",
+   "fieldtype": "Int",
+   "label": "Ododmeter at Acquisition",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vehicle_value",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Vehicle Value",
+   "print_hide_if_no_value": 1
+  },
+  {
+   "fieldname": "insurance_details",
+   "fieldtype": "Section Break",
+   "label": "Insurance Details"
+  },
+  {
+   "fieldname": "insurance_company",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "label": "Insurance Company"
+  },
+  {
+   "fieldname": "policy_no",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "label": "Policy No"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "additional_details",
+   "fieldtype": "Section Break",
+   "label": "Additional Details"
+  },
+  {
+   "fieldname": "color",
+   "fieldtype": "Data",
+   "label": "Color"
+  },
+  {
+   "fieldname": "wheels",
+   "fieldtype": "Int",
+   "label": "Wheels"
+  },
+  {
+   "fieldname": "doors",
+   "fieldtype": "Int",
+   "label": "Doors"
+  },
+  {
+   "fieldname": "last_odometer",
+   "fieldtype": "Int",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Odometer Value (Last)",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Available",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_location",
+   "fieldtype": "Link",
+   "label": "Current Location",
+   "options": "Trip Location"
+  },
+  {
+   "fieldname": "expected_location",
+   "fieldtype": "Link",
+   "label": "Expected Location",
+   "options": "Trip Location"
+  },
+  {
+   "fieldname": "eta",
+   "fieldtype": "Date",
+   "label": "Expected Time at Location"
+  },
+  {
+   "fieldname": "hidden_status",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Hidden Status"
+  },
+  {
+   "fieldname": "section_vehicle_documents",
+   "fieldtype": "Section Break",
+   "label": "Vehicle Documents"
+  },
+  {
+   "fieldname": "vehicle_documents",
+   "fieldtype": "Table",
+   "options": "Vehicle Documents"
+  },
+  {
+   "fieldname": "current_trip",
+   "fieldtype": "Data",
+   "label": "Current Trip",
+   "read_only": 1
+  },
+  {
+   "fieldname": "axle_type",
+   "fieldtype": "Link",
+   "label": "Axle Type",
+   "options": "Vehicle Axle Type"
+  },
+  {
+   "fieldname": "fuel_warehouse",
+   "fieldtype": "Link",
+   "label": "Fuel Warehouse",
+   "options": "Warehouse"
+  }
+ ],
+ "links": [],
+ "modified": "2022-02-22 14:57:41.334355",
+ "modified_by": "Administrator",
+ "module": "Transport Management",
+ "name": "Vehicle",
+ "name_case": "Title Case",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Clearing Agent",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "engine_number",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "number_plate",
+ "track_changes": 1
 }
