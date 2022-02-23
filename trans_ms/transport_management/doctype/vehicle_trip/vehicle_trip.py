@@ -504,9 +504,7 @@ def create_fund_jl(doc, row):
         account=row.expense_account,
         debit_in_account_currency=row.request_amount,
         cost_center=row.cost_center,
-        department=row.get("department")
-        or doc.get("department")
-        or "Transportation - RKCL",
+        # department=row.get("department") or doc.get("department"),
     )
     accounts.append(debit_row)
     credit_row = dict(
@@ -515,9 +513,7 @@ def create_fund_jl(doc, row):
         cost_center=row.cost_center,
         party_type=row.party_type,
         party=row.party,
-        department=row.get("department")
-        or doc.get("department")
-        or "Transportation - RKCL",
+        # department=row.get("department") or doc.get("department"),
     )
     accounts.append(credit_row)
 
@@ -532,17 +528,15 @@ def create_fund_jl(doc, row):
             cheque_date=date,
             company=company,
             user_remark=user_remark,
-            department=row.get("department")
-            or doc.get("department")
-            or "Transportation - RKCL",
+            # department=row.get("department") or doc.get("department"),
         )
     )
     jv_doc.flags.ignore_permissions = True
     frappe.flags.ignore_account_permission = True
-    jv_doc.save()
     set_dimension(doc, jv_doc)
     for row in jv_doc.accounts:
         set_dimension(doc, jv_doc, tr_child=row)
+    jv_doc.save()
     # jv_doc.submit()
     jv_url = frappe.utils.get_url_to_form(jv_doc.doctype, jv_doc.name)
     si_msgprint = "Journal Entry Created <a href='{0}'>{1}</a>".format(
