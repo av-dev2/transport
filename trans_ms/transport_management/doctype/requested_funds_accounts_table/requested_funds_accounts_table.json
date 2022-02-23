@@ -5,6 +5,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "disburse_funds",
   "request_date",
   "expense_type",
   "request_description",
@@ -44,7 +45,8 @@
   "column_break_37",
   "accounts_approved_by",
   "accounts_approved_on",
-  "accounts_approver_comment"
+  "accounts_approver_comment",
+  "journal_entry"
  ],
  "fields": [
   {
@@ -278,11 +280,22 @@
    "fieldtype": "Data",
    "label": "Accounts Approver Comment",
    "permlevel": 4
+  },
+  {
+   "depends_on": "eval: !doc.journal_entry",
+   "fieldname": "disburse_funds",
+   "fieldtype": "Button",
+   "label": "Disburse Funds"
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Data",
+   "label": "Journal Entry"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2022-02-20 16:42:19.097194",
+ "modified": "2022-02-23 15:48:55.547553",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Requested Funds Accounts Table",

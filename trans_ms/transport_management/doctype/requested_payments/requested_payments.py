@@ -713,3 +713,30 @@ def make_payment(source_name, target_doc=None, ignore_permissions=False):
     pe.allocate_payment_amount = 1
 
     return pe
+
+
+@frappe.whitelist(allow_guest=True)
+def approve_request(**args):
+    args = frappe._dict(args)
+    # Timestamp
+    ts = time.time()
+    timestamp = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+    doc = frappe.get_doc("Requested Funds Details", args.request_docname)
+    doc.db_set("request_status", "Approved")
+    doc.db_set("approved_by", args.user)
+    doc.db_set("approved_date", timestamp)
+    return "Request Updated"
+
+
+@frappe.whitelist(allow_guest=True)
+def reject_request(**args):
+    args = frappe._dict(args)
+    # Timestamp
+    ts = time.time()
+    timestamp = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+
+    doc = frappe.get_doc("Requested Funds Details", args.request_docname)
+    doc.db_set("request_status", "Rejected")
+    doc.db_set("approved_by", args.user)
+    doc.db_set("approved_date", timestamp)
+    return "Request Updated"

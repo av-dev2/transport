@@ -35,6 +35,7 @@
   "accounts_approver_comment",
   "status_section",
   "posting_date",
+  "approved_date",
   "expense_account",
   "payable_account",
   "payee",
@@ -55,6 +56,7 @@
    "depends_on": "eval: !doc.journal_entry",
    "fieldname": "disburse_funds",
    "fieldtype": "Button",
+   "hidden": 1,
    "label": "Disburse Funds"
   },
   {
@@ -82,6 +84,7 @@
    "label": "Description"
   },
   {
+   "fetch_from": "expense_type.fixed_value",
    "fieldname": "request_amount",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -89,6 +92,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "expense_type.currency",
    "fieldname": "request_currency",
    "fieldtype": "Link",
    "label": "Currency",
@@ -123,6 +127,7 @@
    "label": "Quatation/Invoice"
   },
   {
+   "fetch_from": "expense_account.account_currency",
    "fieldname": "expense_account_currency",
    "fieldtype": "Link",
    "label": "Expense Account Currency",
@@ -234,6 +239,7 @@
    "read_only": 1
   },
   {
+   "fetch_from": "expense_type.expense_account",
    "fieldname": "expense_account",
    "fieldtype": "Link",
    "label": "Expense Account",
@@ -241,6 +247,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "expense_type.cash_bank_account",
    "fieldname": "payable_account",
    "fieldtype": "Link",
    "label": "Payable Account",
@@ -276,6 +283,7 @@
    "hidden": 1
   },
   {
+   "fetch_from": "payable_account.account_currency",
    "fieldname": "payable_account_currency",
    "fieldtype": "Link",
    "label": "Payable Account Currency",
@@ -305,11 +313,17 @@
   {
    "fieldname": "section_break_40",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "approved_date",
+   "fieldtype": "Date",
+   "label": "Approved Date",
+   "read_only": 1
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2022-02-17 17:52:24.113102",
+ "modified": "2022-02-23 15:49:16.534628",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Requested Funds Details",

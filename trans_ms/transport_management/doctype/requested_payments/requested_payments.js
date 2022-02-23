@@ -3,29 +3,39 @@
 
 frappe.ui.form.on('Requested Payments', {
 	onload: function (frm) {
+		// //Load the approve and reject buttons
+		// var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.approve_request(\'' + frm + '\');">Approve</button> ';
+		// html += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.reject_request(\'' + frm + '\');">Reject</button>';
+		// $(frm.fields_dict.html1.wrapper).html(html);
+
+		// //Load the recommend and recommend against buttons
+		// var html2 = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.recommend_request(\'' + frm + '\');">Recommend</button> ';
+		// html2 += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.recommend_against_request(\'' + frm + '\');">Recommend Against</button>';
+		// $(frm.fields_dict.html2.wrapper).html(html2);
+
 		//Load the approve and reject buttons
 		var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.approve_request(\'' + frm + '\');">Approve</button> ';
 		html += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.reject_request(\'' + frm + '\');">Reject</button>';
-		$(frm.fields_dict.html1.wrapper).html(html);
-
-		//Load the recommend and recommend against buttons
-		var html2 = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.recommend_request(\'' + frm + '\');">Recommend</button> ';
-		html2 += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.recommend_against_request(\'' + frm + '\');">Recommend Against</button>';
-		$(frm.fields_dict.html2.wrapper).html(html2);
+		$(frm.fields_dict.approve_buttons.wrapper).html(html);
 
 		//Load the accounts approval buttons
 		var html3 = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.accounts_approval(\'' + frm + '\');">Approve</button> ';
 		html3 += '<button style="background-color: red; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.accounts_cancel(\'' + frm + '\');">Cancel</button>';
-		$(frm.fields_dict.account_approval_buttons.wrapper).html(html3);
+		$(frm.fields_dict.html1.wrapper).html(html3);
 
-		//cur_frm.disable_save();
-		frappe.after_ajax(function () {
-			frm.events.show_hide_sections(frm);
-		});
+		// //cur_frm.disable_save();
+		// frappe.after_ajax(function () {
+		// 	frm.events.show_hide_sections(frm);
+		// });
 	},
 
 	refresh: function (frm) {
 		console.log(frm);
+
+		// Hide delete buttons for Requested fuel Child Doctype
+		$('*[data-fieldname="requested_funds"]').find('.grid-remove-rows').hide();
+		$('*[data-fieldname="requested_funds"]').find('.grid-remove-all-rows').hide();
+		$('*[data-fieldname="requested_funds"]').find('.grid-add-row').hide();
 
 		//Beautify the previous approved table
 		$(frm.wrapper).on("grid-row-render", function (e, grid_row) {
@@ -164,7 +174,17 @@ frappe.ui.form.on('Requested Payments', {
 	}
 });
 
+frappe.ui.form.on('Requested Funds Details', {
 
+	form_render (frm, cdt, cdn) {
+		frm.fields_dict.requested_funds.grid.wrapper.find('.grid-delete-row').hide();
+		frm.fields_dict.requested_funds.grid.wrapper.find('.grid-duplicate-row').hide();
+		frm.fields_dict.requested_funds.grid.wrapper.find('.grid-move-row').hide();
+		frm.fields_dict.requested_funds.grid.wrapper.find('.grid-append-row').hide();
+		frm.fields_dict.requested_funds.grid.wrapper.find('.grid-insert-row-below').hide();
+		frm.fields_dict.requested_funds.grid.wrapper.find('.grid-insert-row').hide();
+	},
+});
 frappe.ui.form.on('Requested Funds Accounts Table', {
 	form_render: function (frm, cdt, cdn) {
 		frappe.call({
@@ -576,7 +596,7 @@ cur_frm.cscript.populate_child = function (reference_doctype, reference_docname)
 };
 
 
-frappe.ui.form.on('Requested Funds Details', {
+frappe.ui.form.on('Requested Funds Accounts Table', {
 	disburse_funds: function (frm, cdt, cdn) {
 		if (frm.is_dirty()) {
 			frappe.throw(__("Plase Save First"));
@@ -596,3 +616,71 @@ frappe.ui.form.on('Requested Funds Details', {
 		});
 	}
 });
+
+
+
+
+//For approve button
+cur_frm.cscript.approve_request = function (frm) {
+	var selected = cur_frm.get_selected();
+	if (selected['requested_funds']) {
+		frappe.confirm(
+			'Confirm: Approve selected requests?',
+			function () {
+				$.each(selected['requested_funds'], function (index, value) {
+					frappe.call({
+						method: "trans_ms.transport_management.doctype.requested_payments.requested_payments.approve_request",
+						freeze: true,
+						args: {
+							request_doctype: "Requested Funds Details",
+							request_docname: value,
+							user: frappe.user.full_name()
+						},
+						callback: function (data) {
+							//alert(JSON.stringify(data));
+						}
+					});
+				});
+				location.reload();
+			},
+			function () {
+				//Do nothing
+			}
+		);
+	} else {
+		show_alert("Error: Please select requests to process.");
+	}
+};
+
+//For reject button
+cur_frm.cscript.reject_request = function (frm) {
+	//cur_frm.cscript.populate_child(cur_frm.doc.reference_doctype, cur_frm.doc.reference_docname);
+	var selected = cur_frm.get_selected();
+	if (selected['requested_funds']) {
+		frappe.confirm(
+			'Confirm: Reject selected requests?',
+			function () {
+				$.each(selected['requested_funds'], function (index, value) {
+					frappe.call({
+						method: "trans_ms.transport_management.doctype.requested_payments.requested_payments.reject_request",
+						freeze: true,
+						args: {
+							request_doctype: "Requested Funds Details",
+							request_docname: value,
+							user: frappe.user.full_name()
+						},
+						callback: function (data) {
+							//alert(JSON.stringify(data));
+						}
+					});
+				});
+				location.reload();
+			},
+			function () {
+				//Do nothing
+			}
+		);
+	} else {
+		show_alert("Error: Please select requests to process.");
+	}
+};
