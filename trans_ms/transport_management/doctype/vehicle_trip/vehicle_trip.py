@@ -19,6 +19,10 @@ class VehicleTrip(Document):
     #     self.set_expenses()
     #     self.set_driver()
 
+    def on_submit(self):
+        if not self.stock_out_entry:
+            frappe.throw(_("Stock Out Entry is not set"))
+
     def onload(self):
         # Load approved fuel for main trip
         # if self.transporter_type not in ["Sub-Contractor", "Self Drive"] and self.get(
