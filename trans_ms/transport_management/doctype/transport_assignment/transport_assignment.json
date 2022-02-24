@@ -366,7 +366,7 @@
   {
    "fieldname": "item",
    "fieldtype": "Link",
-   "label": "Item",
+   "label": "Service Item",
    "options": "Item",
    "reqd": 1
   },
@@ -403,7 +403,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-02-17 00:08:52.434540",
+ "modified": "2022-02-22 15:42:08.596789",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport Assignment",

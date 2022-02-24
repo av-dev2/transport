@@ -53,9 +53,11 @@ class VehicleTrip(Document):
                 "Company"
             ) or frappe.defaults.get_global_default("company")
 
+    def before_insert(self):
+        self.set_expenses()
+
     def validate(self):
         self.validate_fuel_requests()
-        self.set_expenses()
         self.set_driver()
 
     def set_expenses(self):

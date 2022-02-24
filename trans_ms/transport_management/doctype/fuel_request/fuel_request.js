@@ -13,6 +13,11 @@ frappe.ui.form.on('Fuel Request', {
     refresh: function (frm, cdt, cdn) {
         frm.events.show_hide_sections(frm);
 
+        // Hide delete buttons for Requested fuel Child Doctype
+        $('*[data-fieldname="requested_fuel"]').find('.grid-remove-rows').hide();
+        $('*[data-fieldname="requested_fuel"]').find('.grid-remove-all-rows').hide();
+        $('*[data-fieldname="requested_fuel"]').find('.grid-add-row').hide();
+
         // if (cur_frm.doc.status === "Fully Processed") {
         //     frappe.msgprint(locals[cdt][cdn].status);
         //     var row = frm.fields_dict['approved_requests'].grid.grid_rows_by_docname[cdn];
@@ -59,29 +64,20 @@ frappe.ui.form.on('Fuel Request', {
 
 
 frappe.ui.form.on('Fuel Request Table', {
-    // form_render: function (frm, cdt, cdn) {
-    //     frm.events.show_hide_request_fields(frm, cdt, cdn);
-    // },
 
-    // disburcement_type: function (frm, cdt, cdn) {
-    //     frm.events.show_hide_request_fields(frm, cdt, cdn);
-    // },
+    form_render (frm, cdt, cdn) {
+        frm.fields_dict.requested_fuel.grid.wrapper.find('.grid-delete-row').hide();
+        frm.fields_dict.requested_fuel.grid.wrapper.find('.grid-duplicate-row').hide();
+        frm.fields_dict.requested_fuel.grid.wrapper.find('.grid-move-row').hide();
+        frm.fields_dict.requested_fuel.grid.wrapper.find('.grid-append-row').hide();
+        frm.fields_dict.requested_fuel.grid.wrapper.find('.grid-insert-row-below').hide();
+        frm.fields_dict.requested_fuel.grid.wrapper.find('.grid-insert-row').hide();
+    },
 
-    // supplier: function (frm, cdt, cdn) {
-    //     frm.events.show_hide_request_fields(frm, cdt, cdn);
-    // },
 
-    // receipt_date: function (frm, cdt, cdn) {
-    //     frm.events.show_hide_request_fields(frm, cdt, cdn);
-    //     locals[cdt][cdn].received_by = frappe.session.user;
-    // },
-
-    // receipt_time: function (frm, cdt, cdn) {
-    //     frm.events.show_hide_request_fields(frm, cdt, cdn);
-    // },
     create_purchase_order: (frm, cdt, cdn) => {
         const row = locals[cdt][cdn];
-        if (row.purchase_order) return;
+        if (row.purchase_order || row.status != "Approved") return;
         console.info("frm", frm);
         frappe.call({
             method: "trans_ms.transport_management.doctype.fuel_request.fuel_request.create_purchase_order",

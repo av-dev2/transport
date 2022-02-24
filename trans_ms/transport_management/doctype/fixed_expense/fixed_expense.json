@@ -33,26 +33,24 @@
    "fieldname": "fixed_value",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Fixed Value",
+   "label": "Fixed Amount",
    "reqd": 1
   },
   {
    "fieldname": "expense_account",
    "fieldtype": "Link",
    "label": "Expense Account",
-   "options": "Account",
-   "reqd": 1
+   "options": "Account"
   },
   {
    "fieldname": "cash_bank_account",
    "fieldtype": "Link",
    "label": "Cash / Bank Account",
-   "options": "Account",
-   "reqd": 1
+   "options": "Account"
   }
  ],
  "links": [],
- "modified": "2022-02-17 17:57:32.022746",
+ "modified": "2022-02-22 16:53:49.124568",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Fixed Expense",

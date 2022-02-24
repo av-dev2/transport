@@ -78,7 +78,8 @@
   "hidden_status",
   "main_address_display",
   "main_consignee_display",
-  "main_shipper_display"
+  "main_shipper_display",
+  "amended_from"
  ],
  "fields": [
   {
@@ -505,10 +506,20 @@
    "fieldtype": "Link",
    "label": "Stock Out Entry",
    "options": "Stock Entry"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Vehicle Trip",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
+ "is_submittable": 1,
  "links": [],
- "modified": "2022-02-22 14:40:48.097949",
+ "modified": "2022-02-23 22:39:42.218535",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",
