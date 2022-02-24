@@ -514,10 +514,12 @@ frappe.ui.form.on('Vehicle Trip', {
             frappe.new_doc('Vehicle Inspection', { trip_reference: frm.doc.name });
         });
         frm.add_custom_button(__("Complete Trip"), function () {
-            console.log("Complete Trip");
-        });
-        frm.add_custom_button(__("Close Trip"), function () {
-            console.log("Close Trip");
+            frappe.db.set_value('Vehicle', frm.doc.vehicle, {
+                current_trip: '',
+                status: 'Available'
+            }).then(r => {
+                frappe.msgprint(__(`Vehicle ${frm.doc.vehicle} is Available now`));
+            });
         });
     },
 
