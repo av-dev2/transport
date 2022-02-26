@@ -85,7 +85,7 @@ frappe.ui.form.on('Transportation Order', {
 		{
 			//Show the not saved label in indicator
 			frm.page.set_indicator('Not Saved', 'orange');
-		
+
 			//Activate the submit button (The label has been changed to save)
 			frm.page.set_primary_action(__("Save"), function() {
 				//First validate vehicle assign table
@@ -343,7 +343,7 @@ frappe.ui.form.on('Transportation Order', {
 				}
 			}
 		});
- 
+
 		//If the process is not interrupted, then all is well and return true
 		if (valid == true) {
 			return true;
@@ -603,27 +603,30 @@ cur_frm.cscript.assign_transport = function (frm) {
 	//if (cur_frm.doc.cargo_type == "Container") {
 	//Add selected rows to assign table
 	var selected = cur_frm.get_selected();
+	// var def_curr
 	if (selected['cargo']) {
-		$.each(selected['cargo'], function (index, cargo_nm) {
+		$.each(selected['cargo'], async function (index, cargo_nm) {
 			var container_number = locals["Cargo Details"][cargo_nm].container_number;
+			var response = await frappe.db.get_value('Customer', cur_frm.doc.customer, 'default_currency');
+			var transport_currency = response.message.default_currency;
 			var exists = $('[data-fieldname="assign_transport"]:contains("' + container_number + '")');
 			console.log(exists);
 			if (exists.length > 0) {
 				msgprint('Container No. ' + container_number + ' has already been processed.', 'Error');
 			}
 			else {
-				var new_row = cur_frm.add_child("assign_transport");
-				new_row.cargo_type = cur_frm.doc.cargo_type;
+				// new_row.cargo_type = cur_frm.doc.cargo_type;
 				new_row.cargo = locals["Cargo Details"][cargo_nm].name;
 				new_row.container_number = container_number;
+				frappe.model.set_value(new_row.doctype, new_row.name, "currency", transport_currency);
 				new_row.expected_loading_date = cur_frm.doc.loading_date;
-				new_row.file_number = cur_frm.doc.file_number;
-				if (cur_frm.doc.reference_doctype == 'Import') {
-					new_row['import'] = cur_frm.doc.reference_docname;
-				}
-				else if (cur_frm.reference_doctype == 'Export') {
-					new_row['export'] = cur_frm.doc.reference_docname;
-				}
+				// new_row.file_number = cur_frm.doc.file_number;
+				// if (cur_frm.doc.reference_doctype == 'Import') {
+				// 	new_row['import'] = cur_frm.doc.reference_docname;
+				// }
+				// else if (cur_frm.reference_doctype == 'Export') {
+				// 	new_row['export'] = cur_frm.doc.reference_docname;
+				// }
 				cur_frm.refresh_field("assign_transport");
 			}
 		});
@@ -682,10 +685,10 @@ cur_frm.cscript.populate_child = function (reference_doctype, reference_docname)
 };
 
 frappe.ui.form.on('Cargo Details', {
-	onload (frm) {
+	onload(frm) {
 
 	},
-	refersh (frm) {
+	refersh(frm) {
 		console.info("Table Refresh");
 	},
 });

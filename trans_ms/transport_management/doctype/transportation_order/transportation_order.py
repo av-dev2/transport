@@ -328,18 +328,20 @@ def create_sales_invoice(doc, rows):
         return
     items = []
     for row in rows:
+        description = ""
+        if row["assigned_vehicle"]:
+            description += "<b>VEHICLE NUMBER: " + row["assigned_vehicle"]
+        if row["route"]:
+            description += "<BR>ROUTE: " + row["route"]
+        if frappe.db.get_value("Cargo Details", row["cargo"], "bl_number"):
+            description += "<BR>BL NUMBER: " + frappe.db.get_value("Cargo Details", row["cargo"], "bl_number")
         items.append(
             {
                 "item_code": row["item"],
                 "qty": 1,
                 "uom": frappe.get_value("Item", row["item"], "stock_uom"),
                 "rate": row["rate"],
-                "description": "<b>VEHICLE NUMBER: "
-                + row["assigned_vehicle"]
-                + "<BR>ROUTE: "
-                + row["route"]
-                + "<BR>BL NUMBER: "
-                + frappe.db.get_value("Cargo Details", row["cargo"], "bl_number"),
+                "description": description,
             }
         )
     invoice = frappe.get_doc(

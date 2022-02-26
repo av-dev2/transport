@@ -3,6 +3,7 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
+from operator import mul
 import frappe
 import time
 import datetime
@@ -12,6 +13,7 @@ import json
 from frappe.utils import nowdate, cstr, cint, flt, comma_or, now
 from frappe import _, msgprint
 from trans_ms.utlis.dimension import set_dimension
+from erpnext.setup.utils import get_exchange_rate
 
 
 class VehicleTrip(Document):
@@ -506,20 +508,46 @@ def create_fund_jl(doc, row):
         frappe.throw("Journal Entry Already Created")
 
     accounts = []
+    company_currency = frappe.db.get_value(
+        "Company",
+        frappe.db.get_value("Requested Payments", row.parent, "company"),
+        "default_currency",
+    )
+    frappe.msgprint(company_currency)
+    if company_currency != row.request_currency:
+        multi_currency = 1
+        exchange_rate = get_exchange_rate(row.request_currency, company_currency)
+    else:
+        multi_currency = 0
+        exchange_rate = 1
+
+    if row.request_currency != row.expense_account_currency:
+        debit_amount = row.request_amount * exchange_rate
+        debit_exchange_rate = exchange_rate
+    else:
+        debit_amount = row.request_amount
+        debit_exchange_rate = 1
+
+    if row.request_currency != row.payable_account_currency:
+        credit_amt = row.request_amount * exchange_rate
+        credit_exchange_rate = exchange_rate
+    else:
+        credit_amt = row.request_amount
+        credit_exchange_rate = 1
+
     debit_row = dict(
         account=row.expense_account,
-        debit_in_account_currency=row.request_amount,
+        exchange_rate=debit_exchange_rate,
+        debit_in_account_currency=debit_amount,
         cost_center=row.cost_center,
-        # department=row.get("department") or doc.get("department"),
     )
     accounts.append(debit_row)
+
     credit_row = dict(
         account=row.payable_account,
-        credit_in_account_currency=row.request_amount,
+        exchange_rate=credit_exchange_rate,
+        credit_in_account_currency=credit_amt,
         cost_center=row.cost_center,
-        party_type=row.party_type,
-        party=row.party,
-        # department=row.get("department") or doc.get("department"),
     )
     accounts.append(credit_row)
 
@@ -531,10 +559,10 @@ def create_fund_jl(doc, row):
             doctype="Journal Entry",
             posting_date=date,
             accounts=accounts,
-            cheque_date=date,
+            # cheque_date=date,
             company=company,
+            multi_currency=multi_currency,
             user_remark=user_remark,
-            # department=row.get("department") or doc.get("department"),
         )
     )
     jv_doc.flags.ignore_permissions = True
