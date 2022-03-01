@@ -65,6 +65,7 @@ class VehicleTrip(Document):
     def validate(self):
         self.validate_fuel_requests()
         self.set_driver()
+        self.set_permits()
 
     def set_expenses(self):
         reference_doc = frappe.get_doc(self.reference_doctype, self.reference_docname)
@@ -93,6 +94,19 @@ class VehicleTrip(Document):
         for row in self.main_requested_funds:
             row.party_type = "Employee"
             row.party = employee
+
+    def set_permits(self):
+        if self.main_cargo_category and not len(self.trip_permits):
+            self.trip_permits = []
+            cargo_category = frappe.get_doc(
+                "Transport Cargo Type", self.main_cargo_category
+            )
+            for row in cargo_category.permits:
+                new_row = self.append("trip_permits", {})
+                new_row.permit_name = row.permit_name
+                new_row.mandatory = row.mandatory
+        else:
+            self.trip_permits = []
 
     def before_save(self):
         # validate_requested_funds(self)

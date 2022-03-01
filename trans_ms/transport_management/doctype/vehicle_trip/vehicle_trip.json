@@ -21,16 +21,10 @@
   "section_main_trip",
   "start_date",
   "main_customer",
-  "main_customer_address_html",
-  "main_cargo_type",
+  "size",
   "main_cargo_category",
+  "trip_permits",
   "main_goods_description",
-  "column_break_17",
-  "main_amount",
-  "main_unit",
-  "main_loose_no_of_packages",
-  "main_loose_gross_weight",
-  "main_loose_net_weight",
   "section_main_container_cargo",
   "main_cargo",
   "section_main_consignee_shipper",
@@ -57,6 +51,7 @@
   "main_fuel_request",
   "section_main_requested_funds",
   "main_requested_funds",
+  "cargo_permits_section",
   "section_attachments",
   "attachments",
   "section_break_54",
@@ -183,21 +178,9 @@
    "read_only": 1
   },
   {
-   "fieldname": "main_customer_address_html",
-   "fieldtype": "HTML",
-   "label": "Main Customer Address HTML"
-  },
-  {
-   "fieldname": "main_cargo_type",
-   "fieldtype": "Select",
-   "hidden": 1,
-   "label": "Cargo Type",
-   "options": "\nContainer\nLoose Cargo"
-  },
-  {
    "fieldname": "main_cargo_category",
    "fieldtype": "Link",
-   "label": "Cargo Category",
+   "label": "Cargo Type",
    "options": "Transport Cargo Type"
   },
   {
@@ -205,36 +188,6 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Cargo Description"
-  },
-  {
-   "fieldname": "column_break_17",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "main_amount",
-   "fieldtype": "Float",
-   "label": "Quantity"
-  },
-  {
-   "fieldname": "main_unit",
-   "fieldtype": "Link",
-   "label": "Units",
-   "options": "Unit of Measure"
-  },
-  {
-   "fieldname": "main_loose_no_of_packages",
-   "fieldtype": "Int",
-   "label": "No of Packages"
-  },
-  {
-   "fieldname": "main_loose_gross_weight",
-   "fieldtype": "Int",
-   "label": "Gross Weight (kg)"
-  },
-  {
-   "fieldname": "main_loose_net_weight",
-   "fieldtype": "Int",
-   "label": "Net Weight"
   },
   {
    "fieldname": "section_main_container_cargo",
@@ -497,6 +450,7 @@
    "label": "Fuel Stock Out"
   },
   {
+   "depends_on": "eval:doc.stock_out_entry == \"\"",
    "fieldname": "reduce_stock",
    "fieldtype": "Button",
    "label": "Reduce Stock"
@@ -515,11 +469,29 @@
    "options": "Vehicle Trip",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "cargo_permits_section",
+   "fieldtype": "Section Break",
+   "label": "Cargo Permits"
+  },
+  {
+   "fieldname": "size",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Size",
+   "options": "Loose\n40 FT\n20 FT"
+  },
+  {
+   "fieldname": "trip_permits",
+   "fieldtype": "Table",
+   "label": "Trip Permits",
+   "options": "Trip Cargo Permit"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-02-23 22:39:42.218535",
+ "modified": "2022-02-28 22:58:49.996704",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",
