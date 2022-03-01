@@ -7,7 +7,7 @@ import frappe
 import time
 import datetime
 from frappe.model.document import Document
-from frappe import _
+from frappe import _, msgprint
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import nowdate
 from trans_ms.utlis.dimension import set_dimension
@@ -275,6 +275,7 @@ def reject_request(**args):
 
 @frappe.whitelist()
 def create_purchase_order(request_doc, item):
+    # frappe.throw(request_doc)
     item = frappe._dict(json.loads(item))
     request_doc = frappe._dict(json.loads(request_doc))
     set_warehouse = frappe.get_value(

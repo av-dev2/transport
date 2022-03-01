@@ -12,7 +12,7 @@
   "fleet_number",
   "engine_number",
   "chassis_number",
-  "fuel_warehouse",
+  "fuel_stock_warehouse",
   "make",
   "model",
   "axle_type",
@@ -286,14 +286,14 @@
    "options": "Vehicle Axle Type"
   },
   {
-   "fieldname": "fuel_warehouse",
+   "fieldname": "fuel_stock_warehouse",
    "fieldtype": "Link",
-   "label": "Fuel Warehouse",
+   "label": "Fuel Stock Warehouse",
    "options": "Warehouse"
   }
  ],
  "links": [],
- "modified": "2022-02-22 15:45:40.784379",
+ "modified": "2022-02-28 22:53:02.852116",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle",
