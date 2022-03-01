@@ -598,6 +598,7 @@ cur_frm.cscript.populate_child = function (reference_doctype, reference_docname)
 
 frappe.ui.form.on('Requested Funds Accounts Table', {
 	disburse_funds: function (frm, cdt, cdn) {
+		frm.save_or_update();
 		if (frm.is_dirty()) {
 			frappe.throw(__("Plase Save First"));
 			return;
