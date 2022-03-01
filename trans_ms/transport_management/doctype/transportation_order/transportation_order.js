@@ -615,7 +615,8 @@ cur_frm.cscript.assign_transport = function (frm) {
 				msgprint('Container No. ' + container_number + ' has already been processed.', 'Error');
 			}
 			else {
-				// new_row.cargo_type = cur_frm.doc.cargo_type;
+				var new_row = cur_frm.add_child("assign_transport");
+				new_row.cargo_type = cur_frm.doc.cargo_type;
 				new_row.cargo = locals["Cargo Details"][cargo_nm].name;
 				new_row.container_number = container_number;
 				frappe.model.set_value(new_row.doctype, new_row.name, "currency", transport_currency);
