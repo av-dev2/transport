@@ -7,7 +7,8 @@
  "field_order": [
   "expense",
   "currency",
-  "amount"
+  "amount",
+  "party_type"
  ],
  "fields": [
   {
@@ -19,6 +20,8 @@
    "reqd": 1
   },
   {
+   "fetch_from": "expense.currency",
+   "fetch_if_empty": 1,
    "fieldname": "currency",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -28,18 +31,27 @@
    "reqd": 1
   },
   {
+   "fetch_from": "expense.fixed_value",
+   "fetch_if_empty": 1,
    "fieldname": "amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Amount",
    "options": "currency",
-   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Party Type",
+   "options": "Employee\nSupplier\nAgent",
    "reqd": 1
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2021-12-13 17:07:45.949272",
+ "modified": "2022-03-04 09:03:50.555240",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Fixed Expense Table",

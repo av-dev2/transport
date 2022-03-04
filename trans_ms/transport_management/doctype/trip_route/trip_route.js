@@ -69,24 +69,24 @@ frappe.ui.form.on('Trip Steps Table', {
 a;
 
 frappe.ui.form.on('Fixed Expense Table', {
-    expense: function (frm, cdt, cdn) {
-        if (locals[cdt][cdn].expense && locals[cdt][cdn].expense != '') {
-            frappe.call({
-                method: "frappe.client.get_value",
-                args: {
-                    doctype: "Fixed Expense",
-                    fieldname: ["currency", "fixed_value"],
-                    filters: {
-                        name: ["=", locals[cdt][cdn].expense]
-                    }
-                },
-                callback: function (data) {
-                    frappe.model.set_value(cdt, cdn, 'currency', data.message.currency);
-                    frappe.model.set_value(cdt, cdn, 'amount', data.message.fixed_value);
-                }
-            });
-        }
-    },
+    // expense: function (frm, cdt, cdn) {
+    //     if (locals[cdt][cdn].expense && locals[cdt][cdn].expense != '') {
+    //         frappe.call({
+    //             method: "frappe.client.get_value",
+    //             args: {
+    //                 doctype: "Fixed Expense",
+    //                 fieldname: ["currency", "fixed_value"],
+    //                 filters: {
+    //                     name: ["=", locals[cdt][cdn].expense]
+    //                 }
+    //             },
+    //             callback: function (data) {
+    //                 frappe.model.set_value(cdt, cdn, 'currency', data.message.currency);
+    //                 frappe.model.set_value(cdt, cdn, 'amount', data.message.fixed_value);
+    //             }
+    //         });
+    //     }
+    // },
 
     currency: function (frm, cdt, cdn) {
         frm.events.calculate_total_expenses(frm);
