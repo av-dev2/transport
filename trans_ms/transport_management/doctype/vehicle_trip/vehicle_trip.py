@@ -84,6 +84,9 @@ class VehicleTrip(Document):
                 new_row.expense_type = row.expense
                 new_row.expense_account = fixed_expense_doc.expense_account
                 new_row.payable_account = fixed_expense_doc.cash_bank_account
+                new_row.party_type = row.party_type
+                if row.party_type == "Employee":
+                    new_row.party = frappe.db.get_value("Driver", self.driver, "employee")
 
     def set_driver(self):
         if not self.driver:
@@ -92,8 +95,8 @@ class VehicleTrip(Document):
 
         # ./frappe.msgprint(employee)
         for row in self.main_requested_funds:
-            row.party_type = "Employee"
-            row.party = employee
+            if row.party_type == "Employee":
+                row.party = employee
 
     def set_permits(self):
         if self.main_cargo_category and not len(self.trip_permits):
