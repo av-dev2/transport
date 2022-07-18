@@ -385,7 +385,8 @@
    "fieldname": "invoice",
    "fieldtype": "Link",
    "label": "Invoice",
-   "options": "Sales Invoice"
+   "options": "Sales Invoice",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_34",
@@ -403,7 +404,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-03-02 12:21:46.228111",
+ "modified": "2022-07-15 11:42:12.885761",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport Assignment",

@@ -67,9 +67,10 @@
   "column_break_35",
   "transportation_order",
   "section_trip_status",
-  "main_status",
   "company",
   "column_break_74",
+  "trip_completed",
+  "main_status",
   "status",
   "hidden_status",
   "main_address_display",
@@ -447,11 +448,11 @@
   },
   {
    "fieldname": "fuel_stock_out",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Fuel Stock Out"
   },
   {
-   "depends_on": "eval:doc.stock_out_entry == \"\"",
+   "depends_on": "eval:(doc.fuel_stock_out) > 0 && (!doc.stock_out_entry || doc.stock_out_entry == \"\")",
    "fieldname": "reduce_stock",
    "fieldtype": "Button",
    "label": "Reduce Stock"
@@ -496,11 +497,18 @@
    "label": "Transportation Order",
    "options": "Transportation Order",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "trip_completed",
+   "fieldtype": "Check",
+   "label": "Trip Completed",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-03-19 11:31:40.579900",
+ "modified": "2022-07-15 12:09:31.710211",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",

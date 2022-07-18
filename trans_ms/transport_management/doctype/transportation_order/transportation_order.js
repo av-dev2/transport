@@ -453,13 +453,13 @@ frappe.ui.form.on("Transport Assignment", {
 				filters: {
 					name: locals[cdt][cdn].assigned_vehicle
 				},
-				fieldname: ["number_plate", "driver", "default_trailer"]
+				fieldname: ["license_plate", "trans_ms_driver", "trans_ms_default_trailer"]
 			},
 			callback: function (data) {
 				// set the returned values in cooresponding fields
-				frappe.model.set_value(cdt, cdn, 'vehicle_plate_number', data.message.number_plate);
-				frappe.model.set_value(cdt, cdn, 'assigned_trailer', data.message.default_trailer);
-				frappe.model.set_value(cdt, cdn, 'assigned_driver', data.message.driver);
+				frappe.model.set_value(cdt, cdn, 'vehicle_plate_number', data.message.license_plate);
+				frappe.model.set_value(cdt, cdn, 'assigned_trailer', data.message.trans_ms_default_trailer);
+				frappe.model.set_value(cdt, cdn, 'assigned_driver', data.message.trans_ms_driver);
 			}
 		});
 

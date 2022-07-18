@@ -31,7 +31,7 @@ class VehicleTrip(Document):
         #     "main_route"
         # ):
         #     consumption = frappe.db.get_value(
-        #         "Vehicle", self.get("vehicle"), "fuel_consumption"
+        #         "Vehicle", self.get("vehicle"), "trans_ms_fuel_consumption"
         #     )
         #     route = frappe.db.get_value(
         #         "Trip Route", self.get("main_route"), "total_distance"
@@ -44,7 +44,7 @@ class VehicleTrip(Document):
             "return_route"
         ):
             consumption = frappe.db.get_value(
-                "Vehicle", self.get("vehicle"), "fuel_consumption"
+                "Vehicle", self.get("vehicle"), "trans_ms_fuel_consumption"
             )
             route = frappe.db.get_value(
                 "Trip Route", self.get("return_route"), "total_distance"
@@ -86,7 +86,9 @@ class VehicleTrip(Document):
                 new_row.payable_account = fixed_expense_doc.cash_bank_account
                 new_row.party_type = row.party_type
                 if row.party_type == "Employee":
-                    new_row.party = frappe.db.get_value("Driver", self.driver, "employee")
+                    new_row.party = frappe.db.get_value(
+                        "Driver", self.driver, "employee"
+                    )
 
     def set_driver(self):
         if not self.driver:
@@ -511,7 +513,7 @@ def validate_route_inputs(**args):
 # def validate_requested_funds(doc):
 # 	make_request = False
 # 	open_requests = []
-# 	for requested_fund in doc.requested_funds:
+# 	for requested_fund in doc.main_requested_funds:
 # 		if requested_fund.request_status == "open":
 # 			make_request = True
 # 			open_requests.append(requested_fund)
@@ -524,10 +526,13 @@ def create_fund_jl(doc, row):
     if row.journal_entry:
         frappe.throw("Journal Entry Already Created")
 
+    if row.request_status != "Approved":
+        frappe.throw("Fund Request is not Approved")
+
     accounts = []
     company_currency = frappe.db.get_value(
         "Company",
-        frappe.db.get_value("Requested Payments", row.parent, "company"),
+        doc.company,
         "default_currency",
     )
     frappe.msgprint(company_currency)
@@ -576,7 +581,6 @@ def create_fund_jl(doc, row):
             doctype="Journal Entry",
             posting_date=date,
             accounts=accounts,
-            # cheque_date=date,
             company=company,
             multi_currency=multi_currency,
             user_remark=user_remark,
@@ -585,19 +589,15 @@ def create_fund_jl(doc, row):
     jv_doc.flags.ignore_permissions = True
     frappe.flags.ignore_account_permission = True
     set_dimension(doc, jv_doc)
-    for row in jv_doc.accounts:
-        set_dimension(doc, jv_doc, tr_child=row)
+    for account_row in jv_doc.accounts:
+        set_dimension(doc, jv_doc, tr_child=account_row)
     jv_doc.save()
-    # jv_doc.submit()
     jv_url = frappe.utils.get_url_to_form(jv_doc.doctype, jv_doc.name)
     si_msgprint = "Journal Entry Created <a href='{0}'>{1}</a>".format(
         jv_url, jv_doc.name
     )
     frappe.msgprint(_(si_msgprint))
-    for item in doc.requested_funds:
-        if item.name == row.name:
-            item.journal_entry = jv_doc.name
-    doc.save()
+    frappe.set_value(row.doctype, row.name, "journal_entry", jv_doc.name)
     return jv_doc
 
 
@@ -609,7 +609,7 @@ def create_stock_out_entry(doc, fuel_stock_out):
     fuel_item = frappe.get_value("Transport Settings", None, "fuel_item")
     if not fuel_item:
         frappe.throw(_("Please Set Fuel Item in Transport Settings"))
-    warehouse = frappe.get_value("Vehicle", doc.vehicle, "fuel_warehouse")
+    warehouse = frappe.get_value("Vehicle", doc.vehicle, "trans_ms_fuel_warehouse")
     if not warehouse:
         frappe.throw(_("Please Set Fuel Warehouse in Vehicle"))
     item = {"item_code": fuel_item, "qty": float(fuel_stock_out)}
@@ -637,3 +637,35 @@ def create_stock_out_entry(doc, fuel_stock_out):
     doc.stock_out_entry = stock_entry_doc.name
     doc.save()
     return stock_entry_doc
+
+
+@frappe.whitelist()
+def create_purchase_order(request_doc, item):
+    # frappe.throw(request_doc)
+    item = frappe._dict(json.loads(item))
+    request_doc = frappe._dict(json.loads(request_doc))
+    set_warehouse = frappe.get_value(
+        "Vehicle", request_doc.vehicle_plate_number, "trans_ms_fuel_warehouse"
+    )
+    if not set_warehouse:
+        frappe.throw(_("Fuel Stock Warehouse not set in Vehicle"))
+    if item.purchase_order:
+        frappe.throw(_("Purchase Order is already exists"))
+    doc = frappe.new_doc("Purchase Order")
+    doc.company = request_doc.company
+    doc.department = item.supplier
+    doc.supplier = item.supplier
+    doc.schedule_date = nowdate()
+    doc.docstatus = 1
+    doc.set_warehouse = set_warehouse
+    new_item = doc.append("items", {})
+    new_item.item_code = item.item_code
+    new_item.qty = item.quantity
+    new_item.rate = item.cost_per_litre
+    new_item.source_name = "fuel_request"
+    set_dimension(request_doc, doc)
+    set_dimension(request_doc, doc, tr_child=new_item)
+    doc.insert(ignore_permissions=True)
+    frappe.msgprint(_("Purchase Order {0} is created").format(doc.name))
+    frappe.set_value(item.doctype, item.name, "purchase_order", doc.name)
+    return doc.name

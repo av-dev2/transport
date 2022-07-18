@@ -513,14 +513,19 @@ frappe.ui.form.on('Vehicle Trip', {
         frm.add_custom_button(__("Vehicle Inspection"), function () {
             frappe.new_doc('Vehicle Inspection', { trip_reference: frm.doc.name });
         });
-        frm.add_custom_button(__("Complete Trip"), function () {
-            frappe.db.set_value('Vehicle', frm.doc.vehicle, {
-                current_trip: '',
-                status: 'Available'
-            }).then(r => {
-                frappe.msgprint(__(`Vehicle ${frm.doc.vehicle} is Available now`));
+
+        if (frm.doc.trip_completed == 0) {
+            frm.add_custom_button(__("Complete Trip"), function () {
+                frm.set_value("trip_completed", 1);
+                frm.save();
+                frappe.db.set_value('Vehicle', frm.doc.vehicle, {
+                    current_trip: '',
+                    status: 'Available'
+                }).then(r => {
+                    frappe.msgprint(__(`Vehicle ${frm.doc.vehicle} is Available now`));
+                });
             });
-        });
+        }
     },
 
     show_hide_sections: function (frm) {
@@ -1092,11 +1097,31 @@ frappe.ui.form.on('Fuel Request Table', {
             var total = locals[cdt][cdn].cost_per_litre * locals[cdt][cdn].quantity;
             frappe.model.set_value(cdt, cdn, 'total_cost', total);
         }
-    }
+    },
+
+    create_purchase_order: (frm, cdt, cdn) => {
+        const row = locals[cdt][cdn];
+        if (row.purchase_order || row.status != "Approved") return;
+        console.info("frm", frm);
+        frappe.call({
+            method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_purchase_order",
+            args: {
+                request_doc: frm.doc,
+                item: row,
+            },
+            callback: function (r) {
+                frm.reload_doc();
+                frm.refresh_field("requested_fuel");
+            }
+        });
+    },
+
+
 });
 
 frappe.ui.form.on('Requested Funds Details', {
     disburse_funds: function (frm, cdt, cdn) {
+        frappe.msgprint("We are in Disburse funds")
         if (frm.is_dirty()) {
             frappe.throw(__("Plase Save First"));
             return;
@@ -1110,6 +1135,7 @@ frappe.ui.form.on('Requested Funds Details', {
                 row: row
             },
             callback: function (data) {
+                frm.reload_doc();
                 frappe.set_route('Form', data.message.doctype, data.message.name);
             }
         });

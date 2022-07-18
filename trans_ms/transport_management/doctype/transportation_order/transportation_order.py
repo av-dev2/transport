@@ -334,7 +334,9 @@ def create_sales_invoice(doc, rows):
         if row["route"]:
             description += "<BR>ROUTE: " + row["route"]
         if frappe.db.get_value("Cargo Details", row["cargo"], "bl_number"):
-            description += "<BR>BL NUMBER: " + frappe.db.get_value("Cargo Details", row["cargo"], "bl_number")
+            description += "<BR>BL NUMBER: " + frappe.db.get_value(
+                "Cargo Details", row["cargo"], "bl_number"
+            )
         items.append(
             {
                 "item_code": row["item"],
@@ -366,6 +368,6 @@ def create_sales_invoice(doc, rows):
     for item in doc.assign_transport:
         if item.name in [i["name"] for i in rows]:
             item.invoice = invoice.name
-    # doc.save()
+    doc.save()
     frappe.msgprint(_("Sales Inoice {0} Created").format(invoice.name), alert=True)
     return invoice

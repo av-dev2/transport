@@ -26,7 +26,6 @@
   "recommended_on",
   "recommender_comment",
   "column_break_16",
-  "approved_by",
   "approved_on",
   "approver_comment",
   "column_break_24",
@@ -35,7 +34,6 @@
   "accounts_approver_comment",
   "status_section",
   "posting_date",
-  "approved_date",
   "expense_account",
   "payable_account",
   "payee",
@@ -49,14 +47,16 @@
   "section_break_40",
   "cost_center",
   "request_status",
-  "journal_entry"
+  "journal_entry",
+  "column_break_45",
+  "approved_by",
+  "approved_date"
  ],
  "fields": [
   {
    "depends_on": "eval: !doc.journal_entry",
    "fieldname": "disburse_funds",
    "fieldtype": "Button",
-   "hidden": 1,
    "label": "Disburse Funds"
   },
   {
@@ -311,7 +311,8 @@
   {
    "fieldname": "journal_entry",
    "fieldtype": "Data",
-   "label": "Journal Entry"
+   "label": "Journal Entry",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_40",
@@ -322,11 +323,15 @@
    "fieldtype": "Date",
    "label": "Approved Date",
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_45",
+   "fieldtype": "Column Break"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2022-03-04 09:45:03.724753",
+ "modified": "2022-07-15 11:58:32.713801",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Requested Funds Details",
