@@ -655,6 +655,7 @@ def create_purchase_order(request_doc, item):
     doc.company = request_doc.company
     doc.department = item.supplier
     doc.supplier = item.supplier
+    doc.currency = item.currency
     doc.schedule_date = nowdate()
     doc.docstatus = 1
     doc.set_warehouse = set_warehouse
