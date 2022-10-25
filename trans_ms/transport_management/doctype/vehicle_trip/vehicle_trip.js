@@ -36,9 +36,9 @@ frappe.ui.form.on('Vehicle Trip', {
             if (reference_doc.transporter_type == 'Sub-Contractor' || reference_doc.transporter_type == "Self Drive") {
                 if (reference_doc.transporter_type == "Sub-Contractor") {
                     frm.set_value('sub_contractor', reference_doc.sub_contractor);
-                    frm.set_value('trailer_plate_number', reference_doc.trailer_plate_number);
+                    frm.set_value('trailer_plate_number', reference_doc.assigned_trailer);
                 }
-                frm.set_value('vehicle_plate_number', reference_doc.vehicle_plate_number);
+                frm.set_value('vehicle_plate_number', reference_doc.assigned_vehicle);
                 frm.set_value('driver_name', reference_doc.driver_name);
                 frm.set_value('passport_number', reference_doc.passport_number);
                 frm.toggle_display('vehicle', false);
@@ -48,8 +48,8 @@ frappe.ui.form.on('Vehicle Trip', {
                 frm.set_value('vehicle', reference_doc.assigned_vehicle);
                 frm.set_value('trailer', reference_doc.assigned_trailer);
                 frm.set_value('driver', reference_doc.assigned_driver);
-                frm.set_value('vehicle_plate_number', reference_doc.vehicle_plate_number);
-                frm.set_value('trailer_plate_number', reference_doc.trailer_plate_number);
+                frm.set_value('vehicle_plate_number', reference_doc.assigned_vehicle);
+                frm.set_value('trailer_plate_number', reference_doc.assigned_trailer);
                 frm.set_value('driver_name', reference_doc.driver_name);
                 frm.set_value('passport_number', reference_doc.passport_number);
                 frm.toggle_display('vehicle', true);
