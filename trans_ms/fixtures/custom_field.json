@@ -151,6 +151,6 @@
     "fetch_from": "trans_ms_driver.full_name",
     "read_only": 1,
     "translatable": 1,
-    "doctype": "Custom Field",
+    "doctype": "Custom Field"
   }
 ]
