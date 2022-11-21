@@ -18,6 +18,8 @@
   "passport_number",
   "driving_licence_no",
   "phone_number",
+  "section_break_13",
+  "customer",
   "section_main_trip",
   "start_date",
   "main_customer",
@@ -447,6 +449,8 @@
    "fieldtype": "Section Break"
   },
   {
+   "fetch_from": "main_route.total_fuel_consumption_qty",
+   "fetch_if_empty": 1,
    "fieldname": "fuel_stock_out",
    "fieldtype": "Float",
    "label": "Fuel Stock Out"
@@ -504,11 +508,25 @@
    "fieldtype": "Check",
    "label": "Trip Completed",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "transportation_order.customer",
+   "fetch_if_empty": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
   }
  ],
+ "in_create": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-15 12:09:31.710211",
+ "modified": "2022-11-21 11:50:47.117008",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",

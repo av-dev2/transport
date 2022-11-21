@@ -530,24 +530,6 @@ frappe.ui.form.on("Transport Assignment", {
 		else if (doc.vehicle_status == 3) {
 			frappe.confirm(
 				'The vehicle is En Route on another trip. Set as return cargo? If you select no, a new trip will be created',
-				// function () {
-				// 	frappe.call({
-				// 		method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_return_trip",
-				// 		args: {
-				// 			reference_doctype: "Transport Assignment",
-				// 			reference_docname: doc.name,
-				// 			vehicle: doc.assigned_vehicle,
-				// 			transporter: doc.transporter_type,
-				// 			vehicle_trip: doc.vehicle_trip
-				// 		},
-				// 		callback: function (data) {
-				// 			console.log(data);
-				// 			//cur_frm.set_value('status', 'Processed');
-				// 			//cur_frm.save_or_update();
-				// 			frappe.set_route('Form', data.message.doctype, data.message.name);
-				// 		}
-				// 	});
-				// },
 				function () {
 					frappe.call({
 						method: "trans_ms.transport_management.doctype.vehicle_trip.vehicle_trip.create_vehicle_trip",
@@ -558,6 +540,7 @@ frappe.ui.form.on("Transport Assignment", {
 							transporter: doc.transporter_type,
 							cargo: doc.cargo,
 							driver: doc.assigned_driver,
+							customer: doc.customer,
 						},
 						callback: function (data) {
 							console.log(data);
@@ -579,6 +562,7 @@ frappe.ui.form.on("Transport Assignment", {
 					transporter: doc.transporter_type,
 					cargo: doc.cargo,
 					driver: doc.assigned_driver,
+					customer: doc.customer,
 				},
 				callback: function (data) {
 					console.log(data);
