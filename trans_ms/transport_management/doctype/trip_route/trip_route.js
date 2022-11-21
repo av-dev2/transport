@@ -3,15 +3,6 @@
 
 frappe.ui.form.on('Trip Route', {
     refresh: function (frm) {
-        // frm.add_custom_button(__("Vehicle Inspection"), function () {
-        //     frappe.new_doc('Vehicle Inspection', { vehicle: frm.doc.vehicle });
-        // });
-        // frm.add_custom_button(__("Complet The Trip"), function () {
-        //     console.log("Complet The Trip");
-        // });
-        // frm.add_custom_button(__("Close The Trip"), function () {
-        //     console.log("Close The Trip");
-        // });
     },
 
     validate: function (frm) {
@@ -63,31 +54,29 @@ frappe.ui.form.on('Trip Steps Table', {
             });
         }
     },
+
+    distance: function (frm, cdt, cdn) {
+        var total_distance = 0;
+        frm.doc.trip_steps.forEach(function (row) {
+            if (row.distance) {
+                total_distance += row.distance;
+            }
+        });
+        frm.set_value('total_distance', total_distance);
+    },
+
+    fuel_consumption_qty: function (frm, cdt, cdn) {
+        var total_fuel_consumption = 0;
+        frm.doc.trip_steps.forEach(function (row) {
+            if (row.fuel_consumption_qty) {
+                total_fuel_consumption += row.fuel_consumption_qty;
+            }
+        })
+        frm.set_value('total_fuel_consumption_qty', total_fuel_consumption);
+    },
 });
 
-
-a;
-
 frappe.ui.form.on('Fixed Expense Table', {
-    // expense: function (frm, cdt, cdn) {
-    //     if (locals[cdt][cdn].expense && locals[cdt][cdn].expense != '') {
-    //         frappe.call({
-    //             method: "frappe.client.get_value",
-    //             args: {
-    //                 doctype: "Fixed Expense",
-    //                 fieldname: ["currency", "fixed_value"],
-    //                 filters: {
-    //                     name: ["=", locals[cdt][cdn].expense]
-    //                 }
-    //             },
-    //             callback: function (data) {
-    //                 frappe.model.set_value(cdt, cdn, 'currency', data.message.currency);
-    //                 frappe.model.set_value(cdt, cdn, 'amount', data.message.fixed_value);
-    //             }
-    //         });
-    //     }
-    // },
-
     currency: function (frm, cdt, cdn) {
         frm.events.calculate_total_expenses(frm);
     },
