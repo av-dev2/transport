@@ -1,5 +1,4 @@
-[
-  {
+[{
     "doctype": "Custom Field",
     "dt": "Driver",
     "fieldname": "fuel_warehouse",
@@ -138,5 +137,20 @@
     "insert_after": "trans_ms_default_trailer",
     "fieldtype": "Column Break",
     "doctype": "Custom Field"
+  },
+  {
+    "name": "Vehicle-trans_ms__driver_name",
+    "owner": "Administrator",
+    "modified": "2022-11-21 12:12:37.332809",
+    "modified_by": "Administrator",
+    "dt": "Vehicle",
+    "label": "Driver Name",
+    "fieldname": "trans_ms__driver_name",
+    "insert_after": "trans_ms_driver_column_break",
+    "fieldtype": "Data",
+    "fetch_from": "trans_ms_driver.full_name",
+    "read_only": 1,
+    "translatable": 1,
+    "doctype": "Custom Field",
   }
 ]
