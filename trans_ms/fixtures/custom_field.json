@@ -1,15 +1,4 @@
 [{
-    "doctype": "Custom Field",
-    "dt": "Driver",
-    "fieldname": "fuel_warehouse",
-    "fieldtype": "Link",
-    "insert_after": "transporter",
-    "label": "Fuel Warehouse",
-    "modified": "2022-02-22 00:56:40.018912",
-    "name": "Driver-fuel_warehouse",
-    "options": "Warehouse"
-  },
-  {
     "name": "Vehicle-trans_ms_section",
     "modified": "2022-02-15 01:20:05.149568",
     "dt": "Vehicle",
