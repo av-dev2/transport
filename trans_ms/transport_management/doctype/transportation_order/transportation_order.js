@@ -3,6 +3,9 @@
 
 frappe.ui.form.on('Transportation Order', {
 	onload: function (frm) {
+		frm.get_field("assign_transport").grid.cannot_add_rows = true;
+		$("*[data-fieldname='assign_transport']").find(".grid-remove-rows").hide();
+		$("*[data-fieldname='assign_transport']").find(".grid-remove-all-rows").hide();
 		//Load the buttons
 		var html = '<button style="background-color: green; color: #FFF;" class="btn btn-default btn-xs" onclick="cur_frm.cscript.assign_transport(\'' + frm + '\');">Assign Vehicles</button> ';
 		$(frm.fields_dict.html1.wrapper).html(html);
@@ -29,6 +32,9 @@ frappe.ui.form.on('Transportation Order', {
 	},
 
 	refresh: function (frm, cdt, cdn) {
+		frm.get_field("assign_transport").grid.cannot_add_rows = true;
+		$("*[data-fieldname='assign_transport']").find(".grid-remove-rows").hide();
+		$("*[data-fieldname='assign_transport']").find(".grid-remove-all-rows").hide();
 		//	console.log(frm);
 
 		//Fix assignement details
