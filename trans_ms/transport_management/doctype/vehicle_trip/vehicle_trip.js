@@ -738,11 +738,14 @@ frappe.ui.form.on('Vehicle Trip', {
 
     main_cargo_type: function (frm) {
         frm.events.show_hide_sections(frm);
+        if (frm.main_cargo_type) {
+            frm.events.load_permit_types(frm);
+        }
     },
 
-    return_cargo_type: function (frm) {
-        frm.events.show_hide_sections(frm);
-    },
+    // return_cargo_type: function (frm) {
+    //     frm.events.show_hide_sections(frm);
+    // },
 
     main_route: function (frm) {
         if (frm.doc.main_route) {
@@ -750,11 +753,6 @@ frappe.ui.form.on('Vehicle Trip', {
         }
     },
 
-    return_route: function (frm) {
-        if (frm.doc.return_route && frm.doc.return_route != "") {
-            frm.events.load_return_route_steps(frm);
-        }
-    },
 
     load_route_details: function (frm) {
         frappe.model.with_doc('Trip Route', frm.doc.main_route, function (frm) {
@@ -766,20 +764,6 @@ frappe.ui.form.on('Vehicle Trip', {
                 new_row.location_type = row.location_type;
             });
 
-            // For expenses;
-            // if (cur_frm.doc.main_requested_funds && cur_frm.doc.main_requested_funds.length == 0) {
-            //     if (reference_route.fixed_expenses.length > 0) {
-            //         reference_route.fixed_expenses.forEach(function (row) {
-            //             var aday = new Date();
-            //             var new_row = cur_frm.add_child('main_requested_funds');
-            //             new_row.request_date = aday.toISOString().split('T')[0];
-            //             new_row.request_amount = row.amount;
-            //             new_row.request_currency = row.currency;
-            //             new_row.request_description = row.expense;
-            //             new_row.request_status = 'Pre-Approved';
-            //         });
-            //     }
-            // }
 
             cur_frm.refresh_field('main_requested_funds');
             cur_frm.refresh_field('main_route_steps');
@@ -796,6 +780,19 @@ frappe.ui.form.on('Vehicle Trip', {
                 new_row.location_type = row.location_type;
             });
             cur_frm.refresh_field('return_route_steps');
+        });
+    },
+
+    load_permit_types: function (frm) {
+        frappe.model.with_doc('Transport Cargo Type', frm.doc.main_cargo_type, function (frm) {
+            var reference_permits = frappe.model.get_doc('Trip Route', cur_frm.doc.main_cargo_type);
+            cur_frm.clear_table('trip_permits');
+            reference_permits.permits.forEach(function (row) {
+                var new_row = cur_frm.add_child('trip_permits');
+                new_row.permit_name = row.permit_name;
+                new_row.mandatory = row.mandatory;
+            });
+            cur_frm.refresh_field('trip_permits');
         });
     },
 
@@ -818,10 +815,6 @@ frappe.ui.form.on('Vehicle Trip', {
             row.toggle_editable('offloading_date', (reference.offloading_date == 1));
             row.toggle_editable('border_details', (reference.border_details == 1));
 
-            /*row.toggle_editable('documents_from_driver', (reference.documents_from_driver == 1));
-            row.toggle_editable('doc_submitted_to_agent', (reference.doc_submitted_to_agent == 1));
-            row.toggle_editable('doc_received_by', (reference.doc_received_by == 1));
-            row.toggle_editable('crossing_time', (reference.crossing_time == 1));*/
             row.refresh();
         });
     },
@@ -870,30 +863,6 @@ frappe.ui.form.on('Vehicle Trip', {
             }
         }
 
-        //For return trip
-        // var new_return_request = false;
-        // if (frm.doc.return_requested_funds && frm.doc.return_requested_funds.length > 0) {
-        //     frm.doc.return_requested_funds.forEach(function (row) {
-        //         if (row.request_status == "open" || (row.request_status == "Pre-Approved" && row.request_hidden_status != 'Sent')) {
-        //             new_return_request = true;
-        //         }
-        //     });
-        //     if (new_return_request == true) {
-        //         frappe.call({
-        //             method: "csf_tz.after_sales_services.doctype.requested_payments.requested_payments.request_funds",
-        //             args: {
-        //                 reference_doctype: "Vehicle Trip",
-        //                 reference_docname: cur_frm.doc.name,
-        //                 company: cur_frm.doc.company
-        //             },
-        //             callback: function (data) {
-        //                 console.log(data);
-        //                 first_reload = false;
-        //                 //frm.reload_doc();
-        //             }
-        //         });
-        //     }
-        // }
     },
 
     after_save: function (frm) {

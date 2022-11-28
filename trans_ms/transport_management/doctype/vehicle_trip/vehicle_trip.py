@@ -110,8 +110,6 @@ class VehicleTrip(Document):
                 new_row = self.append("trip_permits", {})
                 new_row.permit_name = row.permit_name
                 new_row.mandatory = row.mandatory
-        else:
-            self.trip_permits = []
 
     def before_save(self):
         # validate_requested_funds(self)
@@ -358,6 +356,7 @@ def create_vehicle_trip(**args):
                 "main_cargo_location_city": cargo_details.cargo_location_city,
                 "main_cargo_destination_country": cargo_details.cargo_destination_country,
                 "main_cargo_destination_city": cargo_details.cargo_destination_city,
+                "main_cargo_category": cargo_details.cargo_type,
                 "driver": args.driver,
             }
         )
