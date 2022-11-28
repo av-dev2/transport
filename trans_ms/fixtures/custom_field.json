@@ -148,7 +148,7 @@
     "modified_by": "Administrator",
     "idx": 17,
     "dt": "Driver",
-    "label": "trans_ms_document_section",
+    "label": "",
     "fieldname": "trans_ms_document_section",
     "insert_after": "driving_license_category",
     "fieldtype": "Section Break",
@@ -168,5 +168,31 @@
     "options": "Driver Document Attachment",
     "doctype": "Custom Field",
     "__last_sync_on": "2022-11-28T08:39:24.991Z"
+  },
+  {
+    "name": "Vehicle-trans_ms_vehicle_document_section",
+    "modified": "2022-11-28 11:58:43.484367",
+    "modified_by": "Administrator",
+    "idx": 44,
+    "dt": "Vehicle",
+    "fieldname": "trans_ms_vehicle_document_section",
+    "insert_after": "trans_ms__driver_name",
+    "fieldtype": "Section Break",
+    "doctype": "Custom Field",
+    "__last_sync_on": "2022-11-28T08:59:34.639Z"
+  },
+  {
+    "name": "Vehicle-trans_ms_vehicle_documents",
+    "modified": "2022-11-28 11:58:43.790333",
+    "modified_by": "Administrator",
+    "idx": 45,
+    "dt": "Vehicle",
+    "label": "Trans MS Vehicle Documents",
+    "fieldname": "trans_ms_vehicle_documents",
+    "insert_after": "trans_ms_vehicle_document_section",
+    "fieldtype": "Table",
+    "options": "Vehicle Documents",
+    "doctype": "Custom Field",
+    "__last_sync_on": "2022-11-28T09:00:47.991Z"
   }
 ]
