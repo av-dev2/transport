@@ -1,16 +1,4 @@
-[
-  {
-    "doctype": "Custom Field",
-    "dt": "Driver",
-    "fieldname": "fuel_warehouse",
-    "fieldtype": "Link",
-    "insert_after": "transporter",
-    "label": "Fuel Warehouse",
-    "modified": "2022-02-22 00:56:40.018912",
-    "name": "Driver-fuel_warehouse",
-    "options": "Warehouse"
-  },
-  {
+[{
     "name": "Vehicle-trans_ms_section",
     "modified": "2022-02-15 01:20:05.149568",
     "dt": "Vehicle",
@@ -138,5 +126,73 @@
     "insert_after": "trans_ms_default_trailer",
     "fieldtype": "Column Break",
     "doctype": "Custom Field"
+  },
+  {
+    "name": "Vehicle-trans_ms__driver_name",
+    "owner": "Administrator",
+    "modified": "2022-11-21 12:12:37.332809",
+    "modified_by": "Administrator",
+    "dt": "Vehicle",
+    "label": "Driver Name",
+    "fieldname": "trans_ms__driver_name",
+    "insert_after": "trans_ms_driver_column_break",
+    "fieldtype": "Data",
+    "fetch_from": "trans_ms_driver.full_name",
+    "read_only": 1,
+    "translatable": 1,
+    "doctype": "Custom Field"
+  },
+  {
+    "name": "Driver-trans_ms_document_section",
+    "modified": "2022-11-28 11:37:26.121875",
+    "modified_by": "Administrator",
+    "idx": 17,
+    "dt": "Driver",
+    "label": "",
+    "fieldname": "trans_ms_document_section",
+    "insert_after": "driving_license_category",
+    "fieldtype": "Section Break",
+    "doctype": "Custom Field",
+    "__last_sync_on": "2022-11-28T08:38:07.206Z"
+  },
+  {
+    "name": "Driver-trans_ms_document_attachments",
+    "modified": "2022-11-28 11:37:26.576248",
+    "modified_by": "Administrator",
+    "idx": 20,
+    "dt": "Driver",
+    "label": "trans_ms Document Attachments",
+    "fieldname": "trans_ms_document_attachments",
+    "insert_after": "trans_ms_document_section",
+    "fieldtype": "Table",
+    "options": "Driver Document Attachment",
+    "doctype": "Custom Field",
+    "__last_sync_on": "2022-11-28T08:39:24.991Z"
+  },
+  {
+    "name": "Vehicle-trans_ms_vehicle_document_section",
+    "modified": "2022-11-28 11:58:43.484367",
+    "modified_by": "Administrator",
+    "idx": 44,
+    "dt": "Vehicle",
+    "fieldname": "trans_ms_vehicle_document_section",
+    "insert_after": "trans_ms__driver_name",
+    "fieldtype": "Section Break",
+    "doctype": "Custom Field",
+    "__last_sync_on": "2022-11-28T08:59:34.639Z"
+  },
+  {
+    "name": "Vehicle-trans_ms_vehicle_documents",
+    "modified": "2022-11-28 11:58:43.790333",
+    "modified_by": "Administrator",
+    "idx": 45,
+    "dt": "Vehicle",
+    "label": "Trans MS Vehicle Documents",
+    "fieldname": "trans_ms_vehicle_documents",
+    "insert_after": "trans_ms_vehicle_document_section",
+    "fieldtype": "Table",
+    "options": "Vehicle Documents",
+    "doctype": "Custom Field",
+    "__last_sync_on": "2022-11-28T09:00:47.991Z"
   }
 ]

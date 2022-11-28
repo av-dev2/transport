@@ -8,9 +8,13 @@
  "engine": "InnoDB",
  "field_order": [
   "route_name",
-  "total_distance",
+  "section_break_2",
   "section_steps",
   "trip_steps",
+  "section_break_5",
+  "total_distance",
+  "column_break_7",
+  "total_fuel_consumption_qty",
   "section_fixed_expenses",
   "fixed_expenses",
   "total_tzs",
@@ -30,6 +34,7 @@
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "Total Distance (km)",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -64,10 +69,28 @@
    "fieldtype": "Float",
    "label": "Total USD",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_fuel_consumption_qty",
+   "fieldtype": "Data",
+   "label": "Total Fuel Consumption Qty (Ltr.)",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2021-12-13 16:53:03.036836",
+ "modified": "2022-11-11 10:34:42.032641",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Trip Route",
