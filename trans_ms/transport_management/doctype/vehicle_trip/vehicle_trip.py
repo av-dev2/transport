@@ -40,17 +40,17 @@ class VehicleTrip(Document):
         #     self.set("main_approved_fuel", str(approved_fuel) + " Litres")
 
         # Load approved fuel for return trip
-        if self.transporter_type not in ["Sub-Contractor", "Self Drive"] and self.get(
-            "return_route"
-        ):
-            consumption = frappe.db.get_value(
-                "Vehicle", self.get("vehicle"), "trans_ms_fuel_consumption"
-            )
-            route = frappe.db.get_value(
-                "Trip Route", self.get("return_route"), "total_distance"
-            )
-            approved_fuel = consumption * route
-            self.set("return_approved_fuel", str(approved_fuel) + " Litres")
+        # if self.transporter_type not in ["Sub-Contractor", "Self Drive"] and self.get(
+        #     "return_route"
+        # ):
+        #     consumption = frappe.db.get_value(
+        #         "Vehicle", self.get("vehicle"), "trans_ms_fuel_consumption"
+        #     )
+        #     route = frappe.db.get_value(
+        #         "Trip Route", self.get("return_route"), "total_distance"
+        #     )
+        #     approved_fuel = consumption * route
+        #     self.set("return_approved_fuel", str(approved_fuel) + " Litres")
 
         # self.load_customer_contacts()
 
@@ -146,6 +146,9 @@ class VehicleTrip(Document):
                 fuel_request.update(
                     {
                         "vehicle_plate_number": self.get("vehicle_plate_number"),
+                        "customer": self.get("customer"),
+                        "vehicle": self.get("vehicle"),
+                        "driver": self.get("driver"),
                         "reference_doctype": "Vehicle Trip",
                         "reference_docname": self.name,
                         "status": "Waiting Approval",
@@ -158,9 +161,6 @@ class VehicleTrip(Document):
                 if request.status == "Open":
                     request.set("status", "Requested")
 
-            # for request in self.get("return_fuel_request"):
-            #     if request.status == "Open":
-            #         request.set("status", "Requested")
 
     def validate_main_route_inputs(self):
         loading_date = None

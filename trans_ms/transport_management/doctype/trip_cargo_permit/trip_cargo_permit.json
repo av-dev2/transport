@@ -15,30 +15,33 @@
   {
    "fieldname": "permit_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Permit Name"
   },
   {
    "default": "0",
    "fieldname": "mandatory",
    "fieldtype": "Check",
+   "in_list_view": 1,
    "label": "Mandatory"
   },
   {
    "fieldname": "document_number",
    "fieldtype": "Data",
-   "label": "Document Number",
-   "mandatory_depends_on": "eval:doc.mandatory == \"1\""
+   "in_list_view": 1,
+   "label": "Document Number"
   },
   {
    "fieldname": "attachement",
    "fieldtype": "Attach",
+   "in_list_view": 1,
    "label": "Attachement"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-02-28 22:56:58.700623",
+ "modified": "2022-11-21 17:43:36.430801",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Trip Cargo Permit",
