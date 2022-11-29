@@ -14,7 +14,7 @@ from frappe.utils import nowdate, cstr, cint, flt, comma_or, now
 from frappe import _, msgprint
 from trans_ms.utlis.dimension import set_dimension
 from erpnext.setup.utils import get_exchange_rate
-
+from trans_ms.transport_management.doctype.requested_payments.requested_payments import request_funds
 
 class VehicleTrip(Document):
     # def before_insert(self):
@@ -114,7 +114,6 @@ class VehicleTrip(Document):
     def before_save(self):
         # validate_requested_funds(self)
         self.validate_main_route_inputs()
-        # self.validate_return_route_inputs()
 
     def validate_fuel_requests(self):
         make_request = False
@@ -124,10 +123,6 @@ class VehicleTrip(Document):
             if request.status == "Open":
                 make_request = True
 
-        # # Check return trip
-        # for request in self.get("return_fuel_request"):
-        #     if request.status == "Open":
-        #         make_request = True
 
         if make_request:
             existing_fuel_request = frappe.db.get_value(
@@ -180,155 +175,11 @@ class VehicleTrip(Document):
         if offloading_date and not loading_date:
             frappe.throw("Loading Date must be set before Offloading Date")
 
-    # def validate_return_route_inputs(self):
-    #     # Check return trip
-    #     loading_date = None
-    #     offloading_date = None
-
-    #     steps = self.get("return_route_steps")
-    #     for step in steps:
-    #         if step.location_type == "Loading Point":
-    #             loading_date = step.loading_date
-    #         if step.location_type == "Offloading Point":
-    #             offloading_date = step.offloading_date
-    #     if offloading_date and not loading_date:
-    #         frappe.throw("Loading Date must be set before Offloading Date")
-
-    # def load_customer_contacts(self):
-    #     """Loads address list and contact list in `__onload`"""
-    #     from frappe.contacts.doctype.address.address import get_address_display
-
-    #     if self.main_customer:
-    #         filters = [
-    #             ["Dynamic Link", "link_doctype", "=", "Customer"],
-    #             ["Dynamic Link", "link_name", "=", self.main_customer],
-    #             ["Dynamic Link", "parenttype", "=", "Address"],
-    #         ]
-    #         address_list = frappe.get_all("Address", filters=filters, fields=["*"])
-
-    #         address_list = [
-    #             a.update({"display": get_address_display(a)}) for a in address_list
-    #         ]
-
-    #         address_list = sorted(
-    #             address_list,
-    #             lambda a, b: (int(a.is_primary_address - b.is_primary_address))
-    #             or (1 if a.modified - b.modified else 0),
-    #             reverse=True,
-    #         )
-
-    #         self.set_onload("main_addr_list", {"addr_list": address_list})
-
-    #     if self.main_consignee:
-    #         filters = [
-    #             ["Dynamic Link", "link_doctype", "=", "Customer"],
-    #             ["Dynamic Link", "link_name", "=", self.main_consignee],
-    #             ["Dynamic Link", "parenttype", "=", "Address"],
-    #         ]
-    #         address_list = frappe.get_all("Address", filters=filters, fields=["*"])
-
-    #         address_list = [
-    #             a.update({"display": get_address_display(a)}) for a in address_list
-    #         ]
-
-    #         address_list = sorted(
-    #             address_list,
-    #             lambda a, b: (int(a.is_primary_address - b.is_primary_address))
-    #             or (1 if a.modified - b.modified else 0),
-    #             reverse=True,
-    #         )
-
-    #         self.set_onload("main_consignee_addr_list", {"addr_list": address_list})
-
-    #     if self.main_shipper:
-    #         filters = [
-    #             ["Dynamic Link", "link_doctype", "=", "Customer"],
-    #             ["Dynamic Link", "link_name", "=", self.main_shipper],
-    #             ["Dynamic Link", "parenttype", "=", "Address"],
-    #         ]
-    #         address_list = frappe.get_all("Address", filters=filters, fields=["*"])
-
-    #         address_list = [
-    #             a.update({"display": get_address_display(a)}) for a in address_list
-    #         ]
-
-    #         address_list = sorted(
-    #             address_list,
-    #             lambda a, b: (int(a.is_primary_address - b.is_primary_address))
-    #             or (1 if a.modified - b.modified else 0),
-    #             reverse=True,
-    #         )
-
-    #         self.set_onload("main_shipper_addr_list", {"addr_list": address_list})
-
-    # if self.return_customer:
-    #     filters = [
-    #         ["Dynamic Link", "link_doctype", "=", "Customer"],
-    #         ["Dynamic Link", "link_name", "=", self.return_customer],
-    #         ["Dynamic Link", "parenttype", "=", "Address"],
-    #     ]
-    #     address_list = frappe.get_all("Address", filters=filters, fields=["*"])
-
-    #     address_list = [
-    #         a.update({"display": get_address_display(a)}) for a in address_list
-    #     ]
-
-    #     address_list = sorted(
-    #         address_list,
-    #         lambda a, b: (int(a.is_primary_address - b.is_primary_address))
-    #         or (1 if a.modified - b.modified else 0),
-    #         reverse=True,
-    #     )
-
-    #     self.set_onload("return_addr_list", {"addr_list": address_list})
-
-    # if self.return_consignee:
-    #     filters = [
-    #         ["Dynamic Link", "link_doctype", "=", "Customer"],
-    #         ["Dynamic Link", "link_name", "=", self.main_consignee],
-    #         ["Dynamic Link", "parenttype", "=", "Address"],
-    #     ]
-    #     address_list = frappe.get_all("Address", filters=filters, fields=["*"])
-
-    #     address_list = [
-    #         a.update({"display": get_address_display(a)}) for a in address_list
-    #     ]
-
-    #     address_list = sorted(
-    #         address_list,
-    #         lambda a, b: (int(a.is_primary_address - b.is_primary_address))
-    #         or (1 if a.modified - b.modified else 0),
-    #         reverse=True,
-    #     )
-
-    #     self.set_onload("return_consignee_addr_list", {"addr_list": address_list})
-
-    # if self.return_shipper:
-    #     filters = [
-    #         ["Dynamic Link", "link_doctype", "=", "Customer"],
-    #         ["Dynamic Link", "link_name", "=", self.main_shipper],
-    #         ["Dynamic Link", "parenttype", "=", "Address"],
-    #     ]
-    #     address_list = frappe.get_all("Address", filters=filters, fields=["*"])
-
-    #     address_list = [
-    #         a.update({"display": get_address_display(a)}) for a in address_list
-    #     ]
-
-    #     address_list = sorted(
-    #         address_list,
-    #         lambda a, b: (int(a.is_primary_address - b.is_primary_address))
-    #         or (1 if a.modified - b.modified else 0),
-    #         reverse=True,
-    #     )
-
-    #     self.set_onload("return_shipper_addr_list", {"addr_list": address_list})
-
 
 @frappe.whitelist(allow_guest=True)
 def create_vehicle_trip(**args):
-
     args = frappe._dict(args)
+    frappe.msgprint(str(args))
     existing_vehicle_trip = frappe.db.get_value(
         "Vehicle Trip",
         {
@@ -357,16 +208,30 @@ def create_vehicle_trip(**args):
                 "main_cargo_destination_country": cargo_details.cargo_destination_country,
                 "main_cargo_destination_city": cargo_details.cargo_destination_city,
                 "main_cargo_category": cargo_details.cargo_type,
+                "customer": args.customer,
+                "trip_route": args.trip_route,
                 "driver": args.driver,
             }
         )
         trip.insert(ignore_permissions=True, ignore_mandatory=True)
+
+
 
         # Update transport assignment
         doc = frappe.get_doc(args.reference_doctype, args.reference_docname)
         doc.created_trip = trip.name
         doc.status = "Processed"
         doc.save()
+        
+        funds_args = {
+            "reference_doctype": "Vehicle Trip",
+            "reference_docname": trip.name,
+            "customer": args.customer,
+            "vehicle_no": args.vehicle,
+            "driver": args.driver,
+            "trip_route": args.trip_route
+        }
+        request_funds(**funds_args)
 
         # If company vehicle, update vehicle status
         if args.transporter == "In House":

@@ -235,7 +235,6 @@ def validate_requested_funds(doc):
 @frappe.whitelist(allow_guest=True)
 def request_funds(**args):
     args = frappe._dict(args)
-
     existing_payment_request = frappe.db.get_value(
         "Requested Payments",
         {
@@ -262,6 +261,10 @@ def request_funds(**args):
                 "reference_doctype": args.reference_doctype,
                 "reference_docname": args.reference_docname,
                 "company": args.company,
+                "customer": args.customer,
+                "vehicle_no": args.vehicle_no,
+                "driver": args.driver,
+                "trip_route": args.trip_route,
                 "approval_status": "Waiting Approval",
                 "payment_status": "Waiting Approval",
             }

@@ -528,7 +528,7 @@ frappe.ui.form.on("Transport Assignment", {
 
 	create_vehicle_trip_record: function (frm, cdt, cdn) {
 		const doc = locals[cdt][cdn];
-
+		var customer = frappe.db.get_value('Transportation Order', doc.parent, 'customer')
 		if (doc.vehicle_status == 2 || doc.vehicle_status == 4) //If en route on trip and not offloaded
 		{
 			frappe.msgprint('The assigned vehicle is En Route on another trip and has not offloaded. Please offload the current cargo before starting new trip.', 'Not Allowed');
@@ -546,7 +546,7 @@ frappe.ui.form.on("Transport Assignment", {
 							transporter: doc.transporter_type,
 							cargo: doc.cargo,
 							driver: doc.assigned_driver,
-							customer: doc.customer,
+							customer: doc.customer
 						},
 						callback: function (data) {
 							console.log(data);
@@ -568,7 +568,7 @@ frappe.ui.form.on("Transport Assignment", {
 					transporter: doc.transporter_type,
 					cargo: doc.cargo,
 					driver: doc.assigned_driver,
-					customer: doc.customer,
+					customer: doc.customer
 				},
 				callback: function (data) {
 					console.log(data);
@@ -585,13 +585,6 @@ frappe.ui.form.on("Transport Assignment", {
 
 
 cur_frm.cscript.assign_transport = function (frm) {
-	//For setting indicator message
-	//cur_frm.page.set_indicator("Unsubmitted Changes", "orange");
-	//cur_frm.page.clear_indicator();
-
-	//If it is container based cargo
-	//if (cur_frm.doc.cargo_type == "Container") {
-	//Add selected rows to assign table
 	var selected = cur_frm.get_selected();
 	// var def_curr
 	if (selected['cargo']) {
@@ -609,6 +602,7 @@ cur_frm.cscript.assign_transport = function (frm) {
 				new_row.cargo_type = cur_frm.doc.cargo_type;
 				new_row.cargo = locals["Cargo Details"][cargo_nm].name;
 				new_row.container_number = container_number;
+				new_row.customer = cur_frm.doc.customer;
 				frappe.model.set_value(new_row.doctype, new_row.name, "currency", transport_currency);
 				new_row.expected_loading_date = cur_frm.doc.loading_date;
 				// new_row.file_number = cur_frm.doc.file_number;

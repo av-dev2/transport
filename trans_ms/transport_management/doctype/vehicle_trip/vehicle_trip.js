@@ -504,7 +504,7 @@ frappe.ui.form.on('Vehicle Trip', {
         frm.events.location_buttons(frm);
 
         //Check if there are unsent fund requests
-        frm.events.new_fund_request(frm);
+        // frm.events.new_fund_request(frm);
         frappe.after_ajax(function () {
             console.log(cur_frm);
         });
@@ -743,9 +743,6 @@ frappe.ui.form.on('Vehicle Trip', {
         }
     },
 
-    // return_cargo_type: function (frm) {
-    //     frm.events.show_hide_sections(frm);
-    // },
 
     main_route: function (frm) {
         if (frm.doc.main_route) {
@@ -837,33 +834,38 @@ frappe.ui.form.on('Vehicle Trip', {
     },
 
     //For requesting funds	
-    new_fund_request: function (frm) {
-        //For main trip
-        var new_main_request = false;
-        if (frm.doc.main_requested_funds && frm.doc.main_requested_funds.length > 0) {
-            frm.doc.main_requested_funds.forEach(function (row) {
-                if (row.request_status == "open" || (row.request_status == "Pre-Approved" && row.request_hidden_status != 'Sent')) {
-                    new_main_request = true;
-                }
-            });
-            if (new_main_request == true) {
-                frappe.call({
-                    method: "trans_ms.transport_management.doctype.requested_payments.requested_payments.request_funds",
-                    args: {
-                        reference_doctype: "Vehicle Trip",
-                        reference_docname: cur_frm.doc.name,
-                        company: cur_frm.doc.company
-                    },
-                    callback: function (data) {
-                        console.log(data);
-                        first_reload = false;
-                        //frm.reload_doc();
-                    }
-                });
-            }
-        }
+    // new_fund_request: function (frm) {
+    //     //For main trip
+    //     var new_main_request = false;
+    //     if (frm.doc.main_requested_funds && frm.doc.main_requested_funds.length > 0) {
+    //         frm.doc.main_requested_funds.forEach(function (row) {
+    //             if (row.request_status == "open" || (row.request_status == "Pre-Approved" && row.request_hidden_status != 'Sent')) {
+    //                 new_main_request = true;
+    //             }
+    //         });
+    //         if (new_main_request == true) {
+    //             console.log(frm.doc);
+    //             frappe.call({
+    //                 method: "trans_ms.transport_management.doctype.requested_payments.requested_payments.request_funds",
+    //                 args: {
+    //                     reference_doctype: "Vehicle Trip",
+    //                     reference_docname: frm.doc.name,
+    //                     company: frm.doc.company,
+    //                     customer: frm.doc.customer,
+    //                     vehicle_no: frm.doc.vehicle,
+    //                     driver: frm.doc.driver,
+    //                     trip_route: frm.doc.main_route
+    //                 },
+    //                 callback: function (data) {
+    //                     console.log(data);
+    //                     first_reload = false;
+    //                     //frm.reload_doc();
+    //                 }
+    //             });
+    //         }
+    //     }
 
-    },
+    // },
 
     after_save: function (frm) {
         var to_save = false;
@@ -901,21 +903,6 @@ frappe.ui.form.on('Vehicle Trip', {
                 }
             });
         }
-
-        // //Check if return trip offloaded
-        // if (frm.doc.return_route_steps && frm.doc.return_route_steps.length > 0) {
-        //     frm.doc.return_route_steps.forEach(function (row) {
-        //         if (row.offloading_date != null && cur_frm.doc.hidden_status != null && cur_frm.doc.hidden_status < 5) //Status above 4 means either offloaded or trip closed
-        //         {
-        //             offloaded = true;
-        //             cur_frm.set_value('hidden_status', 5);
-        //             cur_frm.set_value('status', 'Return Trip Offloaded');
-        //             vehicle_status = 'En Route';
-        //             vehicle_hidden_status = 5;
-        //             to_save = true;
-        //         }
-        //     });
-        // }
 
         if (to_save) {
             //Update vehicle status if is not subcontractor vehicle
