@@ -44,8 +44,12 @@
   "main_cargo_destination_city",
   "main_offloading_point",
   "section_main_route",
-  "main_eta",
   "main_route",
+  "total_distance",
+  "column_break_41",
+  "main_eta",
+  "total_fuel_consumption_qty",
+  "section_break_44",
   "main_route_steps",
   "main_location_update",
   "section_main_fuel_request",
@@ -522,12 +526,32 @@
    "label": "Customer",
    "options": "Customer",
    "read_only": 1
+  },
+  {
+   "fetch_from": "main_route.total_distance",
+   "fieldname": "total_distance",
+   "fieldtype": "Float",
+   "label": "Total Distance"
+  },
+  {
+   "fieldname": "column_break_41",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "main_route.total_fuel_consumption_qty",
+   "fieldname": "total_fuel_consumption_qty",
+   "fieldtype": "Float",
+   "label": "Total Fuel Consumption Qty"
+  },
+  {
+   "fieldname": "section_break_44",
+   "fieldtype": "Section Break"
   }
  ],
  "in_create": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-28 12:34:24.782732",
+ "modified": "2022-12-27 18:08:03.837444",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",

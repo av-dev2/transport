@@ -758,6 +758,8 @@ frappe.ui.form.on('Vehicle Trip', {
             reference_route.trip_steps.forEach(function (row) {
                 var new_row = cur_frm.add_child('main_route_steps');
                 new_row.location = row.location;
+                new_row.distance = row.distance;
+                new_row.fuel_consumption_qty = row.fuel_consumption_qty;
                 new_row.location_type = row.location_type;
             });
 

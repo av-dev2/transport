@@ -144,6 +144,27 @@
    "link_to": "Transport Cargo Type",
    "link_type": "DocType",
    "onboard": 0,
+   "only_for": "",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vehicle Document Type",
+   "link_to": "Vehicle Documents Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Driver Document",
+   "link_to": "Driver Documents",
+   "link_type": "DocType",
+   "onboard": 0,
+   "only_for": "",
    "type": "Link"
   },
   {
@@ -164,7 +185,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-03-01 16:04:43.024996",
+ "modified": "2022-11-28 13:08:32.166360",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Transport",
