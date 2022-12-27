@@ -147,7 +147,7 @@ class VehicleTrip(Document):
                     {
                         "vehicle_plate_number": self.get("vehicle_plate_number"),
                         "customer": self.get("customer"),
-                        "vehicle": self.get("vehicle"),
+                        "vehicle": self.get("vehicle_plate_number"),
                         "driver": self.get("driver"),
                         "reference_doctype": "Vehicle Trip",
                         "reference_docname": self.name,
@@ -238,7 +238,7 @@ def create_vehicle_trip(**args):
             vehicle = frappe.get_doc("Vehicle", args.vehicle)
             vehicle.status = "In Trip"
             # vehicle.hidden_status = 2
-            vehicle.current_trip = trip.name
+            vehicle.trans_ms_current_trip = trip.name
             vehicle.save()
         return trip
 
