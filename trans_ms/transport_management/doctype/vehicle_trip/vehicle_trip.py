@@ -147,7 +147,7 @@ class VehicleTrip(Document):
                     {
                         "vehicle_plate_number": self.get("vehicle_plate_number"),
                         "customer": self.get("customer"),
-                        "vehicle": self.get("vehicle"),
+                        "vehicle": self.get("vehicle_plate_number"),
                         "driver": self.get("driver"),
                         "reference_doctype": "Vehicle Trip",
                         "reference_docname": self.name,
