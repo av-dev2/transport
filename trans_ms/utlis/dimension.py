@@ -7,7 +7,7 @@ from frappe import _
 
 
 def set_dimension(src_doc, tr_doc, src_child=None, tr_child=None):
-    set = frappe.get_doc("Transport Settings", "Transport Settings")
+    set = frappe.get_cached_doc("Transport Settings", "Transport Settings")
     if len(set.accounting_dimension) == 0:
         return
     for dim in set.accounting_dimension:
@@ -17,14 +17,15 @@ def set_dimension(src_doc, tr_doc, src_child=None, tr_child=None):
         ):
             value = None
 
-            if dim.source_type == "Field" and not src_child:
+            if dim.source_type == "Field":
                 value = src_doc.get(dim.source_field_name)
-            elif dim.source_type == "Value" and not src_child:
+            elif dim.source_type == "Value":
                 value = dim.value
             elif dim.source_type == "Child" and src_child:
                 value = src_child.get(dim.child_field_name)
 
-            if dim.target_type == "Main" and not tr_child:
+            if dim.target_type == "Main":
                 setattr(tr_doc, dim.target_field_name, value)
             elif dim.target_type == "Child" and tr_child:
                 setattr(tr_child, dim.target_child_field_name, value)
+
