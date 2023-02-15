@@ -330,8 +330,10 @@ def create_sales_invoice(doc, rows):
     item_row_per = []
     for row in rows:
         description = ""
-        if row["assigned_vehicle"]:
+        if row["transporter_type"] == "In House":
             description += "<b>VEHICLE NUMBER: " + row["assigned_vehicle"]
+        elif row["transporter_type"] == "Sub-Contractor":
+            description += "<b>VEHICLE NUMBER: " + row["vehicle_plate_number"]
         if row["route"]:
             description += "<BR>ROUTE: " + row["route"]
         item = frappe._dict({
@@ -344,6 +346,7 @@ def create_sales_invoice(doc, rows):
         )
         item_row_per.append([row, item])
         items.append(item)
+        
     invoice = frappe.get_doc(
         dict(
             doctype="Sales Invoice",
@@ -356,9 +359,11 @@ def create_sales_invoice(doc, rows):
     )
 
     set_dimension(doc, invoice, src_child=row)
+    invoice.items = []
     for i in item_row_per:
         set_dimension(doc, invoice, src_child=i[0], tr_child=i[1])
-
+        invoice.append("items", i[1])
+    
     frappe.flags.ignore_account_permission = True
     invoice.set_taxes()
     invoice.set_missing_values()

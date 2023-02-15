@@ -312,6 +312,7 @@
    "options": "Vehicle Trip Location Update"
   },
   {
+   "depends_on": "eval:doc.transporter_type == 'In House'",
    "fieldname": "section_main_fuel_request",
    "fieldtype": "Section Break",
    "label": "Main Trip Fuel Request"
@@ -328,9 +329,10 @@
    "options": "Fuel Request Table"
   },
   {
+   "depends_on": "eval:doc.transporter_type == 'In House'",
    "fieldname": "section_main_requested_funds",
    "fieldtype": "Section Break",
-   "label": "Main Trip Requested Funds"
+   "label": "Main Trip Requested Fundseval:doc.transporter_type == 'In House'"
   },
   {
    "fieldname": "main_requested_funds",
@@ -450,10 +452,12 @@
    "print_hide": 1
   },
   {
+   "depends_on": "eval:doc.transporter_type == 'In House'",
    "fieldname": "section_break_54",
    "fieldtype": "Section Break"
   },
   {
+   "depends_on": "eval:doc.transporter_type == 'In House'",
    "fetch_from": "main_route.total_fuel_consumption_qty",
    "fetch_if_empty": 1,
    "fieldname": "fuel_stock_out",
@@ -551,10 +555,11 @@
  "in_create": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-12-27 18:08:03.837444",
+ "modified": "2023-02-14 18:06:20.587222",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -572,5 +577,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }
