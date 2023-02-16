@@ -18,6 +18,7 @@
   "passport_number",
   "driving_licence_no",
   "phone_number",
+  "invoice_number",
   "section_break_13",
   "customer",
   "section_main_trip",
@@ -550,12 +551,18 @@
   {
    "fieldname": "section_break_44",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "invoice_number",
+   "fieldtype": "Link",
+   "label": "Invoice Number",
+   "options": "Sales Invoice"
   }
  ],
  "in_create": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-14 18:06:20.587222",
+ "modified": "2023-02-16 16:44:42.242370",
  "modified_by": "Administrator",
  "module": "Transport Management",
  "name": "Vehicle Trip",

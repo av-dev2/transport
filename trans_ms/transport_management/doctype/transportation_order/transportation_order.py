@@ -373,6 +373,11 @@ def create_sales_invoice(doc, rows):
     for item in doc.assign_transport:
         if item.name in [i["name"] for i in rows]:
             item.invoice = invoice.name
+            trip = frappe.get_doc("Vehicle Trip", item.created_trip)
+            trip.invoice_number = invoice.name
+            trip.save()
     doc.save()
+           
+        
     frappe.msgprint(_("Sales Inoice {0} Created").format(invoice.name), alert=True)
     return invoice

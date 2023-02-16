@@ -696,14 +696,14 @@ frappe.ui.form.on('Vehicle Trip', {
         }
     },
 
-    location_test: function (frm) {
-        frappe.call({
-            method: 'fleet_management.fleet_management.gps_connector.get_last_location',
-            callback: function (data) {
-                console.log(data);
-            }
-        });
-    },
+    // location_test: function (frm) {
+    //     frappe.call({
+    //         method: 'fleet_management.fleet_management.gps_connector.get_last_location',
+    //         callback: function (data) {
+    //             console.log(data);
+    //         }
+    //     });
+    // },
 
     cancel_return_trip: function (frm) {
         frappe.confirm(
@@ -931,100 +931,100 @@ frappe.ui.form.on('Vehicle Trip', {
         }
 
         //Check if main loading date changed
-        if (['Sub-Contractor', 'Self Drive'].indexOf(frm.doc.transporter_type) == -1 && (frm.doc.main_route_steps && frm.doc.main_route_steps.length > 0)) {
-            frm.doc.main_route_steps.forEach(function (row) {
-                if (row.location_type.toUpperCase() == 'LOADING POINT' && locals['Route Steps Table'][row.name].loading_date != main_loading_date) {
-                    frappe.call({
-                        "method": "fleet_management.fleet_management.gps_connector.load_cargo",
-                        "args": {
-                            'vehicle_plate_number': frm.doc.vehicle_plate_number,
-                            'loading_date': locals['Route Steps Table'][row.name].loading_date,
-                            'cargo': frm.doc.main_goods_description,
-                            'destination': frm.doc.main_cargo_destination_city
-                        },
-                        "freeze": true,
-                        "freeze_message": "Updating GPS Data",
-                        "callback": function (data) {
-                            console.log(data);
-                        }
-                    });
-                }
-            });
-        }
+        // if (['Sub-Contractor', 'Self Drive'].indexOf(frm.doc.transporter_type) == -1 && (frm.doc.main_route_steps && frm.doc.main_route_steps.length > 0)) {
+        //     frm.doc.main_route_steps.forEach(function (row) {
+        //         if (row.location_type.toUpperCase() == 'LOADING POINT' && locals['Route Steps Table'][row.name].loading_date != main_loading_date) {
+        //             frappe.call({
+        //                 "method": "fleet_management.fleet_management.gps_connector.load_cargo",
+        //                 "args": {
+        //                     'vehicle_plate_number': frm.doc.vehicle_plate_number,
+        //                     'loading_date': locals['Route Steps Table'][row.name].loading_date,
+        //                     'cargo': frm.doc.main_goods_description,
+        //                     'destination': frm.doc.main_cargo_destination_city
+        //                 },
+        //                 "freeze": true,
+        //                 "freeze_message": "Updating GPS Data",
+        //                 "callback": function (data) {
+        //                     console.log(data);
+        //                 }
+        //             });
+        //         }
+        //     });
+        // }
 
         //Check if return loading date changed
-        if (['Sub-Contractor', 'Self Drive'].indexOf(frm.doc.transporter_type) == -1 && (frm.doc.return_route_steps && frm.doc.return_route_steps.length > 0)) {
-            frm.doc.return_route_steps.forEach(function (row) {
-                if (row.location_type.toUpperCase() == 'LOADING POINT' && locals['Route Steps Table'][row.name].loading_date != return_loading_date) {
-                    frappe.call({
-                        "method": "fleet_management.fleet_management.gps_connector.load_cargo",
-                        "args": {
-                            'vehicle_plate_number': frm.doc.vehicle_plate_number,
-                            'loading_date': locals['Route Steps Table'][row.name].loading_date,
-                            'cargo': frm.doc.return_goods_description,
-                            'destination': frm.doc.return_cargo_destination_city
-                        },
-                        "freeze": true,
-                        "freeze_message": "Updating GPS Data",
-                        "callback": function (data) {
-                            console.log(data);
-                        }
-                    });
-                }
-            });
-        }
+        // if (['Sub-Contractor', 'Self Drive'].indexOf(frm.doc.transporter_type) == -1 && (frm.doc.return_route_steps && frm.doc.return_route_steps.length > 0)) {
+        //     frm.doc.return_route_steps.forEach(function (row) {
+        //         if (row.location_type.toUpperCase() == 'LOADING POINT' && locals['Route Steps Table'][row.name].loading_date != return_loading_date) {
+        //             frappe.call({
+        //                 "method": "fleet_management.fleet_management.gps_connector.load_cargo",
+        //                 "args": {
+        //                     'vehicle_plate_number': frm.doc.vehicle_plate_number,
+        //                     'loading_date': locals['Route Steps Table'][row.name].loading_date,
+        //                     'cargo': frm.doc.return_goods_description,
+        //                     'destination': frm.doc.return_cargo_destination_city
+        //                 },
+        //                 "freeze": true,
+        //                 "freeze_message": "Updating GPS Data",
+        //                 "callback": function (data) {
+        //                     console.log(data);
+        //                 }
+        //             });
+        //         }
+        //     });
+        // }
 
         //Offload in GTT
-        if (offloaded && ['Sub-Contractor', 'Self Drive'].indexOf(frm.doc.transporter_type) == -1) {
-            frappe.call({
-                "method": "fleet_management.fleet_management.gps_connector.offload_cargo",
-                "args": {
-                    'vehicle_plate_number': frm.doc.vehicle_plate_number
-                },
-                "freeze": true,
-                "freeze_message": "Updating GPS Data",
-                "callback": function (data) {
-                    console.log(data);
-                }
-            });
-        }
+        // if (offloaded && ['Sub-Contractor', 'Self Drive'].indexOf(frm.doc.transporter_type) == -1) {
+        //     frappe.call({
+        //         "method": "fleet_management.fleet_management.gps_connector.offload_cargo",
+        //         "args": {
+        //             'vehicle_plate_number': frm.doc.vehicle_plate_number
+        //         },
+        //         "freeze": true,
+        //         "freeze_message": "Updating GPS Data",
+        //         "callback": function (data) {
+        //             console.log(data);
+        //         }
+        //     });
+        // }
     },
 
-    location_buttons: function (frm) {
-        if (frm.doc.vehicle_plate_number && frm.doc.transporter_type != 'Sub-Contractor' && frm.doc.status == 'En Route') {
-            frm.fields_dict['main_location_update'].grid.add_custom_button('Get Latest Location', function () {
-                frappe.call({
-                    "method": "fleet_management.fleet_management.gps_connector.get_last_location",
-                    "args": {
-                        'vehicle_plate_no': frm.doc.vehicle_plate_number
-                    },
-                    "freeze": true,
-                    "callback": function (data) {
-                        console.log(data);
-                        if (data.message) {
-                            frappe.msgprint(data.message);
-                        }
-                    }
-                });
-            });
-        } else if (frm.doc.vehicle_plate_number && frm.doc.transporter_type != 'Sub-Contractor' && frm.doc.status == 'En Route Returning') {
-            frm.fields_dict['return_location_update'].grid.add_custom_button('Get Latest Location', function () {
-                frappe.call({
-                    "method": "fleet_management.fleet_management.gps_connector.get_last_location",
-                    "args": {
-                        'vehicle_plate_no': frm.doc.vehicle_plate_number
-                    },
-                    "freeze": true,
-                    "callback": function (data) {
-                        console.log(data);
-                        if (data.message) {
-                            frappe.msgprint(data.message);
-                        }
-                    }
-                });
-            });
-        }
-    },
+    // location_buttons: function (frm) {
+    //     if (frm.doc.vehicle_plate_number && frm.doc.transporter_type != 'Sub-Contractor' && frm.doc.status == 'En Route') {
+    //         frm.fields_dict['main_location_update'].grid.add_custom_button('Get Latest Location', function () {
+    //             frappe.call({
+    //                 "method": "fleet_management.fleet_management.gps_connector.get_last_location",
+    //                 "args": {
+    //                     'vehicle_plate_no': frm.doc.vehicle_plate_number
+    //                 },
+    //                 "freeze": true,
+    //                 "callback": function (data) {
+    //                     console.log(data);
+    //                     if (data.message) {
+    //                         frappe.msgprint(data.message);
+    //                     }
+    //                 }
+    //             });
+    //         });
+    //     } else if (frm.doc.vehicle_plate_number && frm.doc.transporter_type != 'Sub-Contractor' && frm.doc.status == 'En Route Returning') {
+    //         frm.fields_dict['return_location_update'].grid.add_custom_button('Get Latest Location', function () {
+    //             frappe.call({
+    //                 "method": "fleet_management.fleet_management.gps_connector.get_last_location",
+    //                 "args": {
+    //                     'vehicle_plate_no': frm.doc.vehicle_plate_number
+    //                 },
+    //                 "freeze": true,
+    //                 "callback": function (data) {
+    //                     console.log(data);
+    //                     if (data.message) {
+    //                         frappe.msgprint(data.message);
+    //                     }
+    //                 }
+    //             });
+    //         });
+    //     }
+    // },
     //Product Inspection function
     make_vehicle_inspection: function () {
         frappe.model.open_mapped_doc({

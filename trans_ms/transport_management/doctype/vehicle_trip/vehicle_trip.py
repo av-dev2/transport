@@ -199,7 +199,8 @@ def create_vehicle_trip(**args):
                 "customer": args.customer,
                 "trip_route": args.trip_route,
                 "driver": args.driver,
-                "driver_name": args.driver_name
+                "driver_name": args.driver_name,
+                "invoice_number": args.invoice_number
             }
         )
         trip.insert(ignore_permissions=True, ignore_mandatory=True)

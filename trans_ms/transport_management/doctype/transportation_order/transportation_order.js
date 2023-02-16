@@ -368,7 +368,8 @@ frappe.ui.form.on("Transport Assignment", {
 							cargo: doc.cargo,
 							driver: doc.assigned_driver,
 							driver_name: doc.driver_name,
-							customer: doc.customer
+							customer: doc.customer,
+							invoice_number: doc.invoice
 						},
 						callback: function (data) {
 							console.log(data);
@@ -397,7 +398,8 @@ frappe.ui.form.on("Transport Assignment", {
 					assign_transport: doc.assign_transport,
 					driver: doc.assigned_driver,
 					driver_name: doc.driver_name,
-					customer: doc.customer
+					customer: doc.customer,
+					invoice_number: doc.invoice
 				},
 				callback: function (data) {
 					console.log(data);
