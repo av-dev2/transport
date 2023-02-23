@@ -501,7 +501,7 @@ frappe.ui.form.on('Vehicle Trip', {
             });
         }
 
-        frm.events.location_buttons(frm);
+        // frm.events.location_buttons(frm);
 
         //Check if there are unsent fund requests
         // frm.events.new_fund_request(frm);
