@@ -27,7 +27,6 @@ class VehicleTrip(Document):
     def on_submit(self):
         if not self.stock_out_entry:
             frappe.throw(_("Stock Out Entry is not set"))
-        frappe.throw(_("Stock Out Entry is not set"))
 
     def onload(self):
         # Load approved fuel for main trip
