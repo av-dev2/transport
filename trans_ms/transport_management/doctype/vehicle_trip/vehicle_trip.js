@@ -1081,7 +1081,7 @@ frappe.ui.form.on('Fuel Request Table', {
 
 frappe.ui.form.on('Requested Funds Details', {
     disburse_funds: function (frm, cdt, cdn) {
-        frappe.msgprint("We are in Disburse funds")
+        frappe.msgprint("We are in Disburse funds");
         if (frm.is_dirty()) {
             frappe.throw(__("Plase Save First"));
             return;
@@ -1096,7 +1096,9 @@ frappe.ui.form.on('Requested Funds Details', {
             },
             callback: function (data) {
                 frm.reload_doc();
-                frappe.set_route('Form', data.message.doctype, data.message.name);
+                // frappe.set_route('Form', data.message.doctype, data.message.name);
+                const new_url = `${window.location.origin}/app/journal-entry/${data.message.name}`;
+                window.open(new_url, '_blank');
             }
         });
     }
