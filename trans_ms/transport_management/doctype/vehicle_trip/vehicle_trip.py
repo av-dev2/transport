@@ -21,6 +21,9 @@ class VehicleTrip(Document):
     #     self.set_expenses()
     #     self.set_driver()
 
+    def before_submit(self):
+        self.validate_request_status()
+
     def on_submit(self):
         if self.transporter_type == "In House":
             if not self.stock_out_entry:
@@ -158,6 +161,20 @@ class VehicleTrip(Document):
         if offloading_date and not loading_date:
             frappe.throw("Loading Date must be set before Offloading Date")
 
+    def validate_request_status(self):
+        for row in self.main_fuel_request:
+            if row.status not in  ["Rejected", "Approved"]:
+                frappe.throw("<b>All fuel requests must be on either approved or rejected before submitting the trip</b>")
+            
+            if row.status == "Approved" and not row.purchase_order:
+                frappe.throw("<b>All approved fuel requests must have Purchase Order before submitting the trip</b>")
+        
+        for row in self.main_requested_funds:
+            if row.request_status not in  ["Rejected", "Approved"]:
+                frappe.throw("<b>All fund requests must be on either approved or rejected before submitting the trip</b>")
+            
+            if row.request_status == "Approved" and not row.journal_entry:
+                frappe.throw("<b>All approved fund requests must have a Journal Entry before submitting the trip</b>")
 
 @frappe.whitelist(allow_guest=True)
 def create_vehicle_trip(**args):
