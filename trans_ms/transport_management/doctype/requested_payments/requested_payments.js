@@ -30,7 +30,7 @@ frappe.ui.form.on('Requested Payments', {
 	},
 
 	refresh: function (frm) {
-		console.log(frm);
+		// console.log(frm);
 
 		// Hide delete buttons for Requested fuel Child Doctype
 		$('*[data-fieldname="requested_funds"]').find('.grid-remove-rows').hide();
@@ -128,6 +128,14 @@ frappe.ui.form.on('Requested Payments', {
 			};
 			frappe.set_route("query-report", "General Ledger");
 		}, __("View"));
+
+		let amount = 0
+		frm.doc.accounts_approval.forEach((row) =>{
+			amount += row.request_amount;
+		});
+		if (amount > 0) {
+			frm.set_value('total_amount', amount);
+		}
 	},
 
 	make_payment: function () {
